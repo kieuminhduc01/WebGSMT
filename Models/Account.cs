@@ -11,6 +11,7 @@ namespace WebGSMT.Models
         public String UserName { get; set; }
         public String Password { get; set; }
         public String FullName { get; set; }
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         public DateTime DOB { get; set; }
         public String Email { get; set; }
         public String PhoneNumber { get; set; }
