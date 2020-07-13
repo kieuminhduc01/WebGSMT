@@ -1,0 +1,153 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@model List<WebGSMT.Models.Data>
+<style>
+    body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    }
+
+    #chartdiv {
+        width: 100%;
+        height: 500px;
+        max-width: 100%;
+    }
+</style>
+<div class="text-center">
+    <script src="https://www.amcharts.com/lib/4/core.js"></script>
+    <script src="https://www.amcharts.com/lib/4/charts.js"></script>
+    <script src="https://www.amcharts.com/lib/4/themes/animated.js"></script>
+    <div class="bg-white">
+        <!-- HTML -->
+        @*<div id="chartdiv1"></div>
+            <br />*@
+        <div id="chartdiv"></div>
+    </div>
+
+</div>
+
+
+<script>
+    // Themes begin
+    am4core.useTheme(am4themes_animated);
+    // Themes end
+
+
+
+
+    // Create chart instance
+    var chart = am4core.create("chartdiv", am4charts.XYChart);
+
+    // Create axes
+    var dateAxis = chart.xAxes.push(new am4charts.DateAxis());
+    var valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
+
+    //for (var i = 0; i < 10; i++) {
+    //    createSeries(i, "Series #" + i);
+    //}
+    //createSeries(121, "Series #" + 121);
+    @{
+        int i = 0;
+        foreach (var name in ViewBag.TagName)
+        {
+
+            <text>
+             var data = [];
+            var value;
+            </text>
+
+            foreach (var item in Model.Where(x => x.TagName == name.TagName.ToString()))
+            {
+
+                <text>
+                value = @item.Value;
+                var dataItem = { Time: "@item.Time.ToString("MM/dd/yyyy")"};
+                dataItem["Value" + @i] = value;
+                data.push(dataItem);
+                </text>
+            }
+
+
+
+
+			<text>
+                 createSeries(@i, "@name.TagName", data);
+			</text>
+            i++;
+
+        }
+	}
+    // Create series
+    function createSeries(s, name, data) {
+        var series = chart.series.push(new am4charts.LineSeries());
+        series.dataFields.valueY = "Value" + s;
+        series.dataFields.dateX = "Time";
+        series.name = name;
+        series.tooltipText = "{valueY}";
+        series.tooltip.pointerOrientation = "vertical";
+        series.tooltip.background.fillOpacity = 0.5;
+        chart.cursor = new am4charts.XYCursor();
+        chart.cursor.xAxis = dateAxis;
+        var segment = series.segments.template;
+        segment.interactionsEnabled = true;
+
+        var hoverState = segment.states.create("hover");
+        hoverState.properties.strokeWidth = 3;
+
+        var dimmed = segment.states.create("dimmed");
+        dimmed.properties.stroke = am4core.color("#dadada");
+
+        segment.events.on("over", function (event) {
+            processOver(event.target.parent.parent.parent);
+        });
+
+        segment.events.on("out", function (event) {
+            processOut(event.target.parent.parent.parent);
+        });
+
+
+        series.data = data;
+        return series;
+    }
+
+    chart.legend = new am4charts.Legend();
+    chart.legend.position = "right";
+    chart.legend.scrollable = true;
+    chart.legend.itemContainers.template.events.on("over", function (event) {
+        processOver(event.target.dataItem.dataContext);
+    })
+
+    chart.legend.itemContainers.template.events.on("out", function (event) {
+        processOut(event.target.dataItem.dataContext);
+    })
+
+    function processOver(hoveredSeries) {
+        hoveredSeries.toFront();
+
+        hoveredSeries.segments.each(function (segment) {
+            segment.setState("hover");
+        })
+
+        chart.series.each(function (series) {
+            if (series != hoveredSeries) {
+                series.segments.each(function (segment) {
+                    segment.setState("dimmed");
+                })
+                series.bulletsContainer.setState("dimmed");
+            }
+        });
+    }
+
+    function processOut(hoveredSeries) {
+        chart.series.each(function (series) {
+            series.segments.each(function (segment) {
+                segment.setState("default");
+            })
+            series.bulletsContainer.setState("default");
+        });
+    }
+</script>
+
