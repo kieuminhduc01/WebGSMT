@@ -1,0 +1,95 @@
+﻿@model WebGSMT.Models.Account
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Edit</h1>
+
+<h4>Account</h4>
+
+<div class="card-header flex-wrap border-0 pt-6 pb-0" style="width:auto">
+    <form asp-action="edit" id="kt_form" >
+        <div class="tab-content">
+            <!--begin::Tab-->
+            <div class="tab-pane show active px-7" id="kt_user_edit_tab_1" role="tabpanel">
+                <!--begin::Row-->
+                <div class="row">
+                    <div class="col-xl-2"></div>
+                    <div class="col-xl-7 my-2">
+
+
+                        <!--begin::Row-->
+                        <div class="row">
+                            <label class="col-3"></label>
+                            <div class="col-9">
+                                <h3 class="text-dark font-weight-bold mb-10" >@Model.UserName</h3>
+                                <input class="form-control form-control-lg" type="hidden" asp-for="UserName"/>
+                                <input class="form-control form-control-lg" type="hidden" asp-for="Password" />
+                            </div>
+                        </div>
+                        <!--end::Row-->
+                        <!--begin::Group-->
+                        <div class="form-group row">
+                            <label asp-for="FullName" class="col-form-label col-3 text-lg-right text-left"></label>
+                            <div class="col-9">
+                                <input class="form-control form-control-lg" type="text" asp-for="FullName">
+                            </div>
+                        </div>
+                        <!--end::Group-->
+                        <!--begin::Group-->
+                        <div class="form-group row">
+                            <label asp-for="DOB" class="col-form-label col-3 text-lg-right text-left"></label>
+                            <div class="col-9">
+                                <input class="form-control form-control-lg"  type="text" asp-for="DOB">
+                            </div>
+                        </div>
+                        
+                        <!--end::Group-->
+                        <!--begin::Group-->
+                        <div class="form-group row">
+                            <label asp-for="Email" class="col-form-label col-3 text-lg-right text-left"></label>
+                            <div class="col-9">
+                                <input class="form-control form-control-lg" type="text" asp-for="Email">
+                            </div>
+                        </div>
+                        <!--end::Group-->
+                        <!--begin::Group-->
+                        <div class="form-group row">
+                            <label asp-for="PhoneNumber" class="col-form-label col-3 text-lg-right text-left"></label>
+                            <div class="col-9">
+                                <input class="form-control form-control-lg" type="text" asp-for="PhoneNumber">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-form-label col-3 text-lg-right text-left"></label>
+                            <div class="col-9">
+                                <label class="form-check-label">
+                                    <input class="form-check-input" asp-for="Active" /> @Html.DisplayNameFor(model => model.Active)
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-form-label col-3 text-lg-right text-left"></label>
+                            <div class="form-group">
+                                <input type="submit" value="Lưu" class="btn btn-primary" />
+                            </div>
+                        </div>
+
+                        <!--end::Group-->
+
+                    </div>
+                </div>
+                <!--end::Row-->
+            </div>
+            <!--end::Tab-->
+        </div>
+    </form>
+</div>
+<hr />
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
