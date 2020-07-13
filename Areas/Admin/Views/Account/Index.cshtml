@@ -141,12 +141,19 @@
 
                                         <i class="la la-cog"></i>
                                     </a>
+                                    <a href="Admin/Account/activeOrNot?id=@item.UserName" class="btn btn-sm btn-clean btn-icon" title="Edit details">
+                                        @if (item.Active == true)
+                                        {
+                                            <i class="fas fa-user-check"></i>
+                                        }
+                                        else
+                                        {
+                                            <i class="fas fa-user-lock"></i>
+                                        }
 
-                                    <a href="https://www.w3schools.com" class="btn btn-sm btn-clean btn-icon" title="Edit details">
 
-                                        <i class="la la-edit"></i>
                                     </a>
-                                    <a href="https://www.w3schools.com" class="btn btn-sm btn-clean btn-icon" title="Delete">
+                                    <a href="Admin/Account/delete?id=@item.UserName" onclick="return confirm('Bạn muốn xóa tài khoản này')" class="btn btn-sm btn-clean btn-icon" title="Delete">
 
                                         <i class="la la-trash"></i>
                                     </a>

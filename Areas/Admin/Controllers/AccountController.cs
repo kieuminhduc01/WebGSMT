@@ -28,13 +28,6 @@ namespace WebGSMT.Areas.Admin.Controllers
             return View(await _context.Accounts.ToListAsync());
         }
 
-        [HttpGet]
-        public async Task<IActionResult> ListAccount()
-        {
-            _context = new GiamSatMoiTruongDbContext();
-            return View(await _context.Accounts.ToListAsync());
-        }
-
         // GET: Admin/Accounts/Details/5
         public async Task<IActionResult> Details(string id)
         {
@@ -76,6 +69,7 @@ namespace WebGSMT.Areas.Admin.Controllers
         }
 
         // GET: Admin/Accounts/Edit/5
+        [Route("edit")]
         public async Task<IActionResult> Edit(string id)
         {
             if (id == null)
@@ -127,6 +121,7 @@ namespace WebGSMT.Areas.Admin.Controllers
         }
 
         // GET: Admin/Accounts/Delete/5
+        [Route("delete")]
         public async Task<IActionResult> Delete(string id)
         {
             if (id == null)
@@ -134,17 +129,19 @@ namespace WebGSMT.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            var account = await _context.Accounts
-                .FirstOrDefaultAsync(m => m.UserName == id);
+            var account = await _context.Accounts.FirstOrDefaultAsync(m => m.UserName == id);
             if (account == null)
             {
                 return NotFound();
             }
+            _context.Accounts.Remove(account);
+            await _context.SaveChangesAsync();
 
-            return View(account);
+            return RedirectToAction("Index");
         }
 
         // POST: Admin/Accounts/Delete/5
+        [Route("delete")]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(string id)
@@ -158,6 +155,29 @@ namespace WebGSMT.Areas.Admin.Controllers
         private bool AccountExists(string id)
         {
             return _context.Accounts.Any(e => e.UserName == id);
+        }
+        [Route("activeOrNot")]
+        public async Task<IActionResult> ActiveOrNot(string id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+            var account = await _context.Accounts.FirstOrDefaultAsync(m => m.UserName == id);
+            if (account == null)
+            {
+                return NotFound();
+            }
+            if (account.Active == true)
+            {
+                account.Active = false;
+            }else if (account.Active == false)
+            {
+                account.Active = true;
+            }
+            _context.Update(account);
+            await _context.SaveChangesAsync();
+            return RedirectToAction("Index");
         }
     }
 }
