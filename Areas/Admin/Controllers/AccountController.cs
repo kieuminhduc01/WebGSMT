@@ -90,13 +90,10 @@ namespace WebGSMT.Areas.Admin.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(string id, [Bind("UserName,Password,FullName,DOB,Email,PhoneNumber,Active")] Account account)
+        [Route("edit")]
+        public async Task<IActionResult> Edit([Bind("UserName,Password,FullName,DOB,Email,PhoneNumber,Active")] Account account)
         {
-            if (id != account.UserName)
-            {
-                return NotFound();
-            }
-
+            
             if (ModelState.IsValid)
             {
                 try
