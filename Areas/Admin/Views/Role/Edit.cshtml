@@ -1,0 +1,57 @@
+﻿@model WebGSMT.Models.Role
+    <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+        <div class="modal-content">
+            <!--Card header-->
+            <div class="card-header">
+                <h5 class="modal-title" id="exampleModalLabel">Edit Role</h5>
+            </div>
+            <!--Card body-->
+            <div class="modal-body">
+                <!-- Tab Menu -->
+                <!--begin::Example-->
+                <ul class="nav nav-tabs" id="myTab" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link active" id="home-tab" data-toggle="tab" href="#rolename">
+                            <span class="nav-icon">
+                                <i class="flaticon2-chat-1"></i>
+                            </span>
+                            <span class="nav-text">Role Name</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="profile-tab" data-toggle="tab" href="#permission" aria-controls="profile">
+                            <span class="nav-icon">
+                                <i class="flaticon2-layers-1"></i>
+                            </span>
+                            <span class="nav-text">Permission</span>
+                        </a>
+                    </li>
+                </ul>
+                <div class="tab-content mt-5" id="myTabContent">
+                    <label id="rolename">Role Name :</label>
+                    <input id="role-name" type="text" class="form-control form-control-lg form-control-solid" placeholder="Enter role name" value="@Model.RoleName"/>
+                    <div class="tab-pane fade" id="permission" role="tabpanel" aria-labelledby="profile-tab">edit permission</div>
+                </div>
+                <!--end::Example-->
+                <!--end::Content-->
+            </div>
+            <!--end::card body-->
+            <!--begin::footer-->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-light-primary font-weight-bold" data-dismiss="modal">Đóng</button>
+                <button type="button" class="btn btn-primary font-weight-bold" data-dismiss="modal" id="submit">Lưu thay đổi</button>
+            </div>
+            <!--End::footer-->
+        </div>
+    </div>
+<script>
+    $('#submit').on('click', function () {
+        var role = @Model.RoleName;
+        if (role != 0) {
+            var url = "@Url.Action("UpdateRole","Role")";
+        } else {
+            alert("Error");
+        }
+        var
+    });
+</script>
