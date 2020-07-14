@@ -13,7 +13,7 @@ namespace WebGSMT.Areas.Admin.Controllers
     [Route("{area}/account")]
     public class AccountController : Controller
     {
-        private  GiamSatMoiTruongDbContext _context;
+        private GiamSatMoiTruongDbContext _context;
 
         public AccountController(GiamSatMoiTruongDbContext context)
         {
@@ -47,6 +47,7 @@ namespace WebGSMT.Areas.Admin.Controllers
         }
 
         // GET: Admin/Accounts/Create
+        [Route("create")]
         public IActionResult Create()
         {
             return View();
@@ -57,13 +58,23 @@ namespace WebGSMT.Areas.Admin.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("UserName,Password,FullName,DOB,Email,PhoneNumber,Active")] Account account)
+        [Route("create")]
+        public async Task<IActionResult> Create([Bind("UserName,FullName,DOB,Email,PhoneNumber,Active")] Account account)
         {
-            if (ModelState.IsValid)
+            var accTest = await _context.Accounts.FirstOrDefaultAsync(m => m.UserName == account.UserName);
+            if (accTest == null)
             {
-                _context.Add(account);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                account.Password = "123456789";
+                if (ModelState.IsValid)
+                {
+                    _context.Add(account);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
+                }
+            }
+            else if (accTest != null)
+            {
+                ModelState.AddModelError("UserNameExist", "User Name này đã tồn tại");
             }
             return View(account);
         }
@@ -93,7 +104,7 @@ namespace WebGSMT.Areas.Admin.Controllers
         [Route("edit")]
         public async Task<IActionResult> Edit([Bind("UserName,Password,FullName,DOB,Email,PhoneNumber,Active")] Account account)
         {
-            
+
             if (ModelState.IsValid)
             {
                 try
@@ -168,10 +179,29 @@ namespace WebGSMT.Areas.Admin.Controllers
             if (account.Active == true)
             {
                 account.Active = false;
-            }else if (account.Active == false)
+            }
+            else if (account.Active == false)
             {
                 account.Active = true;
             }
+            _context.Update(account);
+            await _context.SaveChangesAsync();
+            return RedirectToAction("Index");
+        }
+
+        [Route("resetPassword")]
+        public async Task<IActionResult> resetPassword(string id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+            var account = await _context.Accounts.FirstOrDefaultAsync(m => m.UserName == id);
+            if (account == null)
+            {
+                return NotFound();
+            }
+            account.Password = "123456789";
             _context.Update(account);
             await _context.SaveChangesAsync();
             return RedirectToAction("Index");
