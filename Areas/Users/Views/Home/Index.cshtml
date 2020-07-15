@@ -4,7 +4,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-@model  IEnumerable<WebGSMT.Models.Data>
+@model IEnumerable<WebGSMT.Areas.Users.Controllers.HomeController.DataDevice>
 <style>
     body {
         font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
@@ -20,6 +20,21 @@
     <script src="https://www.amcharts.com/lib/4/core.js"></script>
     <script src="https://www.amcharts.com/lib/4/charts.js"></script>
     <script src="https://www.amcharts.com/lib/4/themes/animated.js"></script>
+    @{
+        var listUnit = ViewBag.ListUnit as IEnumerable<SelectListItem>;
+    }
+    <div class="dropdown">
+        <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <span id="options"></span>
+            <span class="caret"></span>
+        </button>
+        <div class="dropdown-menu">
+            @foreach (var item in listUnit)
+            {
+                <a class="dropdown-item" onclick="dataAmchart('@item.Text'); showName('@item.Text   ')">@item.Text</a>
+            }
+        </div>
+    </div>
     <div class="bg-white">
         <!-- HTML -->
         @*<div id="chartdiv1"></div>
@@ -30,7 +45,7 @@
     <!-- Button trigger modal -->
     <div style="float:right">
         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-           Show
+            Show
         </button>
 
         <!-- Modal -->
@@ -48,7 +63,7 @@
                             <table class="table table-bordered">
                                 <tr class="table-secondary">
                                     <th>
-                                        Tag Name 
+                                        Tag Name
                                     </th>
                                     <th>
                                         Time
@@ -56,8 +71,14 @@
                                     <th>
                                         Value
                                     </th>
+                                    <th>
+                                        Unit
+                                    </th>
+                                    <th>
+                                        Connected
+                                    </th>
                                 </tr>
-                                @foreach (var item in Model.OrderBy(o=>o.TagName))
+                                @foreach (var item in Model.OrderBy(o => o.TagName))
                                 {
                                     <tr>
                                         <td>
@@ -68,6 +89,12 @@
                                         </td>
                                         <td>
                                             @Html.DisplayFor(m => item.Value)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(m=>item.Unit)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(m => item.Connected)
                                         </td>
                                     </tr>
                                 }
@@ -84,10 +111,11 @@
 </div>
 
 <script>
+    dataAmchart("all");
     // Themes begin
-    am4core.useTheme(am4themes_animated);
-    // Themes end
-
+    function dataAmchart(type) {
+        am4core.useTheme(am4themes_animated);
+        // Themes end
 
 
 
@@ -102,111 +130,112 @@
     //    createSeries(i, "Series #" + i);
     //}
     //createSeries(121, "Series #" + 121);
-    @{
+        @{
         int i = 0;
-        foreach (var name in ViewBag.TagName)
-        {
-
+            foreach (var name in ViewBag.TagName)
+            {
             <text>
-             var data = [];
+            var data = [];
             var value;
             </text>
 
-            foreach (var item in Model.Where(x => x.TagName == name.TagName.ToString()))
-                
-            {
+                foreach (var item in Model.Where(x => x.TagName == name.TagName.ToString() && x.Connected == true))
+                {
 
                 <text>
+        if ("@item.Unit" == type || type == "all") {
                 value = @item.Value;
                 var dataItem = { Time: "@item.Time.ToString("MM/dd/yyyy")"};
                 dataItem["Value" + @i] = value;
-                data.push(dataItem);
+            data.push(dataItem);
+        }
                 </text>
-            }
-
-
-
-
+                }
 			<text>
                  createSeries(@i, "@name.TagName", data);
 			</text>
-            i++;
-
+                i++;
+            }
         }
-	}
 
+            // Create series
+            function createSeries(s, name, data) {
+                var series = chart.series.push(new am4charts.LineSeries());
+                series.dataFields.valueY = "Value" + s;
+                series.dataFields.dateX = "Time";
+                series.name = name;
+                series.tooltipText = "{valueY}";
+                series.tooltip.pointerOrientation = "vertical";
+                series.tooltip.background.fillOpacity = 0.5;
+                chart.cursor = new am4charts.XYCursor();
+                chart.cursor.xAxis = dateAxis;
+                var segment = series.segments.template;
+                segment.interactionsEnabled = true;
 
-    // Create series
-    function createSeries(s, name, data) {
-        var series = chart.series.push(new am4charts.LineSeries());
-        series.dataFields.valueY = "Value" + s;
-        series.dataFields.dateX = "Time";
-        series.name = name;
-        series.tooltipText = "{valueY}";
-        series.tooltip.pointerOrientation = "vertical";
-        series.tooltip.background.fillOpacity = 0.5;
-        chart.cursor = new am4charts.XYCursor();
-        chart.cursor.xAxis = dateAxis;
-        var segment = series.segments.template;
-        segment.interactionsEnabled = true;
+                var hoverState = segment.states.create("hover");
+                hoverState.properties.strokeWidth = 3;
 
-        var hoverState = segment.states.create("hover");
-        hoverState.properties.strokeWidth = 3;
+                var dimmed = segment.states.create("dimmed");
+                dimmed.properties.stroke = am4core.color("#dadada");
 
-        var dimmed = segment.states.create("dimmed");
-        dimmed.properties.stroke = am4core.color("#dadada");
-
-        segment.events.on("over", function (event) {
-            processOver(event.target.parent.parent.parent);
-        });
+                segment.events.on("over", function (event) {
+                processOver(event.target.parent.parent.parent);
+            });
 
         segment.events.on("out", function (event) {
-            processOut(event.target.parent.parent.parent);
-        });
+                processOut(event.target.parent.parent.parent);
+            });
 
 
         series.data = data;
         return series;
     }
 
-    chart.legend = new am4charts.Legend();
+        chart.legend = new am4charts.Legend();
     chart.legend.position = "right";
     chart.legend.scrollable = true;
     var scrollbarX = new am4core.Scrollbar();
-    scrollbarX.marginBottom = 20;
+        scrollbarX.marginBottom = 20;
     chart.scrollbarX = scrollbarX;
     chart.legend.itemContainers.template.events.on("over", function (event) {
-        processOver(event.target.dataItem.dataContext);
-    })
-
-    chart.legend.itemContainers.template.events.on("out", function (event) {
-        processOut(event.target.dataItem.dataContext);
-    })
-
-    function processOver(hoveredSeries) {
-        hoveredSeries.toFront();
-
-        hoveredSeries.segments.each(function (segment) {
-            segment.setState("hover");
+            processOver(event.target.dataItem.dataContext);
         })
 
+    chart.legend.itemContainers.template.events.on("out", function (event) {
+            processOut(event.target.dataItem.dataContext);
+        })
+
+    function processOver(hoveredSeries) {
+            hoveredSeries.toFront();
+
+            hoveredSeries.segments.each(function (segment) {
+                segment.setState("hover");
+            })
+
         chart.series.each(function (series) {
-            if (series != hoveredSeries) {
-                series.segments.each(function (segment) {
-                    segment.setState("dimmed");
-                })
+                if (series != hoveredSeries) {
+                    series.segments.each(function (segment) {
+                        segment.setState("dimmed");
+                    })
                 series.bulletsContainer.setState("dimmed");
-            }
-        });
+                }
+            });
+        }
+
+        function processOut(hoveredSeries) {
+            chart.series.each(function (series) {
+                series.segments.each(function (segment) {
+                    segment.setState("default");
+                })
+            series.bulletsContainer.setState("default");
+            });
+        }
     }
 
-    function processOut(hoveredSeries) {
-        chart.series.each(function (series) {
-            series.segments.each(function (segment) {
-                segment.setState("default");
-            })
-            series.bulletsContainer.setState("default");
-        });
+    document.getElementById("options").innerHTML = 'All ';
+
+    function showName(context) {
+        document.getElementById("options").innerHTML = context
     }
 </script>
 
