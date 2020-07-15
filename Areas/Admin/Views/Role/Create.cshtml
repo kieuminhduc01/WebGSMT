@@ -1,10 +1,9 @@
-﻿@model WebGSMT.Models.Role
-
+﻿
 <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
     <div class="modal-content">
         <!--Card header-->
         <div class="card-header">
-            <h5 class="modal-title" id="exampleModalLabel">Edit Role</h5>
+            <h5 class="modal-title" id="exampleModalLabel">Add New Role</h5>
         </div>
         <!--Card body-->
         <div class="modal-body">
@@ -32,10 +31,10 @@
                 <div class="tab-pane fade show active" id="rolename" role="tabpanel" aria-labelledby="kt_tab_pane_2">
                     <div class="form-group">
                         <label>Role name :</label>
-                        <input type="text" id="role-name" class="form-control" placeholder="Enter role name" readonly value="@Model.RoleName" />
+                        <input type="text" id="role-name" class="form-control" placeholder="Enter role name" />
                         <span class="form-text text-muted">You can change name of role here.</span>
                         <label>Description :</label>
-                        <input type="text" id="role-description" class="form-control" placeholder="Enter discription" value="@Model.Description" />
+                        <input type="text" id="role-description" class="form-control" placeholder="Enter discription" />
                         <span class="form-text text-muted">You can change description of role here.</span>
                     </div>
                 </div>
@@ -60,7 +59,7 @@
 </div>
 <script>
     $('#submit').on('click', function () {
-        var url = "@Url.Action("UpdateRole","Role")";
+        var url = "@Url.Action("InsertRole","Role")";
         var description = document.getElementById("role-description").value;
         var rolename = document.getElementById("role-name").value;
         $.ajax({
@@ -78,9 +77,10 @@
                 }
             },
             error: function (data) {
-                alert("Error Insert role");
+                alert("Error update role");
             }
         });
     });
-    
+
 </script>
+

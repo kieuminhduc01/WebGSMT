@@ -14,7 +14,7 @@
             <div class="card-header flex-wrap border-0 pt-6 pb-0" style="width:auto">
                 <div class="card-title">
                     <h3 class="card-label">
-                        User Management
+                        List Of Roles
                         <span class="d-block text-muted pt-2 font-size-sm">User management made easy</span>
                     </h3>
                 </div>
@@ -86,7 +86,7 @@
                     </div>
                     <!--end::Dropdown-->
                     <!--begin::Button-->
-                    <a href="#" class="btn btn-primary font-weight-bolder">
+                    <a class="btn btn-primary font-weight-bolder bt-open-create-account-form">
                         <span class="svg-icon svg-icon-md">
                             <!--begin::Svg Icon | path:assets/media/svg/icons/Design/Flatten.svg-->
                             <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
@@ -106,13 +106,12 @@
             <!--begin::Body-->
             <div class="card-body">
                 <!--begin: Datatable-->
-                <table id ="my_datatable_account"class="table table-bordered table-hover table-checkable" style="margin-top: 13px !important">
+                <table id ="my_datatable_role"class="table table-bordered table-hover table-checkable" style="margin-top: 13px !important">
                     <thead>
                         <tr>
                             <th>Role Name</th>
                             <th>Discription</th>
-                            <th>Creation Time</th>
-                            <th>Actions</th>
+                            <th>Actsions</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -126,14 +125,14 @@
                                     @Html.DisplayFor(modelItem => item.Description)
                                 </td>
                                 <td>
-                                    22/2/20201
-                                </td>
-                                <td>
                                     <a class="btn btn-sm btn-clean btn-icon bt-open-edit-account-form" data-id="@item.RoleName" title="Edit">
                                         <i class="la la-edit"></i>
                                     </a>
-                                    <a href="Admin/Role/delete?id=@item.RoleName" onclick="return confirm('Bạn có muốn xóa ?')" class="btn btn-sm btn-clean btn-icon" title="Delete">
+                                    @*<a href="Admin/Role/delete?id=@item.RoleName" onclick="return confirm('Bạn có muốn xóa ?')" class="btn btn-sm btn-clean btn-icon" title="Delete">
+                                        <i class="la la-trash"></i>
+                                    </a>*@
 
+                                    <a class="btn btn-sm btn-clean btn-icon bt-delete-role" data-id="@item.RoleName" title="Delete">
                                         <i class="la la-trash"></i>
                                     </a>
                                 </td>
@@ -149,10 +148,34 @@
     </div>
     <!--end::Container-->
 </div>
-<div class="modal fade modal-edit-account" id="formEditAccount" tabindex="-1" role="dialog" aria-labelledby="formEditAccount" aria-hidden="true"></div>
+<div class="modal fade modal-edit-account" id="formEditRole" tabindex="-1" role="dialog" aria-labelledby="formEditAccount" aria-hidden="true"></div>
+
+<div class="modal fade" id="confirmDelete" tabindex="-1" role="dialog"
+     aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="myModalLabel">Warning!</h3>
+            </div>
+            <div class="modal-body">
+                <h5>Are you sure you want to DELETE?</h5>
+
+            </div>
+            <!--/modal-body-collapse -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+                <button type="button" class="btn btn-danger" id="btnDelteYes" href="#" data-dismiss="modal">Yes</button>
+            </div>
+            <!--/modal-footer-collapse -->
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
 <!--end::Entry-->
 <script>
-    $('#my_datatable_account').on('click','.bt-open-edit-account-form',function () {
+
+    $('#my_datatable_role').on('click','.bt-open-edit-account-form',function () {
 		var url = "@Url.Action("Edit", "Role")";
 		var id = $(this).attr("data-id");
 			$.ajax({
@@ -162,9 +185,9 @@
 					id: id
                 },
 				success: function (data) {
-                    $('#formEditAccount').html(data);
-                    $('#formEditAccount').modal('show');
-                    $('#formEditAccount').modal({
+                    $('#formEditRole').html(data);
+                    $('#formEditRole').modal('show');
+                    $('#formEditRole').modal({
 						backdrop: false
 					});
 				},
@@ -172,5 +195,58 @@
 					alert("Error load ajax edit account");
 				}
 			});
-	});
+    });
+
+    $('.bt-open-create-account-form').on('click',function () {
+		var url = "@Url.Action("Create", "Role")";
+			$.ajax({
+				url: url,
+				type: 'GET',
+				success: function (data) {
+                    $('#formEditRole').html(data);
+                    $('#formEditRole').modal('show');
+                    $('#formEditRole').modal({
+						backdrop: false
+					});
+				},
+				error: function (data) {
+					alert("Error load ajax edit account");
+				}
+            });
+
+
+    });
+
+    $('#my_datatable_role').on('click', '.bt-delete-role', function () {
+        //add xac thuc trc khi xoa
+        var id = $(this).attr("data-id");
+        $('#btnDelteYes').attr("data-id", id);
+        $('#confirmDelete').modal('show');
+        $('#confirmDelete').modal({
+            backdrop: true
+        });
+    });
+
+    $('#btnDelteYes').on('click', function (e) {
+        e.preventDefault();
+        var url = "@Url.Action("DeleteRole", "Role")";
+		var rolename = $(this).attr("data-id");
+		$.ajax({
+			url: url,
+			type: 'POST',
+            data: {
+                rolename: rolename
+			},
+			success: function (data) {
+				if (!data) {
+					alert("Error delete role ");
+                } else {
+                    location.reload(null, false);
+				}
+			},
+			error: function (data) {
+				alert("Error load ajax delete role");
+			}
+		});
+    });
 </script>

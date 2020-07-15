@@ -48,6 +48,7 @@ namespace WebGSMT.Areas.Admin.Controllers
         }
 
         // GET: Admin/Role/Create
+        [Route("create")]
         public IActionResult Create()
         {
             return View();
@@ -56,8 +57,8 @@ namespace WebGSMT.Areas.Admin.Controllers
         // POST: Admin/Role/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
+       /* [HttpPost]
+        [Route("create")]
         public async Task<IActionResult> Create([Bind("RoleName,Description")] Role role)
         {
             if (ModelState.IsValid)
@@ -67,24 +68,24 @@ namespace WebGSMT.Areas.Admin.Controllers
                 return RedirectToAction(nameof(Index));
             }
             return View(role);
-        }
-/*
-        // GET: Admin/Role/Edit/5
-        [Route("edit")]
-        public async Task<IActionResult> Edit(string id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var role = await _context.Roles.FindAsync(id);
-            if (role == null)
-            {
-                return NotFound();
-            }
-            return View(role);
         }*/
+        /*
+                // GET: Admin/Role/Edit/5
+                [Route("edit")]
+                public async Task<IActionResult> Edit(string id)
+                {
+                    if (id == null)
+                    {
+                        return NotFound();
+                    }
+
+                    var role = await _context.Roles.FindAsync(id);
+                    if (role == null)
+                    {
+                        return NotFound();
+                    }
+                    return View(role);
+                }*/
 
         // POST: Admin/Role/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
@@ -133,23 +134,18 @@ namespace WebGSMT.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public string UpdateRole(string RoleName)
+        [Route("updaterole")]
+        public string UpdateRole(string RoleName, string Description)
         {
             try
             {
-                
-                var rs = _context.Roles.Find(RoleName);
-                if (rs == null)
+                var r = _context.Roles.Find(RoleName);
+                if (r == null)
                 {
-                    return "Role không tồn tại !!!";
-                }
-                if (!RoleDAO.checkRoleName(RoleName))
-                {
-                    return "Role Name đã tồn tại !!!";
+                    return "Role không tồn tại";
                 }
 
-                rs.RoleName = RoleName;
-                
+                r.Description = Description;
                 _context.SaveChanges();
 
             }
@@ -158,6 +154,48 @@ namespace WebGSMT.Areas.Admin.Controllers
                 return "Update Role không thành công !!!";
             }
             return "success";
+        }
+
+        [HttpPost]
+        [Route("insertrole")]
+        public string InsertRole(string RoleName, string Description)
+        {
+            try
+            {
+                if (!RoleDAO.checkRoleName(RoleName))
+                {
+                    return "Role Name đã tồn tại !!!";
+                }
+
+                var rs = new Role()
+                {
+                    RoleName = RoleName,
+                    Description = Description
+                };
+                _context.Roles.Add(rs);
+                _context.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                return "Insert Role không thành công !!!";
+            }
+            return "success";
+
+        }
+        [Route("deleterole")]
+        public bool DeleteRole(string RoleName)
+        {
+            try
+            {
+                var rs = _context.Roles.Find(RoleName);
+                _context.Roles.Remove(rs);
+                _context.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+            return true;
         }
     }
 }
