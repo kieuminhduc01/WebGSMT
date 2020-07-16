@@ -78,8 +78,20 @@ namespace WebGSMT.Areas.Admin.Controllers
             }
             return View(account);
         }
-
         // GET: Admin/Accounts/Edit/5
+        [Route("CheckExits")]
+        public async Task<string> CheckExits(string username)
+        {
+            var accTest = await _context.Accounts.FirstOrDefaultAsync(m => m.UserName == username);
+            if (accTest != null)
+            {
+                ModelState.AddModelError("UserNameExist", "User Name này đã tồn tại");
+                return "fail";
+            }
+            return "success";
+        }
+        // GET: Admin/Accounts/Edit/5
+
         [Route("edit")]
         public async Task<IActionResult> Edit(string id)
         {

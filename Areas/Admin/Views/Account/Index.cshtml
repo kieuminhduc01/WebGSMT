@@ -19,11 +19,10 @@
                     </h3>
                 </div>
                 <div class="card-toolbar">
-                   
+
                     <!--begin::Button-->
-                    <a href="Admin/Account/create" class="btn btn-primary font-weight-bolder">
+                    <a @*href="Admin/Account/create"*@ class="btn btn-primary font-weight-bolder bt-open-create-account-form" id="btnGiDO">
                         <span class="svg-icon svg-icon-md">
-                           
                             <!--end::Svg Icon-->
                         </span>Thêm Tài Khoản
                     </a>
@@ -85,7 +84,7 @@
 
                                         <i class="la la-trash"></i>
                                     </a>
-                                   
+
                                 </td>
                             </tr>
                         }
@@ -93,10 +92,34 @@
                 </table>
                 <!--end: Datatable-->
             </div>
+            <div class="modal fade modal-edit-account" id="formEditRole" tabindex="-1" role="dialog" aria-labelledby="formEditAccount" aria-hidden="true"> </div>
             <!--end::Body-->
         </div>
         <!--end::Card-->
     </div>
     <!--end::Container-->
 </div>
+<script>
+    $('#btnGiDO').on('click', function () {
+		var url = "@Url.Action("Create", "Account")";
+			$.ajax({
+				url: url,
+				type: 'GET',
+				success: function (data) {
+                    $('#formEditRole').html(data);
+                    $('#formEditRole').modal('show');
+                    $('#formEditRole').modal({
+						backdrop: false
+					});
+				},
+				error: function (data) {
+					alert("Error load ajax create account");
+				}
+            });
+
+
+    });
+
+    
+</script>
 <!--end::Entry-->

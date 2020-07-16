@@ -1,16 +1,16 @@
 ﻿@model WebGSMT.Models.Account
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "edit";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Edit</h1>
+<h1>edit</h1>
 
 <h4>Account</h4>
 
 <div class="card-header flex-wrap border-0 pt-6 pb-0" style="width:auto">
-    <form asp-action="edit" id="kt_form" >
+    <form asp-action="edit" id="kt_form" name="myForm" onsubmit="return  validateFormEdit()">
         <div class="tab-content">
             <!--begin::Tab-->
             <div class="tab-pane show active px-7" id="kt_user_edit_tab_1" role="tabpanel">
@@ -18,23 +18,24 @@
                 <div class="row">
                     <div class="col-xl-2"></div>
                     <div class="col-xl-7 my-2">
-
-
-                        <!--begin::Row-->
-                        <div class="row">
-                            <label class="col-3"></label>
+                        @Html.AntiForgeryToken()
+                        @Html.ValidationSummary(true, null, new { @class = "alert alert-danger" })
+                        <!--begin::Group-->
+                        <div class="form-group row">
                             <div class="col-9">
-                                <h3 class="text-dark font-weight-bold mb-10" >@Model.UserName</h3>
-                                <input class="form-control form-control-lg" type="hidden" asp-for="UserName"/>
+                                <h3 class="text-dark font-weight-bold mb-10">@Model.UserName</h3>
+                                <input class="form-control form-control-lg" type="hidden" asp-for="UserName" />
                                 <input class="form-control form-control-lg" type="hidden" asp-for="Password" />
                             </div>
                         </div>
-                        <!--end::Row-->
+                        <!--end::Group-->
                         <!--begin::Group-->
                         <div class="form-group row">
                             <label asp-for="FullName" class="col-form-label col-3 text-lg-right text-left"></label>
                             <div class="col-9">
                                 <input class="form-control form-control-lg" type="text" asp-for="FullName">
+                                @Html.ValidationMessageFor(a => a.FullName, "", new { @class = "text-danger" })
+                                <p id="fullNameValidate" class="text-danger"></p>
                             </div>
                         </div>
                         <!--end::Group-->
@@ -42,16 +43,20 @@
                         <div class="form-group row">
                             <label asp-for="DOB" class="col-form-label col-3 text-lg-right text-left"></label>
                             <div class="col-9">
-                                <input class="form-control form-control-lg"  type="text" asp-for="DOB">
+                                <input class="form-control form-control-lg" type="date" asp-for="DOB">
+                                @Html.ValidationMessageFor(a => a.DOB, "", new { @class = "text-danger" })
+                                <p id="DOBValidate" class="text-danger"></p>
                             </div>
                         </div>
-                        
+
                         <!--end::Group-->
                         <!--begin::Group-->
                         <div class="form-group row">
                             <label asp-for="Email" class="col-form-label col-3 text-lg-right text-left"></label>
                             <div class="col-9">
                                 <input class="form-control form-control-lg" type="text" asp-for="Email">
+                                @Html.ValidationMessageFor(a => a.Email, "", new { @class = "text-danger" })
+                                <p id="emailValidate" class="text-danger"></p>
                             </div>
                         </div>
                         <!--end::Group-->
@@ -60,6 +65,8 @@
                             <label asp-for="PhoneNumber" class="col-form-label col-3 text-lg-right text-left"></label>
                             <div class="col-9">
                                 <input class="form-control form-control-lg" type="text" asp-for="PhoneNumber">
+                                @Html.ValidationMessageFor(a => a.PhoneNumber, "", new { @class = "text-danger" })
+                                <p id="phoneNumberValidate" class="text-danger"></p>
                             </div>
                         </div>
                         <div class="form-group row">
@@ -73,7 +80,7 @@
                         <div class="form-group row">
                             <label class="col-form-label col-3 text-lg-right text-left"></label>
                             <div class="form-group">
-                                <input type="submit" value="Lưu" class="btn btn-primary" />
+                                <input type="submit" value="Tạo mới" class="btn btn-primary" />
                             </div>
                         </div>
 
@@ -92,4 +99,4 @@
 <div>
     <a asp-action="Index">Back to List</a>
 </div>
-
+<script src="~/My_Js/Account.js"></script>
