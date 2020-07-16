@@ -11,6 +11,6 @@ namespace WebGSMT.Models
         public string RoleName { get; set; }
         public string Description { get; set; }
         public List<Account_Role> Account_Roles { get; set; }
-        public List<Permission_Role> permission_Roles { get; set; }
+        public List<Permission_Role> Permission_Roles { get; set; }
     }
 }

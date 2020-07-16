@@ -197,5 +197,60 @@ namespace WebGSMT.Areas.Admin.Controllers
             }
             return true;
         }
+        [HttpGet]
+        [Route("getallpermission")]
+        public JsonResult GetAllPermission(string RoleName)
+        {
+            try
+            {
+                List<int> listPer = new List<int>();
+                Role ra = _context.Roles.Find(RoleName);
+                List<TreeViewNode> ls = new List<TreeViewNode>();
+                if (ra != null)
+                {
+                    listPer = _context.AccoPermission_Roles.Where(x => x.RoleName == ra.RoleName).Select(x => x.PermissionID).ToList();
+                }
+                foreach (var i in _context.Permissions)
+                {
+                    TreeViewNode tvn = new TreeViewNode
+                    {
+                        id = i.ID.ToString(),
+                        parent = i.Parent.ToString(),
+                        text = i.Text,
+                        //state = new Dictionary<string, bool>()
+                    };
+                    
+                    if (ra != null &&  !string.IsNullOrEmpty(RoleName) && listPer.Contains(int.Parse(tvn.id)))
+                    {
+                        tvn.state.Add("selected", true);
+                    }
+                    ls.Add(tvn);
+                }
+
+                var duLieu = Newtonsoft.Json.JsonConvert.SerializeObject(ls);
+
+                return Json(ls);
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
+        [Route("permissiontree")]
+        public ActionResult PermissionTree(string RoleName)
+        {
+            if (RoleName == "")
+            {
+                return PartialView(new Role());
+            }
+            var rs = _context.Roles.Find(RoleName);
+            return PartialView(rs);
+        }
+        [Route("testtree")]
+        public ActionResult TestTree()
+        {
+            return View();
+        }
     }
 }

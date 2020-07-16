@@ -1,0 +1,50 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>TestTree</title>
+    @*<script src="~/assets/plugins/custom/jstree/jstree.bundle.js"></script>
+        <link href="~/assets/plugins/custom/jstree/jstree.bundle.css" rel="stylesheet" />*@
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/themes/default/style.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.1/jquery.min.js"></script>
+   
+
+</head>
+<body>
+    <div id="jstree" @*style="background-color: blue; width: 200px; height: 200px"*@></div>
+    <script>
+             $(document).ready(function () {
+        $.ajax({
+            url: "@Url.Action("GetAllPermission", "Role")",
+            type: 'GET',
+            data: {
+                RoleName: "0"
+            },
+            success: function (data) {
+                console.log(data);
+                //let jSonData = JSON.parse(data);
+                $('#jstree').jstree({
+                    plugins: ['checkbox'],
+                    'core': {
+                        'data': data
+                    },
+                }).on('ready.jstree', function () {
+                    $('#jstree').jstree("open_all");
+                });
+            },
+            error: function (data) {
+                alert("Error load permission");
+            }
+        });
+    });
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/jstree.min.js"></script>
+</body>
+
+</html>

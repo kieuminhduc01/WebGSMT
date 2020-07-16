@@ -86,7 +86,7 @@
                     </div>
                     <!--end::Dropdown-->
                     <!--begin::Button-->
-                    <a class="btn btn-primary font-weight-bolder bt-open-create-account-form">
+                    <a class="btn btn-primary font-weight-bolder bt-open-create-account-form" >
                         <span class="svg-icon svg-icon-md">
                             <!--begin::Svg Icon | path:assets/media/svg/icons/Design/Flatten.svg-->
                             <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
@@ -170,7 +170,23 @@
 </div>
 <!--end::Entry-->
 <script>
-
+     @*$('#newrole').on('click', function () {
+        var url = "@Url.Action("PermissionTree", "Role")";
+			$.ajax({
+				url: url,
+				type: 'GET',
+				success: function (data) {
+                    $('#formInsertEditRole').html(data);
+                    $('#formInsertEditRole').modal('show');
+                    $('#formInsertEditRole').modal({
+						backdrop: false
+					});
+				},
+				error: function (data) {
+					alert("Error load ajax");
+				}
+			});
+    });*@
     $('#my_datatable_role').on('click','.bt-open-edit-account-form',function () {
 		var url = "@Url.Action("Edit", "Role")";
 		var id = $(this).attr("data-id");
@@ -206,7 +222,7 @@
 					});
 				},
 				error: function (data) {
-					alert("Error load ajax edit account");
+					alert("Error load ajax create account");
 				}
             });
 
