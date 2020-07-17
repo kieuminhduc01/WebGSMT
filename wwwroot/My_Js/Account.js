@@ -53,11 +53,9 @@
     else {
         document.getElementById("phoneNumberValidate").innerHTML = "";
     }
-    if (checkExits() == false) {
+    if ($("#Status").text() == 'UserName đã tồn tại...' || $("#Status").text() == 'Checking...') {
         trangThai = false;
-        alert('da ton tai roi nhe');
     }
-
     return trangThai;
 };
 
