@@ -18,7 +18,7 @@ namespace WebGSMT.Models
         [Required(ErrorMessage = "Nhập Full Name")]
         public String FullName { get; set; }
 
-        [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}", ApplyFormatInEditMode = true)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         [DisplayName("Ngày sinh")]
         [Required(ErrorMessage = "Chọn ngày sinh")]
         public DateTime DOB { get; set; }

@@ -4,104 +4,127 @@
     ViewData["Title"] = "Create";
     /*Layout = "~/Views/Shared/_Layout.cshtml";*/
 }
-<div class="card-body p-0">
-    <h1>Create</h1>
-    <h4>Account</h4>
+<div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+    <div class="modal-content">
+        <!--Card header-->
+        <div class="card-header">
+            <h5 class="modal-title" id="exampleModalLabel">Add New Account</h5>
+        </div>
+        <!--Card body-->
+        <div class="modal-body">
+            <!-- Tab Menu -->
+            <!--begin::Example-->
+            <div class="tab-content mt-5" id="myTabContent">
+                <div class="tab-pane fade show active" id="rolename" role="tabpanel" aria-labelledby="kt_tab_pane_2">
+                    <div class="form-group">
+                        <form id="kt_form" name="myForm" onsubmit="return validateFormCreate()" asp-action="create">
+                            <div class="tab-content">
+                                <!--begin::Tab-->
+                                <div class="tab-pane show active px-7" id="kt_user_edit_tab_1" role="tabpanel">
+                                    <!--begin::Row-->
+                                    <div class="row">
+                                        <div class="col-xl-2"></div>
+                                        <div class="col-xl-7 my-2">
+                                            @Html.AntiForgeryToken()
+                                            @Html.ValidationSummary(true, null, new { @class = "alert alert-danger" })
+                                            <!--begin::Group-->
+                                            <div class="form-group row">
+                                                <label asp-for="UserName" class="col-form-label col-3 text-lg-right text-left"></label>
+                                                <div class="col-9">
+                                                    <input class="form-control form-control-lg" type="text" asp-for="UserName" onchange="UserCheck()">
+                                                    @Html.ValidationMessage("UserNameExist", "", new { @class = "text-danger" })
+                                                    @Html.ValidationMessageFor(a => a.UserName, "", new { @class = "text-danger" })
+                                                    <p id="userNameValidate" class="text-danger"></p>
+                                                    <p id="Status" />
+                                                </div>
+                                            </div>
+                                            <!--end::Group-->
+                                            <!--begin::Group-->
+                                            <div class="form-group row">
+                                                <label asp-for="FullName" class="col-form-label col-3 text-lg-right text-left"></label>
+                                                <div class="col-9">
+                                                    <input class="form-control form-control-lg" type="text" asp-for="FullName">
+                                                    @Html.ValidationMessageFor(a => a.FullName, "", new { @class = "text-danger" })
+                                                    <p id="fullNameValidate" class="text-danger"></p>
+                                                </div>
+                                            </div>
+                                            <!--end::Group-->
+                                            <!--begin::Group-->
+                                            <div class="form-group row">
+                                                <label asp-for="DOB" class="col-form-label col-3 text-lg-right text-left"></label>
+                                                <div class="col-9">
+                                                    <input class="form-control form-control-lg" type="date" asp-for="DOB">
+                                                    @Html.ValidationMessageFor(a => a.DOB, "", new { @class = "text-danger" })
+                                                    <p id="DOBValidate" class="text-danger"></p>
+                                                </div>
+                                            </div>
 
-    <div class="row justify-content-center py-8 px-8 py-lg-15 px-lg-10">
-        <div class="col-xl-12 col-xxl-10">
-            <form id="kt_form" name="myForm" onsubmit="return validateFormCreate()" asp-action="create">
-                <div class="tab-content">
-                    <!--begin::Tab-->
-                    <div class="tab-pane show active px-7" id="kt_user_edit_tab_1" role="tabpanel">
-                        <!--begin::Row-->
-                        <div class="row">
-                            <div class="col-xl-2"></div>
-                            <div class="col-xl-7 my-2">
-                                @Html.AntiForgeryToken()
-                                @Html.ValidationSummary(true, null, new { @class = "alert alert-danger" })
-                                <!--begin::Group-->
-                                <div class="form-group row">
-                                    <label asp-for="UserName" class="col-form-label col-3 text-lg-right text-left"></label>
-                                    <div class="col-9">
-                                        <input class="form-control form-control-lg" type="text" asp-for="UserName" onchange="UserCheck()">
-                                        @Html.ValidationMessage("UserNameExist", "", new { @class = "text-danger" })
-                                        @Html.ValidationMessageFor(a => a.UserName, "", new { @class = "text-danger" })
-                                        <p id="userNameValidate" class="text-danger"></p>
-                                        <p id="Status" />
-                                    </div>
-                                </div>
-                                <!--end::Group-->
-                                <!--begin::Group-->
-                                <div class="form-group row">
-                                    <label asp-for="FullName" class="col-form-label col-3 text-lg-right text-left"></label>
-                                    <div class="col-9">
-                                        <input class="form-control form-control-lg" type="text" asp-for="FullName">
-                                        @Html.ValidationMessageFor(a => a.FullName, "", new { @class = "text-danger" })
-                                        <p id="fullNameValidate" class="text-danger"></p>
-                                    </div>
-                                </div>
-                                <!--end::Group-->
-                                <!--begin::Group-->
-                                <div class="form-group row">
-                                    <label asp-for="DOB" class="col-form-label col-3 text-lg-right text-left"></label>
-                                    <div class="col-9">
-                                        <input class="form-control form-control-lg" type="date" asp-for="DOB">
-                                        @Html.ValidationMessageFor(a => a.DOB, "", new { @class = "text-danger" })
-                                        <p id="DOBValidate" class="text-danger"></p>
-                                    </div>
-                                </div>
+                                            <!--end::Group-->
+                                            <!--begin::Group-->
+                                            <div class="form-group row">
+                                                <label asp-for="Email" class="col-form-label col-3 text-lg-right text-left"></label>
+                                                <div class="col-9">
+                                                    <input class="form-control form-control-lg" type="text" asp-for="Email">
+                                                    @Html.ValidationMessageFor(a => a.Email, "", new { @class = "text-danger" })
+                                                    <p id="emailValidate" class="text-danger"></p>
+                                                </div>
+                                            </div>
+                                            <!--end::Group-->
+                                            <!--begin::Group-->
+                                            <div class="form-group row">
+                                                <label asp-for="PhoneNumber" class="col-form-label col-3 text-lg-right text-left"></label>
+                                                <div class="col-9">
+                                                    <input class="form-control form-control-lg" type="text" asp-for="PhoneNumber">
+                                                    @Html.ValidationMessageFor(a => a.PhoneNumber, "", new { @class = "text-danger" })
+                                                    <p id="phoneNumberValidate" class="text-danger"></p>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label class="col-form-label col-3 text-lg-right text-left"></label>
+                                                <div class="col-9">
+                                                    <label class="form-check-label">
+                                                        <input class="form-check-input" asp-for="Active" /> @Html.DisplayNameFor(model => model.Active)
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label class="col-form-label col-3 text-lg-right text-left"></label>
+                                                <div class="form-group">
+                                                    <input type="submit" value="Tạo mới" class="btn btn-primary" id="buttonCreate" />
+                                                </div>
+                                            </div>
 
-                                <!--end::Group-->
-                                <!--begin::Group-->
-                                <div class="form-group row">
-                                    <label asp-for="Email" class="col-form-label col-3 text-lg-right text-left"></label>
-                                    <div class="col-9">
-                                        <input class="form-control form-control-lg" type="text" asp-for="Email">
-                                        @Html.ValidationMessageFor(a => a.Email, "", new { @class = "text-danger" })
-                                        <p id="emailValidate" class="text-danger"></p>
-                                    </div>
-                                </div>
-                                <!--end::Group-->
-                                <!--begin::Group-->
-                                <div class="form-group row">
-                                    <label asp-for="PhoneNumber" class="col-form-label col-3 text-lg-right text-left"></label>
-                                    <div class="col-9">
-                                        <input class="form-control form-control-lg" type="text" asp-for="PhoneNumber">
-                                        @Html.ValidationMessageFor(a => a.PhoneNumber, "", new { @class = "text-danger" })
-                                        <p id="phoneNumberValidate" class="text-danger"></p>
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <label class="col-form-label col-3 text-lg-right text-left"></label>
-                                    <div class="col-9">
-                                        <label class="form-check-label">
-                                            <input class="form-check-input" asp-for="Active" /> @Html.DisplayNameFor(model => model.Active)
-                                        </label>
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <label class="col-form-label col-3 text-lg-right text-left"></label>
-                                    <div class="form-group">
-                                        <input type="submit" value="Tạo mới" class="btn btn-primary" id="buttonCreate" />
-                                    </div>
-                                </div>
+                                            <!--end::Group-->
 
-                                <!--end::Group-->
-
+                                        </div>
+                                    </div>
+                                    <!--end::Row-->
+                                </div>
+                                <!--end::Tab-->
                             </div>
-                        </div>
-                        <!--end::Row-->
+                        </form>
                     </div>
-                    <!--end::Tab-->
                 </div>
-            </form>
+                <div class="tab-pane fade" id="permission" role="tabpanel" aria-labelledby="kt_tab_pane_2">
+                    <form class="form">
+                        <div class="card-body">
+                            <div id="jstree"></div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!--end::Example-->
+            <!--end::Content-->
+        </div>
+        <!--end::card body-->
+        <!--begin::footer-->
+        <div class="modal-footer">
+            <button type="button" class="btn btn-light-primary font-weight-bold" data-dismiss="modal">Đóng</button>
+
+            <!--End::footer-->
         </div>
     </div>
-    <hr />
-</div>
-<div>
-    <a asp-action="Index">Back to List</a>
 </div>
 <script src="~/My_Js/Account.js"></script>
 <script>
