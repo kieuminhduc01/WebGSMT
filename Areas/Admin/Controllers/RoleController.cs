@@ -54,39 +54,6 @@ namespace WebGSMT.Areas.Admin.Controllers
             return View();
         }
 
-        // POST: Admin/Role/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-       /* [HttpPost]
-        [Route("create")]
-        public async Task<IActionResult> Create([Bind("RoleName,Description")] Role role)
-        {
-            if (ModelState.IsValid)
-            {
-                _context.Add(role);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            return View(role);
-        }*/
-        /*
-                // GET: Admin/Role/Edit/5
-                [Route("edit")]
-                public async Task<IActionResult> Edit(string id)
-                {
-                    if (id == null)
-                    {
-                        return NotFound();
-                    }
-
-                    var role = await _context.Roles.FindAsync(id);
-                    if (role == null)
-                    {
-                        return NotFound();
-                    }
-                    return View(role);
-                }*/
-
         // POST: Admin/Role/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
@@ -135,19 +102,38 @@ namespace WebGSMT.Areas.Admin.Controllers
 
         [HttpPost]
         [Route("updaterole")]
-        public string UpdateRole(string RoleName, string Description)
+        public string UpdateRole(string RoleName, string Description, List<String> PermissionRole)
         {
+            
             try
             {
+                if (PermissionRole == null)
+                {
+                    PermissionRole = new List<string>();
+                }
                 var r = _context.Roles.Find(RoleName);
                 if (r == null)
                 {
                     return "Role không tồn tại";
                 }
-
                 r.Description = Description;
+                //remove
+                var getPer = _context.AccoPermission_Roles.Where(x => x.RoleName == RoleName);
+                foreach(var i in getPer)
+                {
+                    _context.AccoPermission_Roles.Remove(i);
+                }
+                //add new
+                foreach (var i in PermissionRole)
+                {
+                    var pe_ro = new Permission_Role()
+                    {
+                        RoleName = RoleName,
+                        PermissionID = int.Parse(i)
+                    };
+                    _context.AccoPermission_Roles.Add(pe_ro);
+                }
                 _context.SaveChanges();
-
             }
             catch (Exception ex)
             {
@@ -158,10 +144,14 @@ namespace WebGSMT.Areas.Admin.Controllers
 
         [HttpPost]
         [Route("insertrole")]
-        public string InsertRole(string RoleName, string Description)
+        public string InsertRole(string RoleName, string Description, List<String> PermissionRole)
         {
             try
             {
+                if (PermissionRole == null)
+                {
+                    PermissionRole = new List<string>();
+                }
                 if (!RoleDAO.checkRoleName(RoleName))
                 {
                     return "Role Name đã tồn tại !!!";
@@ -170,9 +160,24 @@ namespace WebGSMT.Areas.Admin.Controllers
                 var rs = new Role()
                 {
                     RoleName = RoleName,
-                    Description = Description
+                    Description = Description,
                 };
                 _context.Roles.Add(rs);
+                _context.SaveChanges();
+                var check = _context.Roles.Find(RoleName);
+                if(RoleName == null)
+                {
+                    return "fail";
+                }
+                foreach (var i in PermissionRole)
+                {
+                    var pe_ro = new Permission_Role()
+                    {
+                        RoleName = RoleName,
+                        PermissionID = int.Parse(i)
+                    };
+                    _context.AccoPermission_Roles.Add(pe_ro);
+                }
                 _context.SaveChanges();
             }
             catch (Exception ex)
@@ -215,9 +220,9 @@ namespace WebGSMT.Areas.Admin.Controllers
                     TreeViewNode tvn = new TreeViewNode
                     {
                         id = i.ID.ToString(),
-                        parent = i.Parent.ToString(),
+                        parent = i.Parent,
                         text = i.Text,
-                        //state = new Dictionary<string, bool>()
+                        state = new Dictionary<string, bool>()
                     };
                     
                     if (ra != null &&  !string.IsNullOrEmpty(RoleName) && listPer.Contains(int.Parse(tvn.id)))
@@ -252,5 +257,69 @@ namespace WebGSMT.Areas.Admin.Controllers
         {
             return View();
         }
+        
+        [Route("getallrole")]
+        public JsonResult GetAllRole()
+        {
+            try
+            {
+                /*db.Configuration.ProxyCreationEnabled = false;*/
+                int length = int.Parse(Request.Query["length"]);
+                int start = Convert.ToInt32(Math.Ceiling(Convert.ToDecimal(int.Parse(Request.Query["start"]) / length))) + 1;
+                string searchValue = Request.Query["search[value]"];
+                string sortColumnName = Request.Query["columns[" + Request.Query["order[0][column]"] + "][name]"];
+                string sortDirection = Request.Query["order[0][dir]"];
+
+                /*int length = 10;
+                int start = 1;
+                string searchValue = "";
+                string sortColumnName = "ID";
+                string sortDirection = "asc";*/
+                RolePaging apg = new RolePaging();
+                apg.data = new List<RoleModel>();
+                start = (start - 1) * length;
+                List<Role> listRole = _context.Roles.ToList<Role>();
+                apg.recordsTotal = listRole.Count;
+                //filter
+                if (!string.IsNullOrEmpty(searchValue))
+                {
+                    listRole = listRole.Where(x => x.RoleName.ToLower().Contains(searchValue.ToLower())).ToList<Role>();
+                }
+                //sorting
+                /*if (sortDirection == "asc")
+                {
+                    listRole = listRole.OrderBy(x => x.GetType().GetProperty(sortColumnName).GetValue(x)).ToList<Role>();
+                }
+                else
+                {
+                    listRole = listRole.OrderByDescending(x => x.GetType().GetProperty(sortColumnName).GetValue(x)).ToList<Role>();
+                }*/
+                
+
+                apg.recordsFiltered = listRole.Count;
+                //paging
+                listRole = listRole.Skip(start).Take(length).ToList<Role>();
+
+                foreach (var i in listRole)
+                {
+                    RoleModel rm = new RoleModel
+                    {
+                        RoleName = i.RoleName,
+                        Description = i.Description,
+                        Actions = ""
+                    };
+                    apg.data.Add(rm);
+                }
+
+                apg.draw = int.Parse(Request.Query["draw"]);
+                return Json(apg);
+                /*return Json(apg, JsonRequestBehavior.AllowGet);*/
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
     }
 }

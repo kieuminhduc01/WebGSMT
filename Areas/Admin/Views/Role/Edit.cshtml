@@ -41,7 +41,9 @@
                 </div>
                 <div class="tab-pane fade" id="permission" role="tabpanel" aria-labelledby="kt_tab_pane_2">
                     <form class="form">
-                        <div class="tab-pane fade" role="tabpanel" aria-labelledby="profile-tab">edit permission</div>
+                        <div class="card-body">
+                            <div id="jstree"></div>
+                        </div>
                     </form>
                 </div>
             </div>
@@ -63,24 +65,54 @@
         var url = "@Url.Action("UpdateRole","Role")";
         var description = document.getElementById("role-description").value;
         var rolename = document.getElementById("role-name").value;
+
+        var checked_ids = [];
+        var selectedNodes = $('#jstree').jstree("get_selected", true);
+        $.each(selectedNodes, function () {
+            checked_ids.push(this.id);
+        });
         $.ajax({
             url: url,
             type: 'POST',
             data: {
                 RoleName: rolename,
-                Description : description
+                Description: description,
+                PermissionRole: checked_ids
             },
             success: function (data) {
                 if (data != "success") {
                     alert(data);
                 } else {
-                    location.reload(null, false);
+                    $('#my_datatable_role').DataTable().ajax.reload(null, false);
+                    showMessage("Edit successfully!", true);
                 }
             },
             error: function (data) {
-                alert("Error Insert role");
+                showMessage(" Edit Fail!", false);
             }
         });
     });
-    
+    $(document).ready(function () {
+        var rolename = document.getElementById("role-name").value;
+        $.ajax({
+            url: "@Url.Action("GetAllPermission", "Role")",
+            type: 'GET',
+            data: {
+                RoleName: rolename
+            },
+            success: function (data) {
+                $('#jstree').jstree({
+                    plugins: ['checkbox'],
+                    'core': {
+                        'data': data
+                    },
+                }).on('ready.jstree', function () {
+                    $('#jstree').jstree("open_all");
+                });
+            },
+            error: function (data) {
+                showMessage("Load Permission Fail!", false);
+            }
+        });
+    });
 </script>
