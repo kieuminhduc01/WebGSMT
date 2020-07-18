@@ -18,7 +18,7 @@ namespace WebGSMT.Configurations
             builder.Property(x => x.PermissionID).IsRequired();
             builder.Property(x => x.RoleName).IsRequired();
             builder.HasOne(acc => acc.Permission).WithMany(ars => ars.Permission_Roles).HasForeignKey(fk => fk.PermissionID);
-            builder.HasOne(ro => ro.Role).WithMany(ars => ars.permission_Roles).HasForeignKey(fk => fk.RoleName);
+            builder.HasOne(ro => ro.Role).WithMany(ars => ars.Permission_Roles).HasForeignKey(fk => fk.RoleName);
         }
     }
 }

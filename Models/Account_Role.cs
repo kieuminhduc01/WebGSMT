@@ -10,9 +10,7 @@ namespace WebGSMT.Models
     {
        
         public String RoleName { get; set; }
-        
         public String UserName { get; set; }
-       
         public Account Account { get; set; }
         public Role Role { get; set; }
     }
