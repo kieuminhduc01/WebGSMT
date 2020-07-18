@@ -52,7 +52,7 @@ namespace WebGSMT
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
-                    name: "default",
+                    name: "defaultWithAccount",
                     pattern: "{area}/{controller=Home}/{action=Index}/{id?}");
 
                 endpoints.MapControllerRoute(
