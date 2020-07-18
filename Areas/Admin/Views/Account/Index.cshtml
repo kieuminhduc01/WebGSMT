@@ -64,7 +64,7 @@
                                     @Html.DisplayFor(modelItem => item.PhoneNumber)
                                 </td>
                                 <td>
-                                    <a class="btn btn-sm btn-clean btn-icon" title="View" id="btnEditAccount" data-id="@item.UserName">
+                                    <a class="btn btn-sm btn-clean btn-icon btnEditAccount" title="View" id="btnEditAccount" data-id="@item.UserName">
 
                                         <i class="la la-cog"></i>
                                     </a>
@@ -118,8 +118,8 @@
 
     });
 
-    $('#btnEditAccount').on('click', function () {
-        var id = $('#btnEditAccount').attr("data-id");
+    $('#kt_datatable').on('click','.btnEditAccount', function () {
+        var id = $(this).attr("data-id");
 		var url = "@Url.Action("edit", "Account")";
 			$.ajax({
 				url: url,
