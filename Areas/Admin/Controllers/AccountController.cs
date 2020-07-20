@@ -14,8 +14,14 @@ namespace WebGSMT.Areas.Admin.Controllers
     [Route("{area}/account")]
     public class AccountController : Controller
     {
-        private GiamSatMoiTruongDbContext _context;
-        [HttpGet]
+        private GiamSatMoiTruongDbContext _context = new GiamSatMoiTruongDbContext();
+
+        public AccountController(GiamSatMoiTruongDbContext context)
+        {
+            _context = context;
+        }
+
+        [Route("getalluser")]
         public JsonResult getAllUser()
         {
             try
@@ -64,7 +70,8 @@ namespace WebGSMT.Areas.Admin.Controllers
                         PhoneNumber = listAccount[i].PhoneNumber,
                         Email = listAccount[i].Email,
                         DOB = listAccount[i].DOB,
-                        Active = listAccount[i].Active
+                        Active = listAccount[i].Active,
+                        classCheck = listAccount[i].Active?"fa-user-check" : "fa-user-lock"
                     };
                     apg.data.Add(acs);
                 }
@@ -76,11 +83,13 @@ namespace WebGSMT.Areas.Admin.Controllers
                 return null;
             }
         }
-        public AccountController(GiamSatMoiTruongDbContext context)
+        
+        [Route("listuser")]
+        public async Task<IActionResult> ListUser()
         {
-            _context = context;
+            _context = new GiamSatMoiTruongDbContext();
+            return View(await _context.Accounts.ToListAsync());
         }
-
         // GET: Admin/Accounts
         [Route("index")]
         public async Task<IActionResult> Index()
@@ -174,32 +183,41 @@ namespace WebGSMT.Areas.Admin.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
         [Route("edit")]
-        public async Task<IActionResult> Edit([Bind("UserName,Password,FullName,DOB,Email,PhoneNumber,Active")] Account account)
+        public string Edit(string UserName,string Password,string FullName,string DOB,string Email,string PhoneNumber,string Active)
         {
 
             if (ModelState.IsValid)
             {
                 try
                 {
+                    Account account = new Account()
+                    {
+                        UserName = UserName,
+                        Password = Password,
+                        FullName = FullName,
+                        DOB = Convert.ToDateTime(DOB),
+                        Email = Email,
+                        PhoneNumber = PhoneNumber,
+                        Active = Convert.ToBoolean(Active)
+                    };
                     _context.Update(account);
-                    await _context.SaveChangesAsync();
+                    _context.SaveChanges();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!AccountExists(account.UserName))
+                    if (!AccountExists(UserName))
                     {
-                        return NotFound();
+                        return "Account not exist";
                     }
                     else
                     {
-                        throw;
+                        return "";
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                return "success";
             }
-            return View(account);
+            return "fail";
         }
 
         // GET: Admin/Accounts/Delete/5
@@ -260,7 +278,7 @@ namespace WebGSMT.Areas.Admin.Controllers
             }
             _context.Update(account);
             await _context.SaveChangesAsync();
-            return RedirectToAction("Index");
+            return RedirectToAction("ListUser");
         }
 
         [Route("resetPassword")]

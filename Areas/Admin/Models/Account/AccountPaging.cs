@@ -20,6 +20,6 @@ namespace WebGSMT.Areas.Admin.Models.Account
         public String Email { get; set; }
         public String PhoneNumber { get; set; }
         public bool Active { get; set; }
-
+        public string classCheck { get; set; }
     }
 }
