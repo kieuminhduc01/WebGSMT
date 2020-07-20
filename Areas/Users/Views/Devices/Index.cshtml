@@ -3,9 +3,26 @@
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+@model IEnumerable<Device>
 <div class="card card-custom gutter-b">
-    <h1>Index</h1>
-
+    <div class="row">
+        <div class="col-6">
+            <h2 class="text-info">Device List</h2>
+        </div>
+    </div>
+    <br />
+    <div>
+        <table class="table table-striped border">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(m => m.NameShow)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(m => m.BranchOrProtocol)
+                </th>
+            </tr>
+        </table>
+    </div>
 
 </div>
 

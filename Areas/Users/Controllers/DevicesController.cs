@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using WebGSMT.Models;
 
 namespace WebGSMT.Areas.Users
 {
@@ -10,10 +12,16 @@ namespace WebGSMT.Areas.Users
     [Route("{area}/Devices")]
     public class DevicesController : Controller
     {
-        [Route("ListDevice")]
-        public IActionResult Index()
+        GiamSatMoiTruongDbContext _db;
+        public DevicesController(GiamSatMoiTruongDbContext db)
         {
-            return View();
+            _db = db;
+        }
+
+        [Route("ListDevice")]
+        public async Task<IActionResult> Index()
+        {
+            return  View(await _db.Devices.ToListAsync());
         }
     }
 }
