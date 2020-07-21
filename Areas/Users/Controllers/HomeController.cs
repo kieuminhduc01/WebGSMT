@@ -10,6 +10,8 @@ using WebGSMT.Models;
 
 namespace WebGSMT.Areas.Users.Controllers
 {
+        [Area("Users")]
+        [Route("{area}/Home")]
     public class HomeController : Controller
     {
         GiamSatMoiTruongDbContext _db;
@@ -18,12 +20,14 @@ namespace WebGSMT.Areas.Users.Controllers
             _db = db;
         }
 
-        [Area("Users")]
-        public async Task<IActionResult> Index()
+        [HttpGet]
+        [Route("Index")]
+        public async Task<IActionResult> Index(string PLC)
         {
             var data = await (from d in _db.Datas
                               join c in _db.Catalog_Datas on d.TagName equals c.TagName
-                              select new { TagName = d.TagName, Time =  d.Time, Value = d.Value, Unit = c.Unit, Connected = d.Connected }).ToListAsync();
+                              select new { TagName = d.TagName, DeviceName = d.DeviceName, Time = d.Time, Value = d.Value, Unit = c.Unit, Connected = d.Connected })
+                              .Where(s=>s.DeviceName.Contains(PLC)).ToListAsync();
             ViewBag.TagName = await _db.Catalog_Datas.ToListAsync();
 
             List<DataDevice> dataDevices = new List<DataDevice>();
@@ -31,6 +35,7 @@ namespace WebGSMT.Areas.Users.Controllers
             {
                 DataDevice dataDevice = new DataDevice();
                 dataDevice.TagName = item.TagName;
+                dataDevice.DeviceName = item.DeviceName;
                 dataDevice.Time = item.Time;
                 dataDevice.Value = item.Value;
                 dataDevice.Unit = item.Unit;
@@ -49,10 +54,12 @@ namespace WebGSMT.Areas.Users.Controllers
         public class DataDevice
         {
             public string TagName { get; set; }
+            public string DeviceName { get; set; }
             public DateTime Time { get; set; }
             public double Value { get; set; }
             public string Unit { get; set; }
             public bool Connected { get; set; }
+            
         } 
     }
 }
