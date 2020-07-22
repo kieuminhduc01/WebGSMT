@@ -148,7 +148,7 @@
             var value;
             </text>
 
-                foreach (var item in Model.Where(x => x.TagName == name.TagName.ToString() && x.Connected == true))
+                foreach (var item in Model.Where(x => x.TagName == name.ToString() && x.Connected == true))
                 {
 
                 <text>
@@ -161,7 +161,7 @@
                 </text>
                 }
 			<text>
-                 createSeries(@i, "@name.TagName", data);
+                 createSeries(@i, "@name", data);
 			</text>
                 i++;
             }

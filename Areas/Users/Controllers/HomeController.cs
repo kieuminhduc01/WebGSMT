@@ -28,7 +28,8 @@ namespace WebGSMT.Areas.Users.Controllers
                               join c in _db.Catalog_Datas on d.TagName equals c.TagName
                               select new { TagName = d.TagName, DeviceName = d.DeviceName, Time = d.Time, Value = d.Value, Unit = c.Unit, Connected = d.Connected })
                               .Where(s=>s.DeviceName.Contains(PLC)).ToListAsync();
-            ViewBag.TagName = await _db.Catalog_Datas.ToListAsync();
+            
+            
 
             List<DataDevice> dataDevices = new List<DataDevice>();
             foreach (var item in data)
@@ -43,10 +44,18 @@ namespace WebGSMT.Areas.Users.Controllers
                 dataDevices.Add(dataDevice);
             }
             //ViewBag.DataDeivce = data;
-             
-            var listUnit = _db.Catalog_Datas.Select(x => x.Unit).Distinct();
+            //List Tag Name
+            var list = _db.Datas.Join(_db.Catalog_Datas,
+                d => d.TagName,
+                c => c.TagName,
+                (datas, catalogs) => new { datas, catalogs })
+                .Where(m => m.datas.TagName == m.catalogs.TagName && m.datas.Connected == true && m.datas.DeviceName == PLC)
+                .Select(m => m.datas.Catalog_Data.TagName).Distinct().ToList();
+            ViewBag.TagName = list;
+
+           var listUnit = _db.Catalog_Datas.Select(x => x.Unit).Distinct();
             ViewBag.ListUnit = new SelectList(listUnit);
-           ViewBag.TagName = await _db.Catalog_Datas.ToListAsync();
+         
             
             return View(dataDevices);
         }
