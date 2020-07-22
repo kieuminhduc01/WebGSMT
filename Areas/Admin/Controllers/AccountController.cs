@@ -32,6 +32,7 @@ namespace WebGSMT.Areas.Admin.Controllers
                 string sortColumnName = Request.Query["columns[" + Request.Query["order[0][column]"] + "][name]"];
                 string sortDirection = Request.Query["order[0][dir]"];
 
+                
                 AccountPaging apg = new AccountPaging();
                 apg.data = new List<AccountShow>();
                 start = (start - 1) * length;
@@ -64,14 +65,14 @@ namespace WebGSMT.Areas.Admin.Controllers
                 {
                     AccountShow acs = new AccountShow
                     {
-
                         UserName = listAccount[i].UserName,
                         FullName = listAccount[i].FullName,
                         PhoneNumber = listAccount[i].PhoneNumber,
                         Email = listAccount[i].Email,
                         DOB = listAccount[i].DOB,
                         Active = listAccount[i].Active,
-                        classCheck = listAccount[i].Active?"fa-user-check" : "fa-user-lock"
+                        Role = string.Join(",", _context.Account_Roles.Where(x => x.UserName == listAccount[i].UserName).Select(x => x.RoleName).ToList()),
+                        ClassCheck = listAccount[i].Active?"fa-user-check" : "fa-user-lock"
                     };
                     apg.data.Add(acs);
                 }
@@ -123,30 +124,45 @@ namespace WebGSMT.Areas.Admin.Controllers
             return View();
         }
 
-        // POST: Admin/Accounts/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
         [Route("create")]
-        public async Task<IActionResult> Create([Bind("UserName,FullName,DOB,Email,PhoneNumber,Active")] Account account)
+        public string Create(string UserName, string Password, string FullName, string DOB, string Email, string PhoneNumber, string Active, List<String> RoleName)
         {
-            var accTest = await _context.Accounts.FirstOrDefaultAsync(m => m.UserName == account.UserName);
+ 
+            var accTest = _context.Accounts.Where(m => m.UserName == UserName).SingleOrDefault();
             if (accTest == null)
             {
-                account.Password = "123456789";
                 if (ModelState.IsValid)
                 {
-                    _context.Add(account);
-                    await _context.SaveChangesAsync();
-                    return RedirectToAction(nameof(Index));
+                    Account account = new Account()
+                    {
+                        UserName = UserName,
+                        Password = "123456789",
+                        FullName = FullName,
+                        DOB = Convert.ToDateTime(DOB),
+                        Email = Email,
+                        PhoneNumber = PhoneNumber,
+                        Active = Convert.ToBoolean(Active),
+                    };
+                    _context.Accounts.Add(account);
+                    foreach(var i in RoleName)
+                    {
+                        Account_Role ar = new Account_Role()
+                        {
+                            RoleName = i,
+                            UserName = UserName
+                        };
+                        _context.Account_Roles.Add(ar);
+                    }
+                    _context.SaveChanges();
+                    return "success";
                 }
             }
             else if (accTest != null)
             {
                 ModelState.AddModelError("UserNameExist", "User Name này đã tồn tại");
             }
-            return View(account);
+            return "fail";
         }
         // GET: Admin/Accounts/Edit/5
         [Route("CheckExits")]
@@ -184,24 +200,40 @@ namespace WebGSMT.Areas.Admin.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [Route("edit")]
-        public string Edit(string UserName,string Password,string FullName,string DOB,string Email,string PhoneNumber,string Active)
+        public string Edit(string UserName,string Password,string FullName,string DOB,string Email,string PhoneNumber,string Active, List<String> RoleName)
         {
 
             if (ModelState.IsValid)
             {
                 try
                 {
-                    Account account = new Account()
+                    var account = _context.Accounts.Find(UserName);
+                    if (account != null){
+                        account.UserName = UserName;
+                        account.Password = Password;
+                        account.FullName = FullName;
+                        account.DOB = Convert.ToDateTime(DOB);
+                        account.Email = Email;
+                        account.PhoneNumber = PhoneNumber;
+                        account.Active = Convert.ToBoolean(Active);
+                    }
+                    foreach(var i in _context.Account_Roles)
                     {
-                        UserName = UserName,
-                        Password = Password,
-                        FullName = FullName,
-                        DOB = Convert.ToDateTime(DOB),
-                        Email = Email,
-                        PhoneNumber = PhoneNumber,
-                        Active = Convert.ToBoolean(Active)
-                    };
-                    _context.Update(account);
+                        if(i.UserName == UserName)
+                        {
+                            _context.Remove(i);
+                        }
+                    }
+                    foreach (var i in RoleName)
+                    {
+                        Account_Role ar = new Account_Role()
+                        {
+                            RoleName = i,
+                            UserName = UserName
+                        };
+                        _context.Account_Roles.Add(ar);
+                    }
+                    
                     _context.SaveChanges();
                 }
                 catch (DbUpdateConcurrencyException)
@@ -237,19 +269,18 @@ namespace WebGSMT.Areas.Admin.Controllers
             _context.Accounts.Remove(account);
             await _context.SaveChangesAsync();
 
-            return RedirectToAction("Index");
+            return RedirectToAction("listuser");
         }
 
         // POST: Admin/Accounts/Delete/5
         [Route("delete")]
         [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(string id)
         {
             var account = await _context.Accounts.FindAsync(id);
             _context.Accounts.Remove(account);
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction("listuser");
         }
 
         private bool AccountExists(string id)
@@ -298,5 +329,24 @@ namespace WebGSMT.Areas.Admin.Controllers
             await _context.SaveChangesAsync();
             return RedirectToAction("Index");
         }
+
+        [HttpPost]
+        [Route("deleteaccount")]
+        public bool DeleteAccount(string UserName)
+        {
+            try
+            {
+                var rs = _context.Accounts.Find(UserName);
+                _context.Accounts.Remove(rs);
+                _context.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+            return true;
+        }
+
+
     }
 }

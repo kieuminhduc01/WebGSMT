@@ -3,7 +3,7 @@ var KTDatatablesDataSourceAjaxServer = function () {
 
     var initTable1 = function () {
         var table = $('#kt_datatable');
-
+        var dateTimeFormat = new Intl.DateTimeFormat('en', { year: 'numeric', month: 'short', day: '2-digit' });
         // begin first table
         table.DataTable({
             responsive: true,
@@ -25,7 +25,23 @@ var KTDatatablesDataSourceAjaxServer = function () {
                 },
                 { data: 'email', name: "Email" },
                 { data: 'phoneNumber', name: "PhoneNumber" },
-                /*{ data: 'Status' },*/
+                {
+                    data: "role", name: "Role",
+                    render: function (Role) {
+                        var res = Role.split(",");
+                        var status = {
+                            'Admin': 'label-light-primary',
+                            'User': 'label-light-info',
+                            'test 1': 'label-light-success'
+                            //label-light-danger //label-light-warning
+                        };
+                        var re ="";
+                        for (var i = 0; i < res.length; i++) {
+                            re += '<span class="label label-lg font-weight-bold ' + status[res[i]] + ' label-inline">' + res[i] + '</span>';
+                        }
+                        return re;
+                    }
+                },
                 {
                     data: {
                         active: 'active',
@@ -42,34 +58,13 @@ var KTDatatablesDataSourceAjaxServer = function () {
                             <a href="javascript:;" class="btn btn-sm btn-clean btn-icon bt-update-active" title="Active User" data-id="'+ data.userName + '">\
                                 <i class="fas '+ data.classCheck + '" name="active" id="active" data-active=' + data.active + '></i>\
                             </a>\
-							<a href="javascript:;" class="btn btn-sm btn-clean btn-icon" title="Delete">\
+							<a href="javascript:;" class="btn btn-sm btn-clean btn-icon bt-delete-account" title="Delete" data-id="'+ data.userName + '">\
 								<i class="la la-trash"></i>\
 							</a>\
 						';
                     }
                 },
             ]
-
-            /*{
-                width: '75px',
-                targets: -3,
-                render: function (data, type, full, meta) {
-                    var status = {
-                        1: { 'title': 'Pending', 'class': 'label-light-primary' },
-                        2: { 'title': 'Delivered', 'class': ' label-light-danger' },
-                        3: { 'title': 'Canceled', 'class': ' label-light-primary' },
-                        4: { 'title': 'Success', 'class': ' label-light-success' },
-                        5: { 'title': 'Info', 'class': ' label-light-info' },
-                        6: { 'title': 'Danger', 'class': ' label-light-danger' },
-                        7: { 'title': 'Warning', 'class': ' label-light-warning' },
-                    };
-                    if (typeof status[data] === 'undefined') {
-                        return data;
-                    }
-                    return '<span class="label label-lg font-weight-bold' + status[data].class + ' label-inline">' + status[data].title + '</span>';
-                },
-            },*/
-
         });
     };
 
@@ -88,7 +83,7 @@ $('#kt_datatable').on('click', '.bt-update-active',function () {
     var id = $(this).attr("data-id");
     $.ajax({
         url: "/Admin/Account/activeOrNot",
-        type: 'Get',
+        type: 'GET',
         data: {
             id:id
         },
@@ -96,7 +91,9 @@ $('#kt_datatable').on('click', '.bt-update-active',function () {
             showMessage("Change Active Success!",true);
             reloadDataTable();
         },
-        error: function (data, jqXHR, textStatus, errorThrown) {}
+        error: function (data, jqXHR, textStatus, errorThrown) {
+            showMessage("Change Active Fail!", false);
+        }
     });
 
 })
@@ -109,7 +106,8 @@ jQuery(document).ready(function () {
     KTDatatablesDataSourceAjaxServer.init();
 });
 
-$('#btnCreateAccount').on('click', function () {
+
+$('.bt-open-create-account-form').on('click', function () {
     var url = "/Admin/Account/Create";
     $.ajax({
         url: url,
@@ -122,13 +120,12 @@ $('#btnCreateAccount').on('click', function () {
             });
         },
         error: function (data) {
-            alert("Error load ajax create account");
+            showMessage("Error load create account", false);
         }
     });
 
 
 });
-
 $('#kt_datatable').on('click', '.btnEditAccount', function () {
     var id = $(this).attr("data-id");
     var url = "/Admin/Account/Edit";
@@ -146,9 +143,43 @@ $('#kt_datatable').on('click', '.btnEditAccount', function () {
             });
         },
         error: function (data) {
-            alert("Error load ajax edit account");
+            alert("Error load edit account");
         }
     });
 
 
+});
+
+$('#kt_datatable').on('click', '.bt-delete-account', function () {
+    //add xac thuc trc khi xoa
+    var id = $(this).attr("data-id");
+    $('#btnDelteYes').attr("data-id", id);
+    $('#confirmDelete').modal('show');
+    $('#confirmDelete').modal({
+        backdrop: true
+    });
+});
+
+$('#btnDelteYes').on('click', function (e) {
+    e.preventDefault();
+    var url = "Admin/Account/DeleteAccount";
+    var username = $(this).attr("data-id");
+    $.ajax({
+        url: url,
+        type: 'POST',
+        data: {
+            userName: username
+        },
+        success: function (data) {
+            if (!data) {
+                showMessage("Error delete Account ", false);
+            } else {
+                showMessage("Delete Account success!", true);
+                reloadDataTable();
+            }
+        },
+        error: function (data) {
+            showMessage("Error load ajax delete role", false);
+        }
+    });
 });

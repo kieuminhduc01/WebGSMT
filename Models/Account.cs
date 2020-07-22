@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
@@ -33,7 +34,7 @@ namespace WebGSMT.Models
 
         public bool Active { get; set; }
 
-        public List<Account_Role> Account_Roles { get; set; }
+        public  List<Account_Role> Account_Roles { get; set; }
 
     }
 }

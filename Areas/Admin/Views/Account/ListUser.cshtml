@@ -2,10 +2,6 @@
     ViewData["Title"] = "ListAccount";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<!--begin::Entry-->
-<div class="d-flex flex-column-fluid" style="width:auto">
-    <!--begin::Container-->
-    <div class="container">
         <!--begin::Card-->
         <div class="card card-custom">
             <!--begin::Header-->
@@ -84,7 +80,7 @@
                     </div>
                     <!--end::Dropdown-->
                     <!--begin::Button-->
-                    <a href="#" class="btn btn-primary font-weight-bolder">
+                    <a class="btn btn-primary font-weight-bolder bt-open-create-account-form">
                         <span class="svg-icon svg-icon-md">
                             <!--begin::Svg Icon | path:assets/media/svg/icons/Design/Flatten.svg-->
                             <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
@@ -112,7 +108,8 @@
                             <th>Date Of Birth</th>
                             <th>Email</th>
                             <th>Phone Number</th>
-                            <th>Actions</th>
+                            <th>Role</th>
+                            <th style="width:140px; align-items:center" >Actions</th>
                         </tr>
                     </thead>
                 </table>
@@ -121,10 +118,31 @@
             <!--end::Body-->
         </div>
         <!--end::Card-->
-    </div>
-    <!--end::Container-->
-</div>
+    
 <div class="modal fade modal-edit-account" id="formEditRole" tabindex="-1" role="dialog" aria-labelledby="formEditAccount" aria-hidden="true"> </div>
 <!--end::Entry-->
+<div class="modal fade" id="confirmDelete" tabindex="-1" role="dialog"
+     aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="myModalLabel">Warning!</h3>
+            </div>
+            <div class="modal-body">
+                <h6>Are you sure you want to DELETE?</h6>
+
+            </div>
+            <!--/modal-body-collapse -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+                <button type="button" class="btn btn-danger" id="btnDelteYes" href="#" data-dismiss="modal">Yes</button>
+            </div>
+            <!--/modal-footer-collapse -->
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
 <script src="~/My_Js/listaccount.js"></script>
 <script src="~/My_Js/editaccount.js"></script>
+<script src="~/My_Js/createaccount.js"></script>

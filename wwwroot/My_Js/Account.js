@@ -1,4 +1,5 @@
 ﻿function validateFormCreate() {
+
     var userName = document.forms["myForm"]["UserName"].value;
     var fullName = document.forms["myForm"]["FullName"].value;
     var DOB = document.forms["myForm"]["DOB"].value;
@@ -61,7 +62,6 @@
 
 
 function validateFormEdit() {
-
     var fullName = document.forms["myForm"]["FullName"].value;
     var DOB = document.forms["myForm"]["DOB"].value;
     var email = document.forms["myForm"]["Email"].value;

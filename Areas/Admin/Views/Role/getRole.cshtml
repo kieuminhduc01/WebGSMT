@@ -1,0 +1,15 @@
+﻿@model ICollection<WebGSMT.Models.Role>
+@foreach (var i in Model)
+{
+    if (ViewBag.RoleNameChecked.Contains(i.RoleName))
+    {
+        <input class="" style="margin-left:10px" checked type="checkbox" value="@i.RoleName" />
+        @i.RoleName
+    }
+    else
+    {
+        <input class="" style="margin-left:10px" type="checkbox" value="@i.RoleName" />
+        @i.RoleName
+    }
+
+}

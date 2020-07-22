@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -321,5 +322,11 @@ namespace WebGSMT.Areas.Admin.Controllers
             }
         }
 
+        [Route("getrole")]
+        public IActionResult getRole(string UserName)
+        {
+            ViewBag.RoleNameChecked = _context.Account_Roles.Where(x => x.UserName == UserName).Select(x => x.RoleName).ToList();
+            return View(_context.Roles.ToList());
+        }
     }
 }
