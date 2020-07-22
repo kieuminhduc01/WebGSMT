@@ -1,6 +1,6 @@
 ﻿@model WebGSMT.Models.Device
 @{
-    Layout =null;
+    Layout = null;
 }
 <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
     <div class="modal-content">
@@ -33,14 +33,14 @@
             <div class="tab-content mt-5" id="myTabContent">
                 <div class="tab-pane fade show active" id="rolename" role="tabpanel" aria-labelledby="kt_tab_pane_2">
                     <div class="form-group ">
-                        <input type="text" id="device-name" class="form-control validateTextBox" placeholder="Tên Thiết Bị" onchange="ExistDeviceCheck()" value="@Model.Name" readonly/>
-                        <span id="deviceNameValidate" style="color:red"></span><br />
-                        <span id="Status" style="color:red"></span><br />
+                        <input type="text" id="device-name" class="form-control validateTextBox" placeholder="Tên Thiết Bị" onchange="ExistDeviceCheck()" />
+                        <span id="deviceNameValidate" style="color:red"></span><br/>
+                        <span id="Status" style="color:red"></span><br/>
 
-                        <input type="text" id="device-nameShow" class="form-control validateTextBox" placeholder="Chi tiết" value="@Model.NameShow"  />
+                        <input type="text" id="device-nameShow" class="form-control validateTextBox" placeholder="Chi tiết" />
                         <span id="deviceNameShowValidate" style="color:red"></span><br />
 
-                        <input type="text" id="device-BranchOrProtocol" class="form-control validateTextBox" placeholder="Thiết bị/Giao Thức"  value="@Model.BranchOrProtocol" />
+                        <input type="text" id="device-BranchOrProtocol" class="form-control validateTextBox" placeholder="Thiết bị/Giao Thức" />
                         <span id="deviceBranchOrProtocolValidate" style="color:red"></span>
                     </div>
                 </div>
@@ -60,9 +60,9 @@
         <!--begin::footer-->
         <div class="modal-footer">
             <button type="button" class="btn btn-light-primary font-weight-bold" data-dismiss="modal">Đóng</button>
-            <button type="button" class="btn btn-primary font-weight-bold"  id="submit">Lưu thay đổi</button>
+            <button type="button" class="btn btn-primary font-weight-bold"  id="submit">Lưu</button>
         </div>
         <!--End::footer-->
     </div>
 </div>
-<script src="~/My_Js/Devices/editDevice.js"></script>
+<script src="~/My_Js/Devices/create.js"></script>

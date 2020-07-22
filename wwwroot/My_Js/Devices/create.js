@@ -1,38 +1,34 @@
 ﻿$('#submit').on('click', function () {
-    if (!validateFormEdit()) {
+    if (!validateFormCreate()) {
         return;
     }
-    var url = "/Users/Devices/updateDevices";
-    var deviceName = document.getElementById("device-name").value;
-    var deviceNameShow = document.getElementById("device-nameShow").value;
-    var deviceBranchOrProtocol = document.getElementById("device-BranchOrProtocol").value;
-   
+    var name = $('#device-name').val();
+    var nameShow = $('#device-nameShow').val(); 
+    var branchOrProtocol = $('#device-BranchOrProtocol').val();
+    var url = "/Users/Devices/Create";
     $.ajax({
         url: url,
         type: 'POST',
         data: {
-            name: deviceName,
-            nameShow: deviceNameShow,
-            branchOrProtocol: deviceBranchOrProtocol
+            name: name,
+            nameShow: nameShow,
+            branchOrProtocol: branchOrProtocol
         },
         success: function (data) {
-            if (data != "success") {
-                alert(data);
-            } else {
+            if (data) {
                 $('#my_datatable_Devices').DataTable().ajax.reload(null, false);
-                showMessage("Sửa thành công !", true);
                 $('#formEditDevices').modal('hide');
-               
+                showMessage("Tạo mới thành công !", true);
             }
-        },
-        error: function (data) {
-            showMessage(" bị lỗi khi sửa!", false);
+            else {
+                alert(data);
+
+            }
         }
     });
 });
-
-function validateFormEdit() {
-
+function validateFormCreate() {
+    
     var deviceName = $("#device-name").val();
     var deviceNameShow = $("#device-nameShow").val();
     var deviceBranchOrProtocol = $("#device-BranchOrProtocol").val();
@@ -68,11 +64,28 @@ function validateFormEdit() {
     if ($("#Status").text() == 'UserName đã tồn tại...' || $("#Status").text() == 'Checking...') {
         trangThai = false;
     }
- 
     return trangThai;
 };
 $('.validateTextBox').keyup(function () {
     var textBox = $(this);
     textBox.css('border-color', 'green');
-
+   
 });
+function ExistDeviceCheck() {
+    $("#Status").html("Checking...");
+    $.post("/Users/Devices/CheckExist",
+        {
+            deviceName: $("#device-name").val()
+        },
+        function (data) {
+            if (data == 0) {
+                $("#Status").html('<font color="Green">UseName hợp lệ...</font>');
+                $("#device-name").css("border-color", "Green");
+
+            }
+            else {
+                $("#Status").html('<font color="Red">UserName đã tồn tại...</font>');
+                $("#device-name").css("border-color", "Red");
+            }
+        });
+}
