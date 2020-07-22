@@ -23,9 +23,9 @@
     @{
         var listUnit = ViewBag.ListUnit as IEnumerable<SelectListItem>;
         var FirstUnit = listUnit.First().Text;
-        
+
     }
-    <div class="dropdown"  onload="">
+    <div class="dropdown" onload="">
         <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <span id="options">
                 @{
@@ -37,7 +37,7 @@
         <div class="dropdown-menu">
             @foreach (var item in listUnit)
             {
-                
+
                 <a class="dropdown-item" onclick="dataAmchart('@item.Text')">@item.Text</a>
             }
         </div>
@@ -98,7 +98,7 @@
                                             @Html.DisplayFor(m => item.Value)
                                         </td>
                                         <td>
-                                            @Html.DisplayFor(m=>item.Unit)
+                                            @Html.DisplayFor(m => item.Unit)
                                         </td>
                                         <td>
                                             @Html.DisplayFor(m => item.Connected)
@@ -143,27 +143,33 @@
         int i = 0;
             foreach (var name in ViewBag.TagName)
             {
-            <text>
-            var data = [];
-            var value;
+             <text>
+            if ("@name.Unit" == type) {
             </text>
-
-                foreach (var item in Model.Where(x => x.TagName == name.ToString() && x.Connected == true))
-                {
-
                 <text>
-        if ("@item.Unit" == type) {
-                value = @item.Value;
-                var dataItem = { Time: "@item.Time.ToString("MM/dd/yyyy")"};
-                dataItem["Value" + @i] = value;
-            data.push(dataItem);
-        }
+                var data = [];
+                var value;
                 </text>
+
+                    foreach (var item in Model.Where(x => x.TagName == name.TagName.ToString() && x.Connected == true))
+                    {
+
+                    <text>
+                if ("@item.Unit" == type) {
+                    value = @item.Value;
+                    var dataItem = { Time: "@item.Time.ToString("MM/dd/yyyy")" };
+                    dataItem["Value" + @i] = value;
+                    data.push(dataItem);
                 }
-			<text>
-                 createSeries(@i, "@name", data);
-			</text>
-                i++;
+                    </text>
+                    }
+			    <text>
+                createSeries(@i, "@name.TagName.ToString()", data);
+			    </text>
+                    i++;
+                <text>
+                }
+            </text>
             }
         }
 

@@ -50,7 +50,7 @@ namespace WebGSMT.Areas.Users.Controllers
                 c => c.TagName,
                 (datas, catalogs) => new { datas, catalogs })
                 .Where(m => m.datas.TagName == m.catalogs.TagName && m.datas.Connected == true && m.datas.DeviceName == PLC)
-                .Select(m => m.datas.Catalog_Data.TagName).Distinct().ToList();
+                .Select(m => new TagNameAndUnit{ TagName =  m.datas.Catalog_Data.TagName, Unit = m.datas.Catalog_Data.Unit }).Distinct().ToList();
             ViewBag.TagName = list;
 
            var listUnit = _db.Catalog_Datas.Select(x => x.Unit).Distinct();
@@ -59,7 +59,11 @@ namespace WebGSMT.Areas.Users.Controllers
             
             return View(dataDevices);
         }
-
+        public class TagNameAndUnit
+        {
+            public string TagName { get; set; }
+            public string Unit { get; set; }
+        }
         public class DataDevice
         {
             public string TagName { get; set; }
