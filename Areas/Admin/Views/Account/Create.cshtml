@@ -13,9 +13,27 @@
         <!--Card body-->
         <div class="modal-body">
             <!-- Tab Menu -->
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link active" id="home-tab" data-toggle="tab" href="#account">
+                        <span class="nav-icon">
+                            <i class="flaticon2-chat-1"></i>
+                        </span>
+                        <span class="nav-text">Account Details</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="profile-tab" data-toggle="tab" href="#role" aria-controls="profile">
+                        <span class="nav-icon">
+                            <i class="flaticon2-layers-1"></i>
+                        </span>
+                        <span class="nav-text">Roles</span>
+                    </a>
+                </li>
+            </ul>
             <!--begin::Example-->
             <div class="tab-content mt-5" id="myTabContent">
-                <div class="tab-pane fade show active" id="rolename" role="tabpanel" aria-labelledby="kt_tab_pane_2">
+                <div class="tab-pane fade show active" id="account" role="tabpanel" aria-labelledby="kt_tab_pane_2">
                     <div class="form-group">
                         <form id="kt_form" name="myForm" onsubmit="return validateFormCreate()" asp-action="create">
                             <div class="tab-content">
@@ -53,7 +71,7 @@
                                             <div class="form-group row">
                                                 <label asp-for="DOB" class="col-form-label col-3 text-lg-right text-left"></label>
                                                 <div class="col-9">
-                                                    <input class="form-control form-control-lg" type="date" asp-for="DOB">
+                                                    <input class="form-control form-control-lg DOB" id="DOB" @*value="@DateTime.Now.ToString("dd/MM/yyyy")"*@ />
                                                     @Html.ValidationMessageFor(a => a.DOB, "", new { @class = "text-danger" })
                                                     <p id="DOBValidate" class="text-danger"></p>
                                                 </div>
@@ -87,15 +105,13 @@
                                                     </label>
                                                 </div>
                                             </div>
-                                            <div class="form-group row">
+                                            <div class="form-group row" style="float:right">
                                                 <label class="col-form-label col-3 text-lg-right text-left"></label>
                                                 <div class="form-group">
-                                                    <input type="submit" value="Tạo mới" class="btn btn-primary" id="buttonCreate" />
+                                                    <input type="button" value="Create" class="btn btn-primary btnCreateAccount" />
+                                                    <button type="button" class="btn btn-light-primary font-weight-bold" data-dismiss="modal">Close</button>
                                                 </div>
                                             </div>
-
-                                            <!--end::Group-->
-
                                         </div>
                                     </div>
                                     <!--end::Row-->
@@ -105,10 +121,10 @@
                         </form>
                     </div>
                 </div>
-                <div class="tab-pane fade" id="permission" role="tabpanel" aria-labelledby="kt_tab_pane_2">
+                <div class="tab-pane fade" id="role" role="tabpanel" aria-labelledby="kt_tab_pane_2">
                     <form class="form">
-                        <div class="card-body">
-                            <div id="jstree"></div>
+                        <div class="card-body" id="checkBoxRole">
+
                         </div>
                     </form>
                 </div>
@@ -120,32 +136,18 @@
         <!--end::card body-->
         <!--begin::footer-->
         <div class="modal-footer">
-            <button type="button" class="btn btn-light-primary font-weight-bold" data-dismiss="modal">Đóng</button>
+
 
             <!--End::footer-->
         </div>
     </div>
 </div>
+<script src="~/My_Js/checkaccount.js"></script>
+<script src="~/My_Js/createaccount.js"></script>
+<script src="~/My_Js/getrole.js"></script>
 <script src="~/My_Js/Account.js"></script>
 <script>
-
-    function UserCheck() {
-        $("#Status").html("Checking...");
-        $.post("@Url.Action("CheckExits", "account")",
-            {
-                userdata: $("#UserName").val()
-            },
-        function (data) {
-            if (data == 0) {
-                $("#Status").html('<font color="Green">UseName hợp lệ...</font>');
-                $("#UserName").css("border-color", "Green");
-
-            }
-            else {
-                $("#Status").html('<font color="Red">UserName đã tồn tại...</font>');
-                $("#UserName").css("border-color", "Red");
-            }
-        });
-    }
+    $('.DOB').datepicker({
+        format: 'dd/mm/yyyy'
+    });
 </script>
-

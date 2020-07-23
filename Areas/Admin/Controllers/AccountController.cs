@@ -14,8 +14,14 @@ namespace WebGSMT.Areas.Admin.Controllers
     [Route("{area}/account")]
     public class AccountController : Controller
     {
-        private GiamSatMoiTruongDbContext _context;
-        [HttpGet]
+        private GiamSatMoiTruongDbContext _context = new GiamSatMoiTruongDbContext();
+
+        public AccountController(GiamSatMoiTruongDbContext context)
+        {
+            _context = context;
+        }
+
+        [Route("getalluser")]
         public JsonResult getAllUser()
         {
             try
@@ -26,6 +32,7 @@ namespace WebGSMT.Areas.Admin.Controllers
                 string sortColumnName = Request.Query["columns[" + Request.Query["order[0][column]"] + "][name]"];
                 string sortDirection = Request.Query["order[0][dir]"];
 
+                
                 AccountPaging apg = new AccountPaging();
                 apg.data = new List<AccountShow>();
                 start = (start - 1) * length;
@@ -58,13 +65,14 @@ namespace WebGSMT.Areas.Admin.Controllers
                 {
                     AccountShow acs = new AccountShow
                     {
-
                         UserName = listAccount[i].UserName,
                         FullName = listAccount[i].FullName,
                         PhoneNumber = listAccount[i].PhoneNumber,
                         Email = listAccount[i].Email,
                         DOB = listAccount[i].DOB,
-                        Active = listAccount[i].Active
+                        Active = listAccount[i].Active,
+                        Role = string.Join(",", _context.Account_Roles.Where(x => x.UserName == listAccount[i].UserName).Select(x => x.RoleName).ToList()),
+                        ClassCheck = listAccount[i].Active?"fa-user-check" : "fa-user-lock"
                     };
                     apg.data.Add(acs);
                 }
@@ -76,11 +84,13 @@ namespace WebGSMT.Areas.Admin.Controllers
                 return null;
             }
         }
-        public AccountController(GiamSatMoiTruongDbContext context)
+        
+        [Route("listuser")]
+        public async Task<IActionResult> ListUser()
         {
-            _context = context;
+            _context = new GiamSatMoiTruongDbContext();
+            return View(await _context.Accounts.ToListAsync());
         }
-
         // GET: Admin/Accounts
         [Route("index")]
         public async Task<IActionResult> Index()
@@ -114,30 +124,52 @@ namespace WebGSMT.Areas.Admin.Controllers
             return View();
         }
 
-        // POST: Admin/Accounts/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
         [Route("create")]
-        public async Task<IActionResult> Create([Bind("UserName,FullName,DOB,Email,PhoneNumber,Active")] Account account)
+        public string Create(string UserName, string FullName, string DOB, string Email, string PhoneNumber, string Active, List<String> RoleName)
         {
-            var accTest = await _context.Accounts.FirstOrDefaultAsync(m => m.UserName == account.UserName);
+ 
+            var accTest = _context.Accounts.Where(m => m.UserName == UserName).SingleOrDefault();
             if (accTest == null)
             {
-                account.Password = "123456789";
                 if (ModelState.IsValid)
                 {
-                    _context.Add(account);
-                    await _context.SaveChangesAsync();
-                    return RedirectToAction(nameof(Index));
+                    try
+                    {
+                        Account account = new Account()
+                        {
+                            UserName = UserName,
+                            Password = "123456789",
+                            FullName = FullName,
+                            DOB = DateTime.ParseExact(DOB, "dd/MM/yyyy", null),
+                            Email = Email,
+                            PhoneNumber = PhoneNumber,
+                            Active = Convert.ToBoolean(Active),
+                        };
+                        _context.Accounts.Add(account);
+                        foreach (var i in RoleName)
+                        {
+                            Account_Role ar = new Account_Role()
+                            {
+                                RoleName = i,
+                                UserName = UserName
+                            };
+                            _context.Account_Roles.Add(ar);
+                        }
+                        _context.SaveChanges();
+                        return "success";
+                    }catch(DbUpdateConcurrencyException)
+                    {
+                        return "";
+                    }
+                    
                 }
             }
             else if (accTest != null)
             {
                 ModelState.AddModelError("UserNameExist", "User Name này đã tồn tại");
             }
-            return View(account);
+            return "fail";
         }
         // GET: Admin/Accounts/Edit/5
         [Route("CheckExits")]
@@ -174,32 +206,57 @@ namespace WebGSMT.Areas.Admin.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
         [Route("edit")]
-        public async Task<IActionResult> Edit([Bind("UserName,Password,FullName,DOB,Email,PhoneNumber,Active")] Account account)
+        public string Edit(string UserName,string Password,string FullName,string DOB,string Email,string PhoneNumber,string Active, List<String> RoleName)
         {
 
             if (ModelState.IsValid)
             {
                 try
                 {
-                    _context.Update(account);
-                    await _context.SaveChangesAsync();
+                    var account = _context.Accounts.Find(UserName);
+                    if (account != null){
+                        account.UserName = UserName;
+                        account.Password = Password;
+                        account.FullName = FullName;
+                        account.DOB = DateTime.ParseExact(DOB,"dd/MM/yyyy",null);
+                        account.Email = Email;
+                        account.PhoneNumber = PhoneNumber;
+                        account.Active = Convert.ToBoolean(Active);
+                    }
+                    foreach(var i in _context.Account_Roles)
+                    {
+                        if(i.UserName == UserName)
+                        {
+                            _context.Remove(i);
+                        }
+                    }
+                    foreach (var i in RoleName)
+                    {
+                        Account_Role ar = new Account_Role()
+                        {
+                            RoleName = i,
+                            UserName = UserName
+                        };
+                        _context.Account_Roles.Add(ar);
+                    }
+                    
+                    _context.SaveChanges();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!AccountExists(account.UserName))
+                    if (!AccountExists(UserName))
                     {
-                        return NotFound();
+                        return "Account not exist";
                     }
                     else
                     {
-                        throw;
+                        return "";
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                return "success";
             }
-            return View(account);
+            return "fail";
         }
 
         // GET: Admin/Accounts/Delete/5
@@ -219,19 +276,18 @@ namespace WebGSMT.Areas.Admin.Controllers
             _context.Accounts.Remove(account);
             await _context.SaveChangesAsync();
 
-            return RedirectToAction("Index");
+            return RedirectToAction("listuser");
         }
 
         // POST: Admin/Accounts/Delete/5
         [Route("delete")]
         [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(string id)
         {
             var account = await _context.Accounts.FindAsync(id);
             _context.Accounts.Remove(account);
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction("listuser");
         }
 
         private bool AccountExists(string id)
@@ -260,7 +316,7 @@ namespace WebGSMT.Areas.Admin.Controllers
             }
             _context.Update(account);
             await _context.SaveChangesAsync();
-            return RedirectToAction("Index");
+            return RedirectToAction("ListUser");
         }
 
         [Route("resetPassword")]
@@ -280,5 +336,24 @@ namespace WebGSMT.Areas.Admin.Controllers
             await _context.SaveChangesAsync();
             return RedirectToAction("Index");
         }
+
+        [HttpPost]
+        [Route("deleteaccount")]
+        public bool DeleteAccount(string UserName)
+        {
+            try
+            {
+                var rs = _context.Accounts.Find(UserName);
+                _context.Accounts.Remove(rs);
+                _context.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+            return true;
+        }
+
+
     }
 }

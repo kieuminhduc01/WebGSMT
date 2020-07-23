@@ -1,20 +1,14 @@
-﻿@model IEnumerable<WebGSMT.Models.Role>
-@{
-    ViewData["Title"] = "ListRole";
+﻿@{
+    ViewData["Title"] = "ListAccount";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
-<!--begin::Entry-->
-<div class="d-flex flex-column-fluid" style="width:auto">
-    <!--begin::Container-->
-    <div class="container">
         <!--begin::Card-->
         <div class="card card-custom">
             <!--begin::Header-->
             <div class="card-header flex-wrap border-0 pt-6 pb-0" style="width:auto">
                 <div class="card-title">
                     <h3 class="card-label">
-                        List Of Roles
+                        List of Accounts
                         <span class="d-block text-muted pt-2 font-size-sm">User management made easy</span>
                     </h3>
                 </div>
@@ -97,7 +91,7 @@
                                 </g>
                             </svg>
                             <!--end::Svg Icon-->
-                        </span>New Role
+                        </span>New Account
                     </a>
                     <!--end::Button-->
                 </div>
@@ -105,12 +99,17 @@
             <!--end::Header-->
             <!--begin::Body-->
             <div class="card-body">
-                <table id="my_datatable_role" style="width:auto; border-bottom: none" class="table table-bordered table-hover table-checkable dataTable no-footer dtr-inline display">
-                    <thead style="border-bottom:none">
-                        <tr style=" align-content: center !important;">
-                            <th style="width: 100px"><b>Role Name</b></th>
-                            <th style="width: auto"><b>Discription</b></th>
-                            <th style="width: 150px"><b>Actions</b></th>
+                <!--begin: Datatable-->
+                <table class="table table-bordered table-hover table-checkable" id="kt_datatable" style="margin-top: 13px !important">
+                    <thead>
+                        <tr>
+                            <th>UserName</th>
+                            <th>Fullname</th>
+                            <th>Date Of Birth</th>
+                            <th>Email</th>
+                            <th>Phone Number</th>
+                            <th>Role</th>
+                            <th style="width:140px; align-items:center" >Actions</th>
                         </tr>
                     </thead>
                 </table>
@@ -119,12 +118,9 @@
             <!--end::Body-->
         </div>
         <!--end::Card-->
-    </div>
-    <!--end::Container-->
-</div>
-
-<div class="modal fade modal-edit-account" id="formEditRole" tabindex="-1" role="dialog" aria-labelledby="formEditAccount" aria-hidden="true"></div>
-
+    
+<div class="modal fade modal-edit-account" id="formEditRole" tabindex="-1" role="dialog" aria-labelledby="formEditAccount" aria-hidden="true"> </div>
+<!--end::Entry-->
 <div class="modal fade" id="confirmDelete" tabindex="-1" role="dialog"
      aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -147,5 +143,6 @@
     </div>
     <!-- /.modal-dialog -->
 </div>
-<!--end::Entry-->
-<script src="~/My_Js/listrole.js"></script>
+<script src="~/My_Js/listaccount.js"></script>
+<script src="~/My_Js/editaccount.js"></script>
+<script src="~/My_Js/createaccount.js"></script>
