@@ -1,5 +1,8 @@
 ﻿
 $('.btnCreateAccount').on('click', function () {
+    if (!validateFormCreate()) {
+        return;
+    }
     var username = $('#UserName').val();
     var FullName = $('#FullName').val();
     var DOB = $('#DOB').val();
