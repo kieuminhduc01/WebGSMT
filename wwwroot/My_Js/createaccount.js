@@ -1,7 +1,5 @@
 ﻿
-
 $('.btnCreateAccount').on('click', function () {
-    debugger;
     var username = $('#UserName').val();
     var FullName = $('#FullName').val();
     var DOB = $('#DOB').val();

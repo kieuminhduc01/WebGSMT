@@ -126,7 +126,7 @@ namespace WebGSMT.Areas.Admin.Controllers
 
         [HttpPost]
         [Route("create")]
-        public string Create(string UserName, string Password, string FullName, string DOB, string Email, string PhoneNumber, string Active, List<String> RoleName)
+        public string Create(string UserName, string FullName, string DOB, string Email, string PhoneNumber, string Active, List<String> RoleName)
         {
  
             var accTest = _context.Accounts.Where(m => m.UserName == UserName).SingleOrDefault();
@@ -134,28 +134,35 @@ namespace WebGSMT.Areas.Admin.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    Account account = new Account()
+                    try
                     {
-                        UserName = UserName,
-                        Password = "123456789",
-                        FullName = FullName,
-                        DOB = Convert.ToDateTime(DOB),
-                        Email = Email,
-                        PhoneNumber = PhoneNumber,
-                        Active = Convert.ToBoolean(Active),
-                    };
-                    _context.Accounts.Add(account);
-                    foreach(var i in RoleName)
-                    {
-                        Account_Role ar = new Account_Role()
+                        Account account = new Account()
                         {
-                            RoleName = i,
-                            UserName = UserName
+                            UserName = UserName,
+                            Password = "123456789",
+                            FullName = FullName,
+                            DOB = DateTime.ParseExact(DOB, "dd/MM/yyyy", null),
+                            Email = Email,
+                            PhoneNumber = PhoneNumber,
+                            Active = Convert.ToBoolean(Active),
                         };
-                        _context.Account_Roles.Add(ar);
+                        _context.Accounts.Add(account);
+                        foreach (var i in RoleName)
+                        {
+                            Account_Role ar = new Account_Role()
+                            {
+                                RoleName = i,
+                                UserName = UserName
+                            };
+                            _context.Account_Roles.Add(ar);
+                        }
+                        _context.SaveChanges();
+                        return "success";
+                    }catch(DbUpdateConcurrencyException)
+                    {
+                        return "";
                     }
-                    _context.SaveChanges();
-                    return "success";
+                    
                 }
             }
             else if (accTest != null)
@@ -212,7 +219,7 @@ namespace WebGSMT.Areas.Admin.Controllers
                         account.UserName = UserName;
                         account.Password = Password;
                         account.FullName = FullName;
-                        account.DOB = Convert.ToDateTime(DOB);
+                        account.DOB = DateTime.ParseExact(DOB,"dd/MM/yyyy",null);
                         account.Email = Email;
                         account.PhoneNumber = PhoneNumber;
                         account.Active = Convert.ToBoolean(Active);

@@ -71,7 +71,7 @@
                                             <div class="form-group row">
                                                 <label asp-for="DOB" class="col-form-label col-3 text-lg-right text-left"></label>
                                                 <div class="col-9">
-                                                    <input class="form-control form-control-lg" type="date" asp-for="DOB">
+                                                    <input class="form-control form-control-lg DOB" id="DOB" @*value="@DateTime.Now.ToString("dd/MM/yyyy")"*@ />
                                                     @Html.ValidationMessageFor(a => a.DOB, "", new { @class = "text-danger" })
                                                     <p id="DOBValidate" class="text-danger"></p>
                                                 </div>
@@ -108,8 +108,8 @@
                                             <div class="form-group row" style="float:right">
                                                 <label class="col-form-label col-3 text-lg-right text-left"></label>
                                                 <div class="form-group">
-                                                    <input type="button" value="Create" class="btn btn-primary btnCreateAccount" data-dismiss="modal" />
-                                                    <button type="button" class="btn btn-light-primary font-weight-bold" data-dismiss="modal">Đóng</button>
+                                                    <input type="button" value="Create" class="btn btn-primary btnCreateAccount" />
+                                                    <button type="button" class="btn btn-light-primary font-weight-bold" data-dismiss="modal">Close</button>
                                                 </div>
                                             </div>
                                         </div>
@@ -142,8 +142,12 @@
         </div>
     </div>
 </div>
-<script src="~/My_Js/Account.js"></script>
 <script src="~/My_Js/checkaccount.js"></script>
 <script src="~/My_Js/createaccount.js"></script>
 <script src="~/My_Js/getrole.js"></script>
-
+<script src="~/My_Js/Account.js"></script>
+<script>
+    $('.DOB').datepicker({
+        format: 'dd/mm/yyyy'
+    });
+</script>
