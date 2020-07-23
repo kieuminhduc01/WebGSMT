@@ -177,10 +177,16 @@ namespace WebGSMT.Areas.Admin.Controllers
         {
             System.Threading.Thread.Sleep(200);
             var accTest =  _context.Accounts.Where(m => m.UserName == userdata).SingleOrDefault();
-            if (accTest != null)
+            if (accTest != null )
             {
-               
-                return Json(1);
+                if (accTest.ToString().Length != 0)
+                {
+                    
+                    return Json(1);
+                    
+                }
+                else
+                    return Json(0);
             }
             return Json(0);
         }

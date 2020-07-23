@@ -69,7 +69,7 @@
                                             <div class="form-group row">
                                                 <label asp-for="DOB" class="col-form-label col-3 text-lg-right text-left"></label>
                                                 <div class="col-9">
-                                                    <input class="form-control form-control-lg DOB"  id="DOB" value="@Model.formatDate()"/>
+                                                    <input class="form-control form-control-lg DOB" readonly id="DOB" value="@Model.formatDate()"/>
                                                     @Html.ValidationMessageFor(a => a.DOB, "", new { @class = "text-danger" })
                                                     <p id="DOBValidate" class="text-danger"></p>
                                                 </div>
