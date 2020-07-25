@@ -32,16 +32,16 @@
             </ul>
             <div class="tab-content mt-5" id="myTabContent">
                 <div class="tab-pane fade show active" id="rolename" role="tabpanel" aria-labelledby="kt_tab_pane_2">
-                    <div class="form-group ">
-                        <input type="text" id="device-name" class="form-control validateTextBox" placeholder="Tên Thiết Bị" onchange="ExistDeviceCheck()" value="@Model.Name" readonly/>
-                        <span id="deviceNameValidate" style="color:red"></span><br />
-                        <span id="Status" style="color:red"></span><br />
-
-                        <input type="text" id="device-nameShow" class="form-control validateTextBox" placeholder="Chi tiết" value="@Model.NameShow"  />
-                        <span id="deviceNameShowValidate" style="color:red"></span><br />
-
-                        <input type="text" id="device-BranchOrProtocol" class="form-control validateTextBox" placeholder="Thiết bị/Giao Thức"  value="@Model.BranchOrProtocol" />
-                        <span id="deviceBranchOrProtocolValidate" style="color:red"></span>
+                    <div class="form-group">
+                        <label>TagName:</label>
+                        <input type="text" id="device-name" class="form-control" placeholder="Enter role name" readonly value="@Model.Name" />
+                        <span class="form-text text-muted">sửa TagName ở đây</span>
+                        <label>chi tiết :</label>
+                        <input type="text" id="device-nameShow" class="form-control" placeholder="Enter discription" value="@Model.NameShow" />
+                        <span class="form-text text-muted">sửa name show ở đây.</span>
+                        <label>Tên thiết bị/giao thức :</label>
+                        <input type="text" id="device-BranchOrProtocol" class="form-control" placeholder="Enter discription" value="@Model.BranchOrProtocol" />
+                        <span class="form-text text-muted">sửa name show ở đây.</span>
                     </div>
                 </div>
                 <div class="tab-pane fade" id="permission" role="tabpanel" aria-labelledby="kt_tab_pane_2">
@@ -60,7 +60,7 @@
         <!--begin::footer-->
         <div class="modal-footer">
             <button type="button" class="btn btn-light-primary font-weight-bold" data-dismiss="modal">Đóng</button>
-            <button type="button" class="btn btn-primary font-weight-bold"  id="submit">Lưu thay đổi</button>
+            <button type="button" class="btn btn-primary font-weight-bold" data-dismiss="modal" id="submit">Lưu thay đổi</button>
         </div>
         <!--End::footer-->
     </div>

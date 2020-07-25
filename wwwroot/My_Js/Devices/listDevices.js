@@ -1,6 +1,8 @@
 ﻿$('#my_datatable_Devices').on('click', '.bt-open-edit-devices-form', function () {
-    var url = "/Users/Devices/Edit";
+    debugger;
 
+    var url = "/Users/Devices/Edit";
+    
     var id = $(this).attr("data-id");
     $.ajax({
         url: url,
@@ -16,73 +18,75 @@
             });
         },
         error: function (data) {
-            showMessage("Lỗi load ajax edit", false);
+            //showMessage("Error load ajax edit account", false);
         }
     });
 });
 
-$('.bt-open-create-device-form').on('click', function () {
-    var url = "/Users/Devices/Create";
-    $.ajax({
-        url: url,
-        type: 'GET',
-        success: function (data) {
-            $('#formEditDevices').html(data);
-            $('#formEditDevices').modal('show');
-            $('#formEditDevices').modal({
-                backdrop: false
-            });
-        },
-        error: function (data) {
-            showMessage("Lỗi load ajax create Device", false);
-        }
-    });
+//$('.bt-open-create-account-form').on('click', function () {
+//    var url = "/Users/Devices/Create";
+//    $.ajax({
+//        url: url,
+//        type: 'GET',
+//        success: function (data) {
+//            $('#formEditDevices').html(data);
+//            $('#formEditDevices').modal('show');
+//            $('#formEditDevices').modal({
+//                backdrop: false
+//            });
+//        },
+//        error: function (data) {
+//            //showMessage("Error load ajax create account", false);
+//        }
+//    });
 
 
-});
+//});
 
-$('#my_datatable_Devices').on('click', '.bt-delete-devices', function () {
+//$('#my_datatable_Devices').on('click', '.bt-delete-role', function () {
+//    debugger;
 
-    //add xac thuc trc khi xoa
-    var id = $(this).attr("data-id");
-    $('#btnDelteYes').attr("data-id", id);
-    $('#confirmDelete').modal('show');
-    $('#confirmDelete').modal({
-        backdrop: true
-    });
-});
+//    //add xac thuc trc khi xoa
+//    var id = $(this).attr("data-id");
+//    $('#btnDelteYes').attr("data-id", id);
+//    $('#confirmDelete').modal('show');
+//    $('#confirmDelete').modal({
+//        backdrop: true
+//    });
+//});
 
-$('#btnDelteYes').on('click', function (e) {
-    e.preventDefault();
-    var url = "Users/Devices/DeleteDevices";
-    var name = $(this).attr("data-id");
-    $.ajax({
-        url: url,
-        type: 'POST',
-        data: {
-            name: name
-        },
-        success: function (data) {
-            if (!data) {
-                showMessage("Lỗi xóa thiết bị ", false);
-            } else {
-                showMessage("Xóa thành công!", true);
-                $('#my_datatable_Devices').DataTable().ajax.reload(null, false);
-            }
-        },
-        error: function (data) {
-            showMessage("Lỗi gọi ajax xóa device", false);
-        }
-    });
-});
+//$('#btnDelteYes').on('click', function (e) {
+//    debugger;
+//    e.preventDefault();
+//    var url = "Users/Devices/DeleteRole";
+//    var rolename = $(this).attr("data-id");
+//    $.ajax({
+//        url: url,
+//        type: 'POST',
+//        data: {
+//            rolename: rolename
+//        },
+//        success: function (data) {
+//            if (!data) {
+//                //showMessage("Error delete role ", false);
+//            } else {
+//                //showMessage("Delete role success!", true);
+//                $('#my_datatable_Devices').DataTable().ajax.reload(null, false);
+//            }
+//        },
+//        error: function (data) {
+//            //showMessage("Error load ajax delete role", false);
+//        }
+//    });
+//});
 
 
 "use strict";
 var KTDatatablesDataSourceAjaxServer = function () {
-
+    
     var tableDevices = function () {
         var table = $('#my_datatable_Devices');
-
+        
         // begin first table
         table.DataTable({
             responsive: true,
@@ -99,8 +103,8 @@ var KTDatatablesDataSourceAjaxServer = function () {
             },
             columns: [
                 { data: 'name', name: "name" },
-                { data: 'nameShow', name: "NameShow" },
                 { data: 'branchOrProtocol', name: "BranchOrProtocol" },
+                { data: 'nameShow', name: "NameShow" },
                 {
                     data: 'name', name: "Actions",
                     responsivePriority: -1
@@ -113,14 +117,11 @@ var KTDatatablesDataSourceAjaxServer = function () {
                     orderable: false,
                     render: function (data, type, full, meta) {
                         return '\
-							<a href="javascript:;" class="btn btn-sm btn-clean btn-icon bt-open-edit-devices-form" title="sửa" data-id="'+ data + '">\
+							<a href="javascript:;" class="btn btn-sm btn-clean btn-icon bt-open-edit-devices-form" title="Edit" data-id="'+ data + '">\
 								<i class="la la-edit"></i>\
 							</a>\
-							<a href="javascript:;" class="btn btn-sm btn-clean btn-icon bt-delete-devices" title="xóa" data-id="'+ data + '">\
+							<a href="javascript:;" class="btn btn-sm btn-clean btn-icon bt-delete-role" title="Delete" data-id="'+ data + '">\
 								<i class="la la-trash"></i>\
-							</a>\
-                            <a href="javascript:;" class="btn btn-sm btn-clean btn-icon " title="dữ liệu" data-id="'+ data + '">\
-								<i class="fa fa-eye" aria-hidden="true"></i>\
 							</a>\
 						';
                     },

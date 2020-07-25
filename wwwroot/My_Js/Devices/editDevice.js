@@ -1,12 +1,11 @@
 ﻿$('#submit').on('click', function () {
-    if (!validateFormEdit()) {
-        return;
-    }
-    var url = "/Users/Devices/updateDevices";
+    var url = "/Users/Devices/UpdateDevice";
     var deviceName = document.getElementById("device-name").value;
     var deviceNameShow = document.getElementById("device-nameShow").value;
     var deviceBranchOrProtocol = document.getElementById("device-BranchOrProtocol").value;
-   
+    $.each(selectedNodes, function () {
+        checked_ids.push(this.id);
+    });
     $.ajax({
         url: url,
         type: 'POST',
@@ -20,59 +19,34 @@
                 alert(data);
             } else {
                 $('#my_datatable_Devices').DataTable().ajax.reload(null, false);
-                showMessage("Sửa thành công !", true);
-                $('#formEditDevices').modal('hide');
-               
+                //showMessage("Edit successfully!", true);
             }
         },
         error: function (data) {
-            showMessage(" bị lỗi khi sửa!", false);
+            //showMessage(" Edit Fail!", false);
         }
     });
 });
-
-function validateFormEdit() {
-
-    var deviceName = $("#device-name").val();
-    var deviceNameShow = $("#device-nameShow").val();
-    var deviceBranchOrProtocol = $("#device-BranchOrProtocol").val();
-
-    var trangThai = true;
-
-    if (deviceName == "") {
-        $("#deviceNameValidate").text("Nhập tên thiết bị");
-        $("#device-name").css('border-color', 'red');
-        trangThai = false;
-    }
-    else {
-        $("#deviceNameValidate").text('');
-    }
-    if (deviceNameShow == "") {
-        $("#deviceNameShowValidate").text("Nhập chi tiết");
-        $("#device-nameShow").css('border-color', 'red');
-        trangThai = false;
-    }
-    else {
-        $("#deviceNameShowValidate").text("");
-    }
-    if (deviceBranchOrProtocol == "") {
-        $("#deviceBranchOrProtocolValidate").text("Nhập loại");
-        $("#device-BranchOrProtocol").css('border-color', 'red');
-
-        trangThai = false;
-    }
-    else {
-        $("#deviceBranchOrProtocolValidate").text("");
-    }
-
-    if ($("#Status").text() == 'UserName đã tồn tại...' || $("#Status").text() == 'Checking...') {
-        trangThai = false;
-    }
- 
-    return trangThai;
-};
-$('.validateTextBox').keyup(function () {
-    var textBox = $(this);
-    textBox.css('border-color', 'green');
-
+$(document).ready(function () {
+    var rolename = document.getElementById("role-name").value;
+    $.ajax({
+        url: "/Admin/Role/GetAllPermission",
+        type: 'GET',
+        data: {
+            RoleName: rolename
+        },
+        success: function (data) {
+            $('#jstree').jstree({
+                plugins: ['checkbox'],
+                'core': {
+                    'data': data
+                },
+            }).on('ready.jstree', function () {
+                $('#jstree').jstree("open_all");
+            });
+        },
+        error: function (data) {
+            //showMessage("Load Permission Fail!", false);
+        }
+    });
 });

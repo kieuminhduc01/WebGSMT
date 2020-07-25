@@ -12,7 +12,7 @@ using WebGSMT.Models;
 
 namespace WebGSMT.Areas.Users
 {
-
+   
 
     [Area("Users")]
     [Route("{area}/Devices")]
@@ -24,7 +24,7 @@ namespace WebGSMT.Areas.Users
             _context = context;
 
         }
-        #region List devices
+
         [Route("ListDevice")]
         public async Task<IActionResult> Index()
         {
@@ -85,9 +85,6 @@ namespace WebGSMT.Areas.Users
                 return null;
             }
         }
-        #endregion
-        #region Edit devices
-
         [Route("edit")]
         [HttpPost]
         public async Task<IActionResult> Edit(string id)
@@ -102,7 +99,7 @@ namespace WebGSMT.Areas.Users
 
             try
             {
-
+                
                 var d = _context.Devices.Find(name);
                 if (d == null)
                 {
@@ -112,7 +109,7 @@ namespace WebGSMT.Areas.Users
                 d.Name = name;
                 d.BranchOrProtocol = branchOrProtocol;
                 //remove
-
+                
                 _context.SaveChanges();
             }
             catch (Exception ex)
@@ -121,66 +118,7 @@ namespace WebGSMT.Areas.Users
             }
             return "success";
         }
-        #endregion
-        #region Delete Devices
-        [HttpPost]
-        [Route("DeleteDevices")]
-        public bool DeleteDevices(string name)
-        {
-            try
-            {
-                var device = _context.Devices.Single(a => a.Name == name);
-                _context.Devices.Remove(device);
-                _context.SaveChangesAsync();
-            }
-            catch
-            {
-                return false;
-            }
-            return true;
-        }
-        #endregion
-        #region Create devices
-        [HttpGet]
-        [Route("Create")]
-        public async Task<IActionResult> CreateDevices()
-        {
-            return View();
-        }
-        [HttpPost]
-        [Route("Create")]
-        public bool CreateDevices(string name, string nameShow, string branchOrProtocol)
-        {
-            try
-            {
-                Device device = new Device()
-                {
-                    Name = name,
-                    NameShow = nameShow,
-                    BranchOrProtocol = branchOrProtocol
-                };
-                _context.Add(device);
-                _context.SaveChangesAsync();
-            }
-            catch
-            {
-                return false;
-            }
-            return true;
-        }
-        [Route("CheckExist")]
-        public JsonResult CheckExist(string deviceName)
-        {
-            System.Threading.Thread.Sleep(200);
-            var accTest = _context.Devices.Where(m => m.Name == deviceName).SingleOrDefault();
-            if (accTest != null)
-            {
 
-                return Json(1);
-            }
-            return Json(0);
-        }
-        #endregion
     }
 
 
