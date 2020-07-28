@@ -21,7 +21,7 @@
             } else {
                 $('#my_datatable_Devices').DataTable().ajax.reload(null, false);
                 showMessage("Sửa thành công !", true);
-                $('#formEditDevices').modal('hide');
+                $('#formModal').modal('hide');
                
             }
         },

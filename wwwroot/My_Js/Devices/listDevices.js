@@ -1,7 +1,6 @@
 ﻿$('#my_datatable_Devices').on('click', '.bt-open-edit-devices-form', function () {
     var url = "/Users/Devices/Edit";
-
-    var id = $(this).attr("data-id");
+    var id = $('.bt-open-edit-devices-form').attr("data-id");
     $.ajax({
         url: url,
         type: 'POST',
@@ -9,9 +8,9 @@
             id: id
         },
         success: function (data) {
-            $('#formEditDevices').html(data);
-            $('#formEditDevices').modal('show');
-            $('#formEditDevices').modal({
+            $('#formModal').html(data);
+            $('#formModal').modal('show');
+            $('#formModal').modal({
                 backdrop: false
             });
         },
@@ -27,9 +26,9 @@ $('.bt-open-create-device-form').on('click', function () {
         url: url,
         type: 'GET',
         success: function (data) {
-            $('#formEditDevices').html(data);
-            $('#formEditDevices').modal('show');
-            $('#formEditDevices').modal({
+            $('#formModal').html(data);
+            $('#formModal').modal('show');
+            $('#formModal').modal({
                 backdrop: false
             });
         },
@@ -42,12 +41,10 @@ $('.bt-open-create-device-form').on('click', function () {
 });
 
 $('#my_datatable_Devices').on('click', '.bt-delete-devices', function () {
-
-    //add xac thuc trc khi xoa
     var id = $(this).attr("data-id");
     $('#btnDelteYes').attr("data-id", id);
-    $('#confirmDelete').modal('show');
-    $('#confirmDelete').modal({
+    $('#confirmDeleteDevice').modal('show');
+    $('#confirmDeleteDevice').modal({
         backdrop: true
     });
 });
@@ -55,7 +52,7 @@ $('#my_datatable_Devices').on('click', '.bt-delete-devices', function () {
 $('#btnDelteYes').on('click', function (e) {
     e.preventDefault();
     var url = "Users/Devices/DeleteDevices";
-    var name = $(this).attr("data-id");
+    var name = $('.bt-delete-devices').attr("data-id");
     $.ajax({
         url: url,
         type: 'POST',
@@ -63,11 +60,11 @@ $('#btnDelteYes').on('click', function (e) {
             name: name
         },
         success: function (data) {
-            if (!data) {
-                showMessage("Lỗi xóa thiết bị ", false);
-            } else {
+            if (data) {
                 showMessage("Xóa thành công!", true);
                 $('#my_datatable_Devices').DataTable().ajax.reload(null, false);
+            } else {
+                showMessage("Lỗi xóa thiết bị ", false);
             }
         },
         error: function (data) {
@@ -89,10 +86,10 @@ var KTDatatablesDataSourceAjaxServer = function () {
             searchDelay: 500,
             processing: true,
             serverSide: true,
+            info: false,
             language: {
                 "processing": "Đang sử lý..."
             },
-            ordering: false,
             ajax: {
                 url: "/Users/Devices/GetAllDevices",
                 type: 'GET'
@@ -113,13 +110,13 @@ var KTDatatablesDataSourceAjaxServer = function () {
                     orderable: false,
                     render: function (data, type, full, meta) {
                         return '\
-							<a href="javascript:;" class="btn btn-sm btn-clean btn-icon bt-open-edit-devices-form" title="sửa" data-id="'+ data + '">\
+							<a href="javascript:;" class="btn btn-sm btn-clean btn-icon bt-open-edit-devices-form " title="Edit" data-id="'+ data + '">\
 								<i class="la la-edit"></i>\
 							</a>\
-							<a href="javascript:;" class="btn btn-sm btn-clean btn-icon bt-delete-devices" title="xóa" data-id="'+ data + '">\
+							<a href="javascript:;" class="btn btn-sm btn-clean btn-icon bt-delete-devices" title="Delete" data-id="'+ data + '">\
 								<i class="la la-trash"></i>\
 							</a>\
-                            <a href="javascript:;" class="btn btn-sm btn-clean btn-icon " title="dữ liệu" data-id="'+ data + '">\
+                            <a href="javacript:;" class="btn btn-sm btn-clean btn-icon bt-show-dvn" title="Show Data" data-id="'+ data + '">\
 								<i class="fa fa-eye" aria-hidden="true"></i>\
 							</a>\
 						';
@@ -140,7 +137,31 @@ var KTDatatablesDataSourceAjaxServer = function () {
 
 }();
 
+function loadTableCatalog(dvn) {
+    $.ajax({
+        url: "/Users/CatalogData/Index",
+        type: 'GET',
+        data: {
+            DeviceName: dvn
+        },
+        success: function (data) {
+            $('#loadTableCatalog').html(data);
+        },
+        error: function (jqXHR, error, errorThrown) {
+            showMessage(jqXHR.responseText, false);
+        }
+
+    });
+}
+
+$('#my_datatable_Devices').on('click', '.bt-show-dvn', function () {
+    //add xac thuc trc khi xoa
+    var id = $(this).attr("data-id");
+    loadTableCatalog(id);
+});
+
 jQuery(document).ready(function () {
     KTDatatablesDataSourceAjaxServer.init();
+    loadTableCatalog("");
 });
 

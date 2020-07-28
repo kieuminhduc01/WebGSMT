@@ -61,7 +61,7 @@ function validateFormCreate() {
         $("#deviceBranchOrProtocolValidate").text("");
     }
 
-    if ($("#Status").text() == 'UserName đã tồn tại...' || $("#Status").text() == 'Checking...') {
+    if ($("#Status").text() == 'Device Name has already exists...' || $("#Status").text() == 'Checking...') {
         trangThai = false;
     }
     return trangThai;

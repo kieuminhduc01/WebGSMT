@@ -86,6 +86,7 @@ namespace WebGSMT.Areas.Users
             }
         }
         #endregion
+
         #region Edit devices
 
         [Route("edit")]
@@ -122,6 +123,7 @@ namespace WebGSMT.Areas.Users
             return "success";
         }
         #endregion
+
         #region Delete Devices
         [HttpPost]
         [Route("DeleteDevices")]
@@ -131,7 +133,7 @@ namespace WebGSMT.Areas.Users
             {
                 var device = _context.Devices.Single(a => a.Name == name);
                 _context.Devices.Remove(device);
-                _context.SaveChangesAsync();
+                _context.SaveChanges();
             }
             catch
             {
@@ -140,10 +142,11 @@ namespace WebGSMT.Areas.Users
             return true;
         }
         #endregion
+
         #region Create devices
         [HttpGet]
         [Route("Create")]
-        public async Task<IActionResult> CreateDevices()
+        public IActionResult CreateDevices()
         {
             return View();
         }
@@ -181,9 +184,7 @@ namespace WebGSMT.Areas.Users
             return Json(0);
         }
         #endregion
+
+       
     }
-
-
-
-
 }
