@@ -90,6 +90,7 @@ namespace WebGSMT.Areas.Admin.Controllers
         }
         
         [Route("listuser")]
+        [Authorize("Admin")]
         public async Task<IActionResult> ListUser()
         {
             _context = new GiamSatMoiTruongDbContext();
