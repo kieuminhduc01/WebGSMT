@@ -3,12 +3,16 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using WebGSMT.ActionFilter;
 using WebGSMT.Models;
 
 namespace WebGSMT.Controllers
 {
+    [ServiceFilter(typeof(AuthorizeActionFilter))]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
@@ -20,6 +24,7 @@ namespace WebGSMT.Controllers
 
         public IActionResult Index()
         {
+            
             return View();
         }
 

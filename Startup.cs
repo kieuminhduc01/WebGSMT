@@ -1,14 +1,21 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
+using AutoMapper;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.IdentityModel.Tokens;
+using WebGSMT.ActionFilter;
 using WebGSMT.Models;
+using WebGSMT.ModelView.Account;
 
 namespace WebGSMT
 {
@@ -27,8 +34,9 @@ namespace WebGSMT
             services.AddControllersWithViews();
             services.AddTransient<GiamSatMoiTruongDbContext, GiamSatMoiTruongDbContext>();
             services.AddRazorPages().AddRazorRuntimeCompilation();
+            services.AddSession();
+            services.AddScoped<AuthorizeActionFilter>();
         }
-
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
@@ -44,7 +52,8 @@ namespace WebGSMT
             }
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-
+            app.UseAuthentication();
+            app.UseSession();
             app.UseRouting();
 
             app.UseAuthorization();
@@ -52,12 +61,13 @@ namespace WebGSMT
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
+                    name: "default",
+                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                endpoints.MapControllerRoute(
                     name: "defaultWithAccount",
                     pattern: "{area}/{controller=Home}/{action=Index}/{id?}");
 
-                endpoints.MapControllerRoute(
-                    name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+               
             });
         }
     }

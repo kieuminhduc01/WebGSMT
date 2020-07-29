@@ -23,6 +23,7 @@ namespace WebGSMT.Models
         [DisplayName("Date Of Birth")]
         [Required(ErrorMessage = "Choose your date of birth!")]
         public DateTime DOB { get; set; }
+       
         [DisplayName("Email")]
         [Required(ErrorMessage = "Input your email!")]
         public String Email { get; set; }

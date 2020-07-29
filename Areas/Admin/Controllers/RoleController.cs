@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using WebGSMT.ActionFilter;
 using WebGSMT.Areas.Admin.Models.Role;
 using WebGSMT.Models;
 
@@ -13,6 +14,7 @@ namespace WebGSMT.Areas.Admin.Controllers
 {
     [Area("Admin")]
     [Route("{area}/role")]
+    [ServiceFilter(typeof(AuthorizeActionFilter))]
     public class RoleController : Controller
     {
         private GiamSatMoiTruongDbContext _context = new GiamSatMoiTruongDbContext();
