@@ -36,6 +36,7 @@ var KTDatatablesDataSourceAjaxServer = function () {
                 { data: 'phoneNumber', name: "PhoneNumber" },
                 {
                     data: "role", name: "Role",
+                    orderable: false,
                     render: function (Role) {
                         var res = Role.split(",");
                         var status = {
