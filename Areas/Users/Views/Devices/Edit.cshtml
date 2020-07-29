@@ -1,16 +1,18 @@
-﻿@model WebGSMT.Models.Role
-
-<div class="modal-dialog modal-dialog-centered" role="document">
+﻿@model WebGSMT.Models.Device
+@{
+    Layout =null;
+}
+<div class="modal-dialog modal-dialog-centered modal-xl" role="document">
     <div class="modal-content">
         <!--Card header-->
         <div class="card-header">
-            <h5 class="modal-title" id="exampleModalLabel">Edit Role</h5>
+            <h5 class="modal-title" id="exampleModalLabel">Edit Device</h5>
         </div>
         <!--Card body-->
         <div class="modal-body">
             <!-- Tab Menu -->
             <!--begin::Example-->
-            <ul class="nav nav-tabs" id="myTab" role="tablist">
+            @*<ul class="nav nav-tabs" id="myTab" role="tablist">
                 <li class="nav-item">
                     <a class="nav-link active" id="home-tab" data-toggle="tab" href="#rolename">
                         <span class="nav-icon">
@@ -27,16 +29,24 @@
                         <span class="nav-text">Permission</span>
                     </a>
                 </li>
-            </ul>
+            </ul>*@
             <div class="tab-content mt-5" id="myTabContent">
                 <div class="tab-pane fade show active" id="rolename" role="tabpanel" aria-labelledby="kt_tab_pane_2">
+                    <div class="form-group ">
+                        <label>Device/Protocol Name:</label>
+                        <input type="text" id="device-name" class="form-control validateTextBox" placeholder="Tên Thiết Bị" onchange="ExistDeviceCheck()" value="@Model.Name" readonly />
+                        <span id="deviceNameValidate" style="color:red"></span>
+                        <span id="Status" style="color:red"></span>
+                    </div>
                     <div class="form-group">
-                        <label>Role name :</label>
-                        <input type="text" id="role-name" class="form-control" placeholder="Enter role name" readonly value="@Model.RoleName" />
-                        <span class="form-text text-muted">You can change name of role here.</span>
-                        <label>Description :</label>
-                        <input type="text" id="role-description" class="form-control" placeholder="Enter discription" value="@Model.Description" />
-                        <span class="form-text text-muted">You can change description of role here.</span>
+                        <label>Device/Protocol Detail:</label>
+                        <input type="text" id="device-nameShow" class="form-control validateTextBox" placeholder="Chi tiết" value="@Model.NameShow"  />
+                        <span id="deviceNameShowValidate" style="color:red"></span>
+                    </div>
+                    <div class="form-group">
+                        <label>Brand:</label>
+                        <input type="text" id="device-BranchOrProtocol" class="form-control validateTextBox" placeholder="Thiết bị/Giao Thức"  value="@Model.BranchOrProtocol" />
+                        <span id="deviceBranchOrProtocolValidate" style="color:red"></span>
                     </div>
                 </div>
                 <div class="tab-pane fade" id="permission" role="tabpanel" aria-labelledby="kt_tab_pane_2">
@@ -54,10 +64,10 @@
         <!--end::card body-->
         <!--begin::footer-->
         <div class="modal-footer">
-            <button type="button" class="btn btn-light-primary font-weight-bold" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary font-weight-bold" data-dismiss="modal" id="submit">Save</button>
+            <button type="button" class="btn btn-primary font-weight-bold" id="submit">Lưu thay đổi</button>
+            <button type="button" class="btn btn-light-primary font-weight-bold" data-dismiss="modal">Đóng</button>
         </div>
         <!--End::footer-->
     </div>
 </div>
-<script src="~/My_Js/Roles/editrole.js"></script>
+<script src="~/My_Js/Devices/editDevice.js"></script>

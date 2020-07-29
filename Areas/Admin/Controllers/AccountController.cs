@@ -91,6 +91,7 @@ namespace WebGSMT.Areas.Admin.Controllers
             _context = new GiamSatMoiTruongDbContext();
             return View(await _context.Accounts.ToListAsync());
         }
+
         // GET: Admin/Accounts
         [Route("index")]
         public async Task<IActionResult> Index()
@@ -99,23 +100,6 @@ namespace WebGSMT.Areas.Admin.Controllers
             return View(await _context.Accounts.ToListAsync());
         }
 
-        // GET: Admin/Accounts/Details/5
-        public async Task<IActionResult> Details(string id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var account = await _context.Accounts
-                .FirstOrDefaultAsync(m => m.UserName == id);
-            if (account == null)
-            {
-                return NotFound();
-            }
-
-            return View(account);
-        }
 
         // GET: Admin/Accounts/Create
         [Route("create")]
@@ -171,21 +155,29 @@ namespace WebGSMT.Areas.Admin.Controllers
             }
             return "fail";
         }
+
+
         // GET: Admin/Accounts/Edit/5
         [Route("CheckExits")]
         public JsonResult CheckExits(string userdata)
         {
             System.Threading.Thread.Sleep(200);
             var accTest =  _context.Accounts.Where(m => m.UserName == userdata).SingleOrDefault();
-            if (accTest != null)
+            if (accTest != null )
             {
-               
-                return Json(1);
+                if (accTest.ToString().Length != 0)
+                {
+                    
+                    return Json(1);
+                    
+                }
+                else
+                    return Json(0);
             }
             return Json(0);
         }
-        // GET: Admin/Accounts/Edit/5
 
+        // GET: Admin/Accounts/Edit/5
         [Route("edit")]
         public async Task<IActionResult> Edit(string id)
         {
@@ -202,9 +194,7 @@ namespace WebGSMT.Areas.Admin.Controllers
             return View(account);
         }
 
-        // POST: Admin/Accounts/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        
         [HttpPost]
         [Route("edit")]
         public string Edit(string UserName,string Password,string FullName,string DOB,string Email,string PhoneNumber,string Active, List<String> RoleName)

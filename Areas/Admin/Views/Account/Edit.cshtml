@@ -49,7 +49,7 @@
                                             <div class="form-group row">
                                                 <div class="col-9">
                                                     <h3 class="text-dark font-weight-bold mb-10">@Model.UserName</h3>
-                                                    <input type="hidden" id="usernameCheck" value="@Model.UserName"/>
+                                                    <input type="hidden" id="usernameCheck" value="@Model.UserName" />
                                                     <input class="form-control form-control-lg" type="hidden" asp-for="UserName" />
                                                     <input class="form-control form-control-lg" type="hidden" asp-for="Password" />
                                                 </div>
@@ -69,7 +69,7 @@
                                             <div class="form-group row">
                                                 <label asp-for="DOB" class="col-form-label col-3 text-lg-right text-left"></label>
                                                 <div class="col-9">
-                                                    <input class="form-control form-control-lg DOB"  id="DOB" value="@Model.formatDate()"/>
+                                                    <input class="form-control form-control-lg DOB" readonly id="DOB" value="@Model.formatDate()" />
                                                     @Html.ValidationMessageFor(a => a.DOB, "", new { @class = "text-danger" })
                                                     <p id="DOBValidate" class="text-danger"></p>
                                                 </div>
@@ -139,9 +139,10 @@
 
     </div>
 </div>
-<script src="~/My_Js/Account.js"></script>
-<script src="~/My_Js/editaccount.js"></script>
-<script src="~/My_Js/getrole.js"></script>
+<script src="~/My_Js/Accounts/Account.js"></script>
+<script src="~/My_Js/Accounts/checkaccount.js"></script>
+<script src="~/My_Js/Accounts/editaccount.js"></script>
+<script src="~/My_Js/Roles/getrole.js"></script>
 <script>
     $('.DOB').datepicker({
         format: 'dd/mm/yyyy'
