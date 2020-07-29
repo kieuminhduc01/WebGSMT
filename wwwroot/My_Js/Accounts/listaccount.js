@@ -10,6 +10,7 @@ var KTDatatablesDataSourceAjaxServer = function () {
             searchDelay: 500,
             processing: true,
             serverSide: true,
+            info: false,
             ajax: {
                 url: "/Admin/Account/getAllUser",
                 type: 'GET'

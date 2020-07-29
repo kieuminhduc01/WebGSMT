@@ -1,4 +1,48 @@
 ﻿
+    $('#btnCreateAccount').on('click', function () {
+		var url = '@Url.Action("Create", "Account")';
+			$.ajax({
+        url: url,
+				type: 'GET',
+				success: function (data) {
+        $('#formEditRole').html(data);
+                    $('#formEditRole').modal('show');
+                    $('#formEditRole').modal({
+        backdrop: false
+					});
+				},
+				error: function (data) {
+        alert("Error load ajax create account");
+				}
+            });
+
+
+    });
+
+    $('#kt_datatable').on('click','.btnEditAccount', function () {
+        var id = $(this).attr("data-id");
+		var url = '@Url.Action("edit", "Account")';
+			$.ajax({
+        url: url,
+                type: 'GET',
+                data: {
+        id :id
+                },
+				success: function (data) {
+        $('#formEditRole').html(data);
+                    $('#formEditRole').modal('show');
+                    $('#formEditRole').modal({
+        backdrop: false
+					});
+				},
+				error: function (data) {
+        alert("Error load ajax edit account");
+				}
+            });
+
+
+    });
+
 $('.btnCreateAccount').on('click', function () {
     if (!validateFormCreate()) {
         return;
