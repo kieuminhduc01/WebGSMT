@@ -12,7 +12,7 @@ using WebGSMT.ModelView.Account;
 
 namespace WebGSMT.Controllers
 {
-    [Route("User")]
+    [Route("Authenticate")]
         [AllowAnonymous]
     public class AuthenticateController : Controller
     {
