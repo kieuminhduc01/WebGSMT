@@ -1,0 +1,60 @@
+﻿@model WebGSMT.Models.Catalog_Data
+@{
+    Layout = null;
+}
+
+    <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+        <div class="modal-content">
+            <!--Card header-->
+            <div class="card-header">
+                <h5 class="modal-title" id="exampleModalLabel">Create Device</h5>
+            </div>
+            <!--Card body-->
+            <div class="modal-body">
+                <div class="tab-content mt-5" id="myTabContent">
+                    <div class="tab-pane fade show active" role="tabpanel" aria-labelledby="kt_tab_pane_2">
+                        <div class="form-group ">
+                            <label>Tag Name:</label>
+                            <input type="text" id="Tagname" class="form-control validateTextBox" placeholder="Tag name"  />
+                            <span id="tagnamecheck" style="color:red"></span>
+                            <span id="Status" style="color:red"></span>
+                        </div>
+                        <div class="form-group">
+                            <label>Device/Protocol Name:</label>
+                            <input type="text" id="Name" class="form-control validateTextBox" placeholder="Device Name or Protocol Name" readonly value="@ViewBag.DeviceName"/>
+                            <span id="namecheck" style="color:red"></span>
+                        </div>
+                        <div class="form-group">
+                            <label>Address:</label>
+                            <input type="text" id="Address" class="form-control validateTextBox" placeholder="Address"/>
+                            <span id="addresscheck" style="color:red"></span>
+                        </div>
+                        <div class="form-group">
+                            <label>Unit:</label>
+                            <input type="text" id="Unit" class="form-control validateTextBox" placeholder="Unit" />
+                            <span id="unitcheck" style="color:red"></span>
+                        </div>
+                        <div class="form-group">
+                            <label>Warning Min:</label>
+                            <input type="text" id="Min" class="form-control validateTextBox" placeholder="Warning min"/>
+                            <span id="mincheck" style="color:red"></span>
+                        </div>
+                        <div class="form-group">
+                            <label>Warning Max:</label>
+                            <input type="text" id="Max" class="form-control validateTextBox" placeholder="Warning max"/>
+                            <span id="maxcheck" style="color:red"></span>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+            
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary font-weight-bold" id="submit">Save</button>
+                <button type="button" class="btn btn-light-primary font-weight-bold" data-dismiss="modal">Close</button>
+            </div>
+            
+        </div>
+    </div>
+
+    <script src="~/My_Js/CatalogData/createCatalogData.js"></script>
