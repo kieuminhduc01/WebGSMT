@@ -10,6 +10,7 @@ var KTDatatablesDataSourceAjaxServer = function () {
             searchDelay: 500,
             processing: true,
             serverSide: true,
+            info: false,
             ajax: {
                 url: "/Admin/Account/getAllUser",
                 type: 'GET'
@@ -35,6 +36,7 @@ var KTDatatablesDataSourceAjaxServer = function () {
                 { data: 'phoneNumber', name: "PhoneNumber" },
                 {
                     data: "role", name: "Role",
+                    orderable: false,
                     render: function (Role) {
                         var res = Role.split(",");
                         var status = {

@@ -1,0 +1,96 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<!--begin::Entry-->
+    <div class="row col-lg-12" style="justify-content: center;">
+        <div class="col-lg-5">
+            <!--<div class="d-flex flex-column-fluid">-->
+                <!--begin::Container-->
+                <!--<div class="container">-->
+                    <!--begin::Card-->
+                    <div class="card card-custom">
+                        <!--begin::Header-->
+                        <div class="card-header flex-wrap border-0 pt-6 pb-0">
+                            <div class="card-title">
+                                <h3 class="card-label">
+                                    List of Devices and Protocols
+                                    <span class="d-block text-muted pt-2 font-size-sm">Manage devices and protocols</span>
+                                </h3>
+                            </div>
+                            <div class="card-toolbar">
+                               
+                                <!--begin::Button-->
+                                <a class="btn btn-primary font-weight-bolder bt-open-create-device-form">
+                                    <span class="svg-icon svg-icon-md">
+                                        <!--begin::Svg Icon | path:assets/media/svg/icons/Design/Flatten.svg-->
+                                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                                            <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                                <rect x="0" y="0" width="24" height="24" />
+                                                <circle fill="#000000" cx="9" cy="15" r="6" />
+                                                <path d="M8.8012943,7.00241953 C9.83837775,5.20768121 11.7781543,4 14,4 C17.3137085,4 20,6.6862915 20,10 C20,12.2218457 18.7923188,14.1616223 16.9975805,15.1987057 C16.9991904,15.1326658 17,15.0664274 17,15 C17,10.581722 13.418278,7 9,7 C8.93357256,7 8.86733422,7.00080962 8.8012943,7.00241953 Z" fill="#000000" opacity="0.3" />
+                                            </g>
+                                        </svg>
+                                        <!--end::Svg Icon-->
+                                    </span>Create
+                                </a>
+                                <!--end::Button-->
+                            </div>
+                        </div>
+                        <!--end::Header-->
+                        <!--begin::Body-->
+                        <div class="card-body">
+
+                            <table id="my_datatable_Devices" class="table table-hover table-checkable">
+                                <thead>
+                                    <tr>
+                                        <th style="width: 50px"><b>Devices/ Protocols</b></th>
+                                        <th style="width: 100px"><b>Detail</b></th>
+                                        <th style="width: 100px"><b>Brands</b></th>
+                                        <th style="width: auto"><b>Actions</b></th>
+                                    </tr>
+                                </thead>
+                            </table>
+                            <!--end: Datatable-->
+                        </div>
+                        <!--end::Body-->
+                    </div>
+                    <!--end::Card-->
+                <!--</div>-->
+                <!--end::Container-->
+            <!--</div>-->
+        </div>
+
+        <div class="col-lg-7" id="loadTableCatalog">            
+        </div>
+    </div>
+
+
+<div class="modal fade modal-edit-account" id="formModal" tabindex="-1" role="dialog" aria-labelledby="formEditAccount" aria-hidden="true"></div>
+
+<div class="modal fade" id="confirmDeleteDevice" tabindex="-1" role="dialog"
+     aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="myModalLabel">Warning!</h3>
+            </div>
+            <div class="modal-body">
+                <h6>Are you sure you want to DELETE Device?</h6>
+
+            </div>
+            <!--/modal-body-collapse -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+                <button type="button" class="btn btn-danger" id="btnDelteYes" href="#" data-dismiss="modal">Yes</button>
+            </div>
+            <!--/modal-footer-collapse -->
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!--end::Entry-->
+<script src="~/My_Js/Devices/listDevices.js"></script>
+

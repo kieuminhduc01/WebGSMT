@@ -88,6 +88,7 @@ var KTDatatablesDataSourceAjaxServer = function () {
             searchDelay: 500,
             processing: true,
             serverSide: true,
+            info: false,
             language: {
                 "processing": "Loading..."
             },

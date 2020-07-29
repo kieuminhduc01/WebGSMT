@@ -57,6 +57,7 @@
     if ($("#Status").text() == 'UserName exist already...' || $("#Status").text() == 'Checking...') {
         trangThai = false;
     }
+
     return trangThai;
 };
 
