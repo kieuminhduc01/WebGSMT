@@ -14,6 +14,7 @@ namespace WebGSMT.Areas.Admin.Controllers
     [Area("Admin")]
     [Route("{area}/account")]
     [ServiceFilter(typeof(AuthorizeActionFilter))]
+   
     public class AccountController : Controller
     {
         private GiamSatMoiTruongDbContext _context = new GiamSatMoiTruongDbContext();
@@ -24,6 +25,7 @@ namespace WebGSMT.Areas.Admin.Controllers
         }
 
         [Route("getalluser")]
+        [Authorize("Admin")]
         public JsonResult getAllUser()
         {
             try

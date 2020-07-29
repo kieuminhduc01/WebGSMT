@@ -19,7 +19,7 @@ namespace WebGSMT.ActionFilter
         {
             if (context.HttpContext.Session.GetString("UserName") == null)
             {
-                context.Result = new RedirectToRouteResult(new RouteValueDictionary(new { controller = "User", action = "Login"}));
+                context.Result = new RedirectToRouteResult(new RouteValueDictionary(new { controller = "Authenticate", action = "Login"}));
             }
             base.OnActionExecuting(context);
         }
