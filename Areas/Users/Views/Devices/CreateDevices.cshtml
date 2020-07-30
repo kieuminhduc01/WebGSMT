@@ -1,0 +1,43 @@
+﻿@model WebGSMT.Models.Device
+@{
+    Layout = null;
+}
+<div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+    <div class="modal-content">
+        <!--Card header-->
+        <div class="card-header">
+            <h5 class="modal-title" id="exampleModalLabel">Edit Role</h5>
+        </div>
+        <!--Card body-->
+        <div class="modal-body">
+            <!-- Tab Menu -->
+            <div class="tab-content mt-5" id="myTabContent">
+                <div class="tab-pane fade show active" id="rolename" role="tabpanel" aria-labelledby="kt_tab_pane_2">
+                    <div class="form-group ">
+                        <input type="text" id="device-name" class="form-control validateTextBox" placeholder="Device name or Protocol name" onchange="ExistDeviceCheck()" />
+                        <span id="deviceNameValidate" style="color:red"></span><br/>
+                        <span id="Status" style="color:red"></span><br/>
+
+                        <input type="text" id="device-nameShow" class="form-control validateTextBox" placeholder="Detail" />
+                        <span id="deviceNameShowValidate" style="color:red"></span><br />
+
+                        <input type="text" id="device-BranchOrProtocol" class="form-control validateTextBox" placeholder="Brand or Type" />
+                        <span id="deviceBranchOrProtocolValidate" style="color:red"></span>
+                    </div>
+                </div>
+                
+            </div>
+
+            <!--end::Example-->
+            <!--end::Content-->
+        </div>
+        <!--end::card body-->
+        <!--begin::footer-->
+        <div class="modal-footer">
+            <button type="button" class="btn btn-primary font-weight-bold"  id="submit">Save</button>
+            <button type="button" class="btn btn-light-primary font-weight-bold" data-dismiss="modal">Close</button>
+        </div>
+        <!--End::footer-->
+    </div>
+</div>
+<script src="~/My_Js/Devices/create.js"></script>

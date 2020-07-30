@@ -1,9 +1,11 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.Configuration;
@@ -18,6 +20,12 @@ namespace WebGSMT
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
+        }
+
+        public class HttpContextAccessor : IHttpContextAccessor
+        {
+            private static AsyncLocal<HttpContext> _httpContextCurrent = new AsyncLocal<HttpContext>();
+            HttpContext IHttpContextAccessor.HttpContext { get => _httpContextCurrent.Value; set => _httpContextCurrent.Value = value; }
         }
 
         public IConfiguration Configuration { get; }
