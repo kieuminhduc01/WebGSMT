@@ -10,6 +10,7 @@ using WebGSMT.Models;
 
 namespace WebGSMT.Areas.Users.Controllers
 {
+    [ServiceFilter(typeof(WebGSMT.ActionFilter.AuthorizeActionFilter))]
     public class HomeController : Controller
     {
         GiamSatMoiTruongDbContext _db;
