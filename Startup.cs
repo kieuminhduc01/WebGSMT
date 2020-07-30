@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -44,6 +45,11 @@ namespace WebGSMT
             services.AddRazorPages().AddRazorRuntimeCompilation();
             services.AddSession();
             services.AddScoped<AuthorizeActionFilter>();
+            services.AddMvc(options => options.EnableEndpointRouting = false);
+
+            services.AddSession();
+            services.AddScoped<AuthorizeActionFilter>();
+
         }
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -65,6 +71,7 @@ namespace WebGSMT
             app.UseRouting();
 
             app.UseAuthorization();
+
 
             app.UseEndpoints(endpoints =>
             {
