@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
+using WebGSMT.Common;
 using WebGSMT.Models;
 using WebGSMT.ModelView.Account;
 
@@ -47,6 +49,8 @@ namespace WebGSMT.Controllers
                if(authenticatedUser != null)
                 {
                     HttpContext.Session.SetString("UserName", authenticatedUser.UserName);
+                    HttpContext.Session.SetObjectAsJson("Account", authenticatedUser);
+                    //HttpContext.Session.SetString("FullName", authenticatedUser.FullName);
                     return RedirectToAction("Index", "Home");
                 }
                 else
@@ -59,15 +63,12 @@ namespace WebGSMT.Controllers
         }
 
         // logout
-        [Route("logout")]
+        [Route("Logout")]
         [HttpGet]
         public IActionResult Logout()
         {
             HttpContext.Session.Remove("UserName");
-            return RedirectToAction("Login","User");
+            return RedirectToAction("Login", "Authenticate");
         }
-
     }
-
-
 }
