@@ -22,7 +22,6 @@
         <script src="https://www.amcharts.com/lib/4/charts.js"></script>
         <script src="https://www.amcharts.com/lib/4/themes/animated.js"></script>
         @{
-            var listUnitDevice = ViewBag.ListUnitDevice as IEnumerable<Catalog_Data>;
             var listUnit = ViewBag.ListUnit as IEnumerable<SelectListItem>;
             var FirstUnit = listUnit.First().Text;
 
@@ -30,21 +29,21 @@
             var FirstDevice = listDevice.First().Text;
 
         }
-        <div class="dropdown">
+        <div class="dropdown" >
             <span class="text-light font-size-h3">Đơn vị: </span> <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <span>
                     @{
-                        <span id="unitText">@FirstUnit</span>
-                    }
+                            <span id="unitText">@FirstUnit</span>
+                        }
                 </span>
                 <span class="caret"></span>
             </button>
-            <div class="dropdown-menu">
-                @foreach (var item in listUnit)
-                {
+            <div class="dropdown-menu" id="ddUnit">
+                @*@foreach (var item in listUnit)
+                    {
 
-                    <a class="dropdown-item" onclick="selectCombobox(null, '@item.Text')">@item.Text</a>
-                }
+                        <a class="dropdown-item" onclick="selectCombobox(null, '@item.Text')">@item.Text</a>
+                    }*@
             </div>
             <br />
         </div>
@@ -76,14 +75,15 @@
     </div>
 </div>
 <script>
-        var DEVICENAME = '@FirstDevice';
+    var DEVICENAME = '@FirstDevice';
     var UNIT = '@FirstUnit';
-    var Listunit = '@listUnit';
-        function selectCombobox(deviceName, unit) {
+
+
+    function selectCombobox(deviceName, unit) {
+        debugger;
             if (deviceName != null) {
                 DEVICENAME = deviceName;
                 $('#deviceText').html(deviceName);
-                //$(this).parent().prev().children().children().text(DEVICENAME);
             }
             if (unit != null) {
                 $('#unitText').html(unit);
@@ -94,15 +94,22 @@
         }
         jQuery(document).ready(function () {
             changeChart(DEVICENAME, UNIT);
+            unitByDevice(DEVICENAME);
         });
+    
     function unitByDevice(PLC) {
+
         $.get("/Users/Home/units", { PLC: PLC }, function (data, status) {
-            Listunit = data;
-            $(".dropdown").load(href + " .dropdown", function () {
-            });
+            $('#ddUnit').children().remove();
+            for (var i = 0; i < data.length; i++){
+                $('#ddUnit').append(`<a class="dropdown-item" onclick="selectCombobox(null, '${data[i]}')">${data[i]}</a>`);
+                
+            }
+            //$("#ddUnit").load(location.href + " #ddUnit");
             debugger;
         });
     }
+
     function changeChart(PLC, Unit) {
         $.ajax({
             url: '/Users/Home/getDataDevice',

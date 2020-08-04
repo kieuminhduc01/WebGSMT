@@ -48,10 +48,10 @@ namespace WebGSMT.Areas.Users.Controllers
         }
         [HttpGet]
         [Route("units")]
-        public JsonResult GetUnitByDevice(string PLC)
+        public List<string> GetUnitByDevice(string PLC)
         {
-            var listUnitDevice = _db.Catalog_Datas.Where(x=>x.DeviceName==PLC).Select(x => x.Unit).Distinct();
-            return new JsonResult(listUnitDevice);
+            var listUnitDevice = _db.Catalog_Datas.Where(x=>x.DeviceName==PLC).Select(x => x.Unit).Distinct().ToList();
+            return listUnitDevice;
         }
         [Route("getdatadevice")]
         public JsonResult getDataDevice(string PLC, string Unit)
@@ -61,6 +61,8 @@ namespace WebGSMT.Areas.Users.Controllers
                         join c in _db.Catalog_Datas on d.TagName equals c.TagName
                         select new { TagName = d.TagName, DeviceName = d.DeviceName, Time = d.Time, Value = d.Value, Unit = c.Unit, Connected = d.Connected })
                              .Where(s => s.DeviceName.Contains(PLC));
+
+            
 
             List<ListDataDevice> result = new List<ListDataDevice>();
             foreach (var item in listTagName.ToList())
