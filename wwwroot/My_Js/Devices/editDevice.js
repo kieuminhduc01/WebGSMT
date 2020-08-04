@@ -26,7 +26,7 @@
             }
         },
         error: function (data) {
-            showMessage(" bị lỗi khi sửa!", false);
+            showMessage("Lỗi tải trang!", false);
         }
     });
 });
@@ -65,7 +65,7 @@ function validateFormEdit() {
         $("#deviceBranchOrProtocolValidate").text("");
     }
 
-    if ($("#Status").text() == 'UserName đã tồn tại...' || $("#Status").text() == 'Checking...') {
+    if ($("#Status").text() == 'Tên thiết bị đã tồn tại...' || $("#Status").text() == 'Đang kiểm tra...') {
         trangThai = false;
     }
  

@@ -16,7 +16,7 @@
             });
         },
         error: function (data) {
-            showMessage("Lỗi load ajax edit", false);
+            showMessage("Lỗi tải trang!", false);
         }
     });
 });
@@ -26,7 +26,7 @@ $('.create-catalogdata-form').on('click', function () {
     var devicename = $(this).attr('data-id');
 
     if (devicename.length == 0) {
-        showMessage("Please choose device or protocol first!", false);
+        showMessage("Vui lòng chọn thiết bị trước!", false);
         return;
     };
 
@@ -44,7 +44,7 @@ $('.create-catalogdata-form').on('click', function () {
             });
         },
         error: function (data) {
-            showMessage("Load ajax create fail!", false);
+            showMessage("Lỗi tải trang!", false);
         }
     });
 
@@ -74,14 +74,14 @@ $('#btnDelteYes').on('click', function (e) {
         },
         success: function (data) {
             if (!data) {
-                showMessage("Delete Fail!", false);
+                showMessage("Lỗi xóa!", false);
             } else {
-                showMessage("Delete Success!", true);
+                showMessage("Xóa thành công!", true);
                 $('#my_datatable_CatalogData').DataTable().ajax.reload(null, false);
             }
         },
         error: function (data) {
-            showMessage("Delete Fail, Can not call ajax!", false);
+            showMessage("Lỗi tải trang!", false);
         }
     });
 });

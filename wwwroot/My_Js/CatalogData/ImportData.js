@@ -19,7 +19,7 @@ $('#submit').on('click', function () {
             if (data == "success") {
                 $('#my_datatable_CatalogData').DataTable().ajax.reload(null, false);
                 $('#uploadModal').modal('hide');
-                showMessage("Upload success!", true);
+                showMessage("Tải file lên thành công!", true);
             } else {
                 showMessage(data, false);
             }
@@ -44,7 +44,7 @@ function uploadcsvfile() {
             if (data == "success") {
                 $('#my_datatable_CatalogData').DataTable().ajax.reload(null, false);
                 $('#uploadModal').modal('hide');
-                showMessage("Upload success!", true);
+                showMessage("Tải file lên thành công!", true);
             } else {
                 showMessage(data, false);
             }

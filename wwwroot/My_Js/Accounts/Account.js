@@ -13,21 +13,21 @@
 
 
     if (userName == "") {
-        document.getElementById("userNameValidate").innerHTML = "Input your user name";
+        document.getElementById("userNameValidate").innerHTML = "Nhập tên tài khoản!";
         trangThai = false;
     }
     else {
         document.getElementById("userNameValidate").innerHTML = "";
     }
     if (fullName == "") {
-        document.getElementById("fullNameValidate").innerHTML = "Input your name";
+        document.getElementById("fullNameValidate").innerHTML = "Nhập tên của bạn!";
         trangThai = false;
     }
     else {
         document.getElementById("fullNameValidate").innerHTML = "";
     }
     if (DOB == "") {
-        document.getElementById("DOBValidate").innerHTML = "Choose your date of birth";
+        document.getElementById("DOBValidate").innerHTML = "Chọn ngày tháng năm sinh của bạn!";
         trangThai = false;
     }
     else {
@@ -35,12 +35,12 @@
     }
     if (email == "") {
 
-        document.getElementById("emailValidate").innerHTML = "Input email";
+        document.getElementById("emailValidate").innerHTML = "Nhập Email của bạn!";
         trangThai = false;
     }
     else {
         if (atpos < 1 || dotpos < atpos + 2 || dotpos + 2 >= email.length) {
-            document.getElementById("emailValidate").innerHTML = "Email wrong format";
+            document.getElementById("emailValidate").innerHTML = "Email sai định dạng!";
             trangThai = false;
         }
         else {
@@ -48,13 +48,13 @@
         }
     }
     if (phoneNumber == "") {
-        document.getElementById("phoneNumberValidate").innerHTML = "Input your Phone Number";
+        document.getElementById("phoneNumberValidate").innerHTML = "Nhập số điện thoại của bạn!";
         trangThai = false;
     }
     else {
         document.getElementById("phoneNumberValidate").innerHTML = "";
     }
-    if ($("#Status").text() == 'UserName exist already...' || $("#Status").text() == 'Checking...') {
+    if ($("#Status").text() == 'Tên tài khoản đã tồn tại...' || $("#Status").text() == 'Đang kiểm tra...') {
         trangThai = false;
     }
 
@@ -74,14 +74,14 @@ function validateFormEdit() {
     var dotpos = email.lastIndexOf(".");
 
     if (fullName == "") {
-        document.getElementById("fullNameValidate").innerHTML = "Input your name";
+        document.getElementById("fullNameValidate").innerHTML = "Nhập tên của bạn!";
         trangThai = false;
     }
     else {
         document.getElementById("fullNameValidate").innerHTML = "";
     }
     if (DOB == "") {
-        document.getElementById("DOBValidate").innerHTML = "Choose your date of birth";
+        document.getElementById("DOBValidate").innerHTML = "Chọn ngày tháng năm sinh của bạn!";
         trangThai = false;
     }
     else {
@@ -89,12 +89,12 @@ function validateFormEdit() {
     }
     if (email == "") {
 
-        document.getElementById("emailValidate").innerHTML = "Input email";
+        document.getElementById("emailValidate").innerHTML = "Nhập Email của bạn!";
         trangThai = false;
     }
     else {
         if (atpos < 1 || dotpos < atpos + 2 || dotpos + 2 >= email.length) {
-            document.getElementById("emailValidate").innerHTML = "Email wrong format";
+            document.getElementById("emailValidate").innerHTML = "Email sai định dạng!";
             trangThai = false;
         }
         else {
@@ -102,7 +102,7 @@ function validateFormEdit() {
         }
     }
     if (phoneNumber == "") {
-        document.getElementById("phoneNumberValidate").innerHTML = "Input your Phone Number";
+        document.getElementById("phoneNumberValidate").innerHTML = "Nhập số điện thoại của bạn!";
         trangThai = false;
     }
     else {

@@ -7,12 +7,12 @@ function UserCheck() {
         },
         function (data) {
             if (data == 0) {
-                $("#Status").html('<font color="Green">UseName hợp lệ...</font>');
+                $("#Status").html('<font color="Green">Tên tài khoản hợp lệ...</font>');
                 $("#UserName").css("border-color", "Green");
 
             }
             else {
-                $("#Status").html('<font color="Red">UserName đã tồn tại...</font>');
+                $("#Status").html('<font color="Red">Tên tài khoản đã tồn tại...</font>');
                 $("#UserName").css("border-color", "Red");
             }
         });

@@ -61,7 +61,7 @@ function validateFormCreate() {
         $("#deviceBranchOrProtocolValidate").text("");
     }
 
-    if ($("#Status").text() == 'Device Name has already exists...' || $("#Status").text() == 'Checking...') {
+    if ($("#Status").text() == 'Tên thiết bị đã tồn tại...' || $("#Status").text() == 'Đang kiểm tra...') {
         trangThai = false;
     }
     return trangThai;
@@ -79,12 +79,12 @@ function ExistDeviceCheck() {
         },
         function (data) {
             if (data == 0) {
-                $("#Status").html('<font color="Green">UseName hợp lệ...</font>');
+                $("#Status").html('<font color="Green">Tên thiết bị hợp lệ...</font>');
                 $("#device-name").css("border-color", "Green");
 
             }
             else {
-                $("#Status").html('<font color="Red">UserName đã tồn tại...</font>');
+                $("#Status").html('<font color="Red">Tên thiết bị đã tồn tại...</font>');
                 $("#device-name").css("border-color", "Red");
             }
         });

@@ -12,31 +12,7 @@ $('#btnCreateAccount').on('click', function () {
             });
         },
         error: function (data) {
-            alert("Error load ajax create account");
-        }
-    });
-
-
-});
-
-$('#kt_datatable').on('click', '.btnEditAccount', function () {
-    var id = $(this).attr("data-id");
-    var url = "/Admin/Account/Edit";
-    $.ajax({
-        url: url,
-        type: 'GET',
-        data: {
-            id: id
-        },
-        success: function (data) {
-            $('#formEditRole').html(data);
-            $('#formEditRole').modal('show');
-            $('#formEditRole').modal({
-                backdrop: false
-            });
-        },
-        error: function (data) {
-            alert("Error load ajax edit account");
+            showMessage("Lỗi tải form Tạo mới!",false);
         }
     });
 
@@ -78,10 +54,10 @@ $('.btnCreateAccount').on('click', function () {
         },
         success: function (data) {
             if (data == "success") {
-                showMessage("Create Account success!", true);
+                showMessage("Tạo mới tài khoản thành công!", true);
                 reloadDataTable();
             } else {
-                showMessage("Cannot Create Account!", false);
+                showMessage("Lỗi tạo mới tài khoản!", false);
             }
 
         },

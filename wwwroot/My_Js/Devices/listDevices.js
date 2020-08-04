@@ -15,7 +15,7 @@
             });
         },
         error: function (data) {
-            showMessage("Lỗi load ajax edit", false);
+            showMessage("Lỗi tải trang!", false);
         }
     });
 });
@@ -33,7 +33,7 @@ $('.bt-open-create-device-form').on('click', function () {
             });
         },
         error: function (data) {
-            showMessage("Lỗi load ajax create Device", false);
+            showMessage("Lỗi tải trang", false);
         }
     });
 
@@ -68,7 +68,7 @@ $('#btnDelteYes').on('click', function (e) {
             }
         },
         error: function (data) {
-            showMessage("Lỗi gọi ajax xóa device", false);
+            showMessage("Lỗi tải trang!", false);
         }
     });
 });
@@ -88,7 +88,7 @@ var KTDatatablesDataSourceAjaxServer = function () {
             serverSide: true,
             info: false,
             language: {
-                "processing": "Đang sử lý..."
+                "processing": "Đang xử lý..."
             },
             ajax: {
                 url: "/Users/Devices/GetAllDevices",
@@ -145,6 +145,7 @@ function loadTableCatalog(dvn) {
             DeviceName: dvn
         },
         success: function (data) {
+            
             $('#loadTableCatalog').html(data);
         },
         error: function (jqXHR, error, errorThrown) {

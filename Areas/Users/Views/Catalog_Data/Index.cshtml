@@ -14,8 +14,8 @@
     <div class="card-header flex-wrap border-0 pt-6 pb-0">
         <div class="card-title">
             <h3 class="card-label">
-                Catalog Data
-                <span class="d-block text-muted pt-2 font-size-sm">Manage all of data</span>
+                Danh mục dữ liệu
+                <span class="d-block text-muted pt-2 font-size-sm">Quản lý các danh mục của dữ liệu</span>
             </h3>
         </div>
         <div class="card-toolbar">
@@ -32,7 +32,7 @@
                             </g>
                         </svg>
                         <!--end::Svg Icon-->
-                    </span>Import
+                    </span>Tải lên
                 </button>
             </div>
             <!--end::Dropdown-->
@@ -48,7 +48,7 @@
                         </g>
                     </svg>
                     <!--end::Svg Icon-->
-                </span>Create
+                </span>Tạo mới
             </a>
             <!--end::Button-->
         </div>
@@ -60,10 +60,10 @@
         <table id="my_datatable_CatalogData" class="table table-hover table-checkable">
             <thead>
                 <tr style=" align-content: center !important;">
-                    <th style=" width: 100px; "><b>Device Name</b></th>
-                    <th style="width: 100px;"><b>Tag Name</b></th>
-                    <th style="width: 100px;"><b>Address</b></th>
-                    <th style="width: 50px;"><b>Unit</b></th>
+                    <th style=" width: 100px; "><b>Tên thiết bị</b></th>
+                    <th style="width: 100px;"><b>Thẻ tên</b></th>
+                    <th style="width: 100px;"><b>Địa chỉ</b></th>
+                    <th style="width: 50px;"><b>Đơn vị</b></th>
                     <th style="width: 50px;"><b>Min</b></th>
                     <th style="width: 50px;"><b>Max</b></th>
                     <th style="width:auto"><b>Actions</b></th>
@@ -87,14 +87,14 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h3 class="modal-title" id="myModalLabel">Warning!</h3>
+                <h3 class="modal-title" id="myModalLabel">Cảnh báo!</h3>
             </div>
             <div class="modal-body">
-                <h6>Are you sure you want to DELETE?</h6>
+                <h6>Bạn có muốn xóa?</h6>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
-                <button type="button" class="btn btn-danger" id="btnDelteYes" href="#" data-dismiss="modal">Yes</button>
+                <button type="button" class="btn btn-danger" id="btnDelteYes" href="#" data-dismiss="modal">Có</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Không</button>
             </div>
         </div>
     </div>
@@ -105,11 +105,11 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h3 class="modal-title" id="myModalLabel">Import Data</h3>
+                <h3 class="modal-title" id="myModalLabel">Tải lên file dữ liệu</h3>
             </div>
             <div class="modal-body">
                 <input type="file" id="nameFile" name="nameFile" multiple accept=".csv" />
-                <button type="button" class="btn btn-primary" onclick="uploadcsvfile()" style="float:right">Upload</button>
+                <button type="button" class="btn btn-primary" onclick="uploadcsvfile()" style="float:right">Tải lên</button>
             </div>
         </div>
     </div>

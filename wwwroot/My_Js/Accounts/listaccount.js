@@ -98,11 +98,11 @@ $('#kt_datatable').on('click', '.bt-update-active',function () {
             id:id
         },
         success: function (data) {
-            showMessage("Change Active Success!",true);
+            showMessage("Đổi thành công!",true);
             reloadDataTable();
         },
         error: function (data, jqXHR, textStatus, errorThrown) {
-            showMessage("Change Active Fail!", false);
+            showMessage("Lỗi!", false);
         }
     });
 
@@ -130,7 +130,7 @@ $('.bt-open-create-account-form').on('click', function () {
             });
         },
         error: function (data) {
-            showMessage("Error load create account", false);
+            showMessage("Lỗi tải form Tạo mới", false);
         }
     });
 
@@ -153,7 +153,7 @@ $('#kt_datatable').on('click', '.btnEditAccount', function () {
             });
         },
         error: function (data) {
-            alert("Error load edit account");
+            alert("Lỗi tải form Sửa");
         }
     });
 
@@ -182,14 +182,14 @@ $('#btnDelteYes').on('click', function (e) {
         },
         success: function (data) {
             if (!data) {
-                showMessage("Error delete Account ", false);
+                showMessage("Lỗi xóa tài khoản!", false);
             } else {
-                showMessage("Delete Account success!", true);
+                showMessage("Xóa tài khoản thành công!", true);
                 reloadDataTable();
             }
         },
         error: function (data) {
-            showMessage("Error load ajax delete role", false);
+            showMessage("Lỗi tải form xóa!", false);
         }
     });
 });

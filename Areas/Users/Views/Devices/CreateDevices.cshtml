@@ -6,7 +6,7 @@
     <div class="modal-content">
         <!--Card header-->
         <div class="card-header">
-            <h5 class="modal-title" id="exampleModalLabel">Edit Role</h5>
+            <h5 class="modal-title" id="exampleModalLabel">Sửa vai trò</h5>
         </div>
         <!--Card body-->
         <div class="modal-body">
@@ -14,13 +14,18 @@
             <div class="tab-content mt-5" id="myTabContent">
                 <div class="tab-pane fade show active" id="rolename" role="tabpanel" aria-labelledby="kt_tab_pane_2">
                     <div class="form-group ">
+                        <label>Tên thiết bị:</label>
                         <input type="text" id="device-name" class="form-control validateTextBox" placeholder="Device name or Protocol name" onchange="ExistDeviceCheck()" />
-                        <span id="deviceNameValidate" style="color:red"></span><br/>
-                        <span id="Status" style="color:red"></span><br/>
-
+                        <span id="deviceNameValidate" style="color:red"></span>
+                        <span id="Status" style="color:red"></span>
+                    </div>
+                    <div class="form-group ">
+                        <label>Chi tiết:</label>
                         <input type="text" id="device-nameShow" class="form-control validateTextBox" placeholder="Detail" />
-                        <span id="deviceNameShowValidate" style="color:red"></span><br />
-
+                        <span id="deviceNameShowValidate" style="color:red"></span>
+                    </div>
+                    <div class="form-group ">
+                        <label>Hãng:</label>
                         <input type="text" id="device-BranchOrProtocol" class="form-control validateTextBox" placeholder="Brand or Type" />
                         <span id="deviceBranchOrProtocolValidate" style="color:red"></span>
                     </div>

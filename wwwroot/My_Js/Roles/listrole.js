@@ -16,7 +16,7 @@
             });
         },
         error: function (data) {
-            showMessage("Error load ajax edit account", false);
+            showMessage("Lỗi tải trang!", false);
         }
     });
 });
@@ -34,7 +34,7 @@ $('.bt-open-create-account-form').on('click', function () {
             });
         },
         error: function (data) {
-            showMessage("Error load ajax create account", false);
+            showMessage("Lỗi tải trang", false);
         }
     });
 
@@ -63,14 +63,14 @@ $('#btnDelteYes').on('click', function (e) {
         },
         success: function (data) {
             if (!data) {
-                showMessage("Error delete role ", false);
+                showMessage("Lỗi xóa vai trò!", false);
             } else {
-                showMessage("Delete role success!", true);
+                showMessage("Xóa vai trò thành công!", true);
                 $('#my_datatable_role').DataTable().ajax.reload(null, false);
             }
         },
         error: function (data) {
-            showMessage("Error load ajax delete role", false);
+            showMessage("Lỗi tải trang", false);
         }
     });
 });
@@ -138,5 +138,4 @@ var KTDatatablesDataSourceAjaxServer = function () {
 
 jQuery(document).ready(function () {
     KTDatatablesDataSourceAjaxServer.init();
-    showMessage("Load Success!", true);
 });

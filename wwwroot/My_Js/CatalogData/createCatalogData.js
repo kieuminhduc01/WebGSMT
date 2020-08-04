@@ -25,10 +25,10 @@
             if (data) {
                 $('#my_datatable_CatalogData').DataTable().ajax.reload(null, false);
                 $('#formModal').modal('hide');
-                showMessage("Create success!", true);
+                showMessage("Tạo mới thành công!", true);
             }
             else {
-                showMessage("Create Fail!", false);
+                showMessage("Lỗi tạo mới!", false);
             }
         }
     });
@@ -45,7 +45,7 @@ function validateFormCreate() {
     var trangThai = true;
 
     if (tagName == "") {
-        $("#tagnamecheck").text("Input tag name!");
+        $("#tagnamecheck").text("Nhập tên thẻ!");
         $("#Tagname").css('border-color', 'red');
         trangThai = false;
     }
@@ -53,7 +53,7 @@ function validateFormCreate() {
         $("#tagnamecheck").text('');
     }
     if (name == "") {
-        $("#namecheck").text("Input name of device or protocol");
+        $("#namecheck").text("Nhập tên của thiết bị hoặc tên giao thức!");
         $("#Name").css('border-color', 'red');
         trangThai = false;
     }
@@ -61,7 +61,7 @@ function validateFormCreate() {
         $("#namecheck").text("");
     }
     if (address == "") {
-        $("#addresscheck").text("Input adrdress");
+        $("#addresscheck").text("Nhập địa chỉ!");
         $("#Address").css('border-color', 'red');
 
         trangThai = false;
@@ -71,7 +71,7 @@ function validateFormCreate() {
     }
 
     if (unit == "") {
-        $("#unitcheck").text("Input unit");
+        $("#unitcheck").text("Nhập đơn vị!");
         $("#Unit").css('border-color', 'red');
 
         trangThai = false;
@@ -80,7 +80,7 @@ function validateFormCreate() {
         $("#unitcheck").text("");
     }
     if (min == "") {
-        $("#mincheck").text("Input warning min");
+        $("#mincheck").text("Nhập giới hạn cảnh báo!");
         $("#Min").css('border-color', 'red');
 
         trangThai = false;
@@ -89,7 +89,7 @@ function validateFormCreate() {
         $("#mincheck").text("");
     }
     if (max == "") {
-        $("#maxcheck").text("Input warning max");
+        $("#maxcheck").text("Nhập giới hạn cảnh báo!");
         $("#Max").css('border-color', 'red');
 
         trangThai = false;
@@ -98,7 +98,7 @@ function validateFormCreate() {
         $("#maxcheck").text("");
     }
 
-    if ($("#Status").text() == 'TagName has already exists...' || $("#Status").text() == 'Checking...') {
+    if ($("#Status").text() == 'Tên thẻ đã tồn tại...' || $("#Status").text() == 'Checking...') {
         trangThai = false;
     }
 
@@ -110,19 +110,19 @@ $('.validateTextBox').keyup(function () {
 
 });
 function ExistDeviceCheck() {
-    $("#Status").html("Checking...");
+    $("#Status").html("Đang kiểm tra...");
     $.post("/Users/Devices/CheckExist",
         {
             deviceName: $("#device-name").val()
         },
         function (data) {
             if (data == 0) {
-                $("#Status").html('<font color="Green">UseName hợp lệ...</font>');
+                $("#Status").html('<font color="Green">Tên thiết bị hợp lệ...</font>');
                 $("#device-name").css("border-color", "Green");
 
             }
             else {
-                $("#Status").html('<font color="Red">UserName đã tồn tại...</font>');
+                $("#Status").html('<font color="Red">Tên thiết bị đã tồn tại...</font>');
                 $("#device-name").css("border-color", "Red");
             }
         });

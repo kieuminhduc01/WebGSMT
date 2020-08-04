@@ -4,7 +4,7 @@
     <div class="modal-content">
         <!--Card header-->
         <div class="card-header">
-            <h5 class="modal-title" id="exampleModalLabel">Edit Role</h5>
+            <h5 class="modal-title" id="exampleModalLabel">Sửa vai trò</h5>
         </div>
         <!--Card body-->
         <div class="modal-body">
@@ -16,7 +16,7 @@
                         <span class="nav-icon">
                             <i class="flaticon2-chat-1"></i>
                         </span>
-                        <span class="nav-text">Role Name</span>
+                        <span class="nav-text">Vai trò</span>
                     </a>
                 </li>
                 <li class="nav-item">
@@ -24,19 +24,18 @@
                         <span class="nav-icon">
                             <i class="flaticon2-layers-1"></i>
                         </span>
-                        <span class="nav-text">Permission</span>
+                        <span class="nav-text">Quyền truy cập</span>
                     </a>
                 </li>
             </ul>
             <div class="tab-content mt-5" id="myTabContent">
                 <div class="tab-pane fade show active" id="rolename" role="tabpanel" aria-labelledby="kt_tab_pane_2">
                     <div class="form-group">
-                        <label>Role name :</label>
-                        <input type="text" id="role-name" class="form-control" placeholder="Enter role name" readonly value="@Model.RoleName" />
-                        <span class="form-text text-muted">You can change name of role here.</span>
-                        <label>Description :</label>
-                        <input type="text" id="role-description" class="form-control" placeholder="Enter discription" value="@Model.Description" />
-                        <span class="form-text text-muted">You can change description of role here.</span>
+                        <label>Tên vai trò:</label>
+                        <input type="text" id="role-name" class="form-control" placeholder="Nhập tên vai trò" readonly value="@Model.RoleName" />
+
+                        <label>Mô tả:</label>
+                        <input type="text" id="role-description" class="form-control" placeholder="Nhập mô tả" value="@Model.Description" />
                     </div>
                 </div>
                 <div class="tab-pane fade" id="permission" role="tabpanel" aria-labelledby="kt_tab_pane_2">
@@ -54,8 +53,8 @@
         <!--end::card body-->
         <!--begin::footer-->
         <div class="modal-footer">
-            <button type="button" class="btn btn-light-primary font-weight-bold" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary font-weight-bold" data-dismiss="modal" id="submit">Save</button>
+            <button type="button" class="btn btn-primary font-weight-bold" data-dismiss="modal" id="submit">Lưu</button>
+            <button type="button" class="btn btn-light-primary font-weight-bold" data-dismiss="modal">Đóng</button>
         </div>
         <!--End::footer-->
     </div>

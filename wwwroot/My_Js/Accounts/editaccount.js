@@ -1,4 +1,28 @@
-﻿$('#btnEditAccount').on('click', function () {
+﻿$('#kt_datatable').on('click', '.btnEditAccount', function () {
+    var id = $(this).attr("data-id");
+    var url = "/Admin/Account/Edit";
+    $.ajax({
+        url: url,
+        type: 'GET',
+        data: {
+            id: id
+        },
+        success: function (data) {
+            $('#formEditRole').html(data);
+            $('#formEditRole').modal('show');
+            $('#formEditRole').modal({
+                backdrop: false
+            });
+        },
+        error: function (data) {
+            showMessage("Lỗi tải form Sửa tài khoản!", false);
+        }
+    });
+
+
+});
+
+$('#btnEditAccount').on('click', function () {
 
     if (validateFormEdit()) {
         var username = $('#UserName').val();
@@ -33,10 +57,10 @@
             },
             success: function (data) {
                 if (data == "success") {
-                    showMessage("Edit Account success!", true);
+                    showMessage("Sửa tài khoản thành công!", true);
                     reloadDataTable();
                 } else {
-                    showMessage("Edit Account fail!", false);
+                    showMessage("Lỗi sửa tài khoản!", false);
                 }
 
             },
