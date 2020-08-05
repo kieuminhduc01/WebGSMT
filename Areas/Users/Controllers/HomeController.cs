@@ -7,7 +7,10 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Internal;
+using SQLitePCL;
 using WebGSMT.ActionFilter;
+using WebGSMT.Areas.Users.Models.Devices;
+using WebGSMT.Areas.Users.Models.Home;
 using WebGSMT.Models;
 
 namespace WebGSMT.Areas.Users.Controllers
@@ -17,7 +20,7 @@ namespace WebGSMT.Areas.Users.Controllers
     [ServiceFilter(typeof(AuthorizeActionFilter))]
     public class HomeController : Controller
     {
-        GiamSatMoiTruongDbContext _db;
+        GiamSatMoiTruongDbContext _db = new GiamSatMoiTruongDbContext();
         public HomeController(GiamSatMoiTruongDbContext db)
         {
             _db = db;
@@ -25,7 +28,7 @@ namespace WebGSMT.Areas.Users.Controllers
 
         [HttpGet]
         [Route("Index")]
-        public async Task<IActionResult> Index(string PLC)
+        public IActionResult Index(string PLC)
         {
             //List Tag Name
             var list = _db.Datas.Join(_db.Catalog_Datas,
@@ -88,20 +91,68 @@ namespace WebGSMT.Areas.Users.Controllers
             return Json(result);
         }
 
+        [Route("loadtabledata")]
+        public JsonResult loadTableData(string DeviceName)
+        {
+            try
+            {
+                /*db.Configuration.ProxyCreationEnabled = false;*/
+                int length = int.Parse(Request.Query["length"]);
+                int start = Convert.ToInt32(Math.Ceiling(Convert.ToDecimal(int.Parse(Request.Query["start"]) / length))) + 1;
+                string searchValue = Request.Query["search[value]"];
+                string sortColumnName = Request.Query["columns[" + Request.Query["order[0][column]"] + "][name]"];
+                string sortDirection = Request.Query["order[0][dir]"];
+
+                /*int length = 10;
+                int start = 1;
+                string searchValue = "";
+                string sortColumnName = "ID";
+                string sortDirection = "asc";*/
+                DataPaging apg = new DataPaging();
+                apg.data = new List<DataDevice>();
+                start = (start - 1) * length;
+                List<Data> listData = _db.Datas.Where(x => x.DeviceName == DeviceName).ToList<Data>();
+                apg.recordsTotal = listData.Count;
+                //filter
+                if (!string.IsNullOrEmpty(searchValue))
+                {
+                    listData = listData.Where(x => x.TagName.ToLower().Contains(searchValue.ToLower())).ToList<Data>();
+                }
+
+
+                apg.recordsFiltered = listData.Count;
+                //paging
+                listData = listData.Skip(start).Take(length).ToList<Data>();
+
+                foreach (var i in listData)
+                {
+                    DataDevice d = new DataDevice
+                    {
+                        TagName = i.TagName,
+                        DeviceName = i.DeviceName,
+                        Time = i.Time,
+                        Value = i.Value,
+                        Connected = i.Connected
+                    };
+                    apg.data.Add(d);
+                }
+
+                apg.draw = int.Parse(Request.Query["draw"]);
+                return Json(apg);
+                /*return Json(apg, JsonRequestBehavior.AllowGet);*/
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
         public class TagNameAndUnit
         {
             public string TagName { get; set; }
             public string Unit { get; set; }
         }
-        public class DataDevice
-        {
-            public string TagName { get; set; }
-            public string DeviceName { get; set; }
-            public DateTime Time { get; set; }
-            public double Value { get; set; }
-            public string Unit { get; set; }
-            public bool Connected { get; set; }
-        }
+       
         public class ListDataDevice
         {
             public string Key { get; set; }
