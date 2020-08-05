@@ -51,7 +51,7 @@ namespace WebGSMT.Controllers
                     HttpContext.Session.SetString("UserName", authenticatedUser.UserName);
                     HttpContext.Session.SetObjectAsJson("Account", authenticatedUser);
                     //HttpContext.Session.SetString("FullName", authenticatedUser.FullName);
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("Index", "Home", new { area = "Users" });
                 }
                 else
                 {                                                            
