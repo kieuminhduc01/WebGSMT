@@ -172,7 +172,16 @@
                                         </div>
                                         <!--end::Symbol-->
                                         <!--begin::Text-->
-                                        <div class="text-dark m-0 flex-grow-1 mr-3 font-size-h5">@Context.Session.GetString("UserName").ToString()</div>
+                                        <div class="text-dark m-0 flex-grow-1 mr-3 font-size-h5">
+                                            @{
+                                                var user = Context.Session.GetObjectFromJson<Account>("Account");
+                                                var name = user.FullName;
+                                            }
+
+                                            <span id="PF_FullName">@name</span>
+
+
+                                        </div>
                                         <span class="label label-light-success label-lg font-weight-bold label-inline">3 messages</span>
                                         <!--end::Text-->
                                     </div>
@@ -181,7 +190,7 @@
                                     <!--begin::Nav-->
                                     <div class="navi navi-spacer-x-0 pt-5">
                                         <!--begin::Item-->
-                                        <a href="custom/apps/user/profile-1/personal-information.html" class="navi-item px-8">
+                                        <a href="/Users/Information" class="navi-item px-8">
                                             <div class="navi-link">
                                                 <div class="navi-icon mr-2">
                                                     <i class="flaticon2-calendar-3 text-success"></i>
@@ -238,7 +247,7 @@
                                         <!--begin::Footer-->
                                         <div class="navi-separator mt-3"></div>
                                         <div class="navi-footer px-8 py-5">
-                                            <a href="Accounts\Login" class="btn btn-light-primary font-weight-bold">Sign Out</a>
+                                            <a href="/Authenticate/Logout" class="btn btn-light-primary font-weight-bold">Sign Out</a>
                                             @*<a href="custom/user/login-v2.html" target="_blank" class="btn btn-clean font-weight-bold">Upgrade Plan</a>*@
                                         </div>
                                         <!--end::Footer-->
@@ -276,7 +285,9 @@
                     <!--end::Subheader-->
                     <!--begin::Entry-->
                     <div class="d-flex flex-column-fluid">
+
                         @RenderBody()
+                        <!--end::Container-->
                     </div>
                     <!--end::Entry-->
                 </div>
@@ -911,7 +922,7 @@
     <!--begin::Page Scripts(used by this page)-->
     <script src="~/assets/js/pages/widgets.js?v=7.0.3"></script>
     <script src="~/My_Js/Layout.js"></script>
-    <script src="~/My_Js/Accounts/Account.js"></script>
+    <script src="~/My_Js/Account.js"></script>
     <!--end::Page Scripts-->
 </body>
 <!--end::Body-->

@@ -35,8 +35,6 @@
 
   <ItemGroup>
     <Folder Include="Areas\Admin\Data\" />
-    <Folder Include="Areas\User\Data\" />
-    <Folder Include="Areas\User\Models\" />
     <Folder Include="wwwroot\boostraptreeview\css\addons\" />
     <Folder Include="wwwroot\boostraptreeview\css\modules\" />
   </ItemGroup>
