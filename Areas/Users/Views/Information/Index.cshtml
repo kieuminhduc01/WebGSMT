@@ -10,96 +10,87 @@
 <link href="https://unpkg.com/gijgo@1.9.13/css/gijgo.min.css" rel="stylesheet" type="text/css" />
 
 <!--begin::Content-->
-<div class="container">
-    <div class="flex-row-fluid ml-lg-8 col-9 container ">
-        <!--begin::Card-->
-        <div class="card card-custom">
-            <!--begin::Header-->
-            <div class="card-header py-3">
-                <div class="card-title align-items-start flex-column">
-                    <h3 class="card-label font-weight-bolder text-dark">Account Information</h3>
-                    <span class="text-muted font-weight-bold font-size-sm mt-1">Change your account settings</span>
-                </div>
-                <div class="card-toolbar">
-                    <button type="reset" class="btn btn-success mr-2" id="btnSaveChange">Lưu thay đổi</button>
-                    <a type="reset" class="btn btn-secondary" href="~/Users/Home/Index">Hủy</a>
-                </div>
+<div class="container" style="text-align:center">
+    <!--begin::Card-->
+    <div class="card card-custom">
+        <!--begin::Header-->
+        <div class="card-header py-3">
+            <div class="card-title align-items-start flex-column">
+                <h3 class="card-label font-weight-bolder text-dark">Thông tin tài khoản</h3>
+                <span class="text-muted font-weight-bold font-size-sm mt-1">Quản lí thông tin tài khoản</span>
             </div>
-            <!--end::Header-->
-            <!--begin::Form-->
-            <div class="container">
-                <form class="form" name="informationForm">
-                    <div class="card-body">
-                        <!--begin::Heading-->
-                        <div class="row">
-                            <label class="col-xl-3"></label>
-                            <div class="col-lg-5">
-                                <h5 class="font-weight-bold mb-6">Tài khoản:</h5>
-                            </div>
+            <div class="card-toolbar">
+                <button type="reset" class="btn btn-success mr-2" id="btnSaveChange">Lưu thay đổi</button>
+                <a type="reset" class="btn btn-secondary" href="~/Users/Home/Index">Hủy</a>
+            </div>
+        </div>
+        <!--end::Header-->
+        <!--begin::Form-->
+        <div class="container">
+            <form class="form" name="informationForm">
+                <div class="card-body" >
+                    <!--begin::Heading-->
+                    
+                    <!--begin::Form Group-->
+                    <div class="form-group row">
+                        <label class="col-xl-3 col-lg-3 col-form-label">Tài khoản:</label>
+                        <div class="col-lg-5">
+                            <input class="form-control form-control-lg form-control-solid" type="text" readonly value="@Context.Session.GetString("UserName").ToString()" />
                         </div>
-                        <!--begin::Form Group-->
-                        <div class="form-group row">
-                            <label class="col-xl-3 col-lg-3 col-form-label">Tài khoản:</label>
-                            <div class="col-lg-5">
-                                <input class="form-control form-control-lg form-control-solid" type="text" readonly value="@Context.Session.GetString("UserName").ToString()" />
-                            </div>
 
+                    </div>
+                    <!--begin::Form Group-->
+                    <span id="errorFullname" class="text-danger"></span>
+                    <div class="form-group row">
+                        <label class="col-xl-3 col-lg-3 col-form-label">Họ tên:</label>
+                        <div class="col-lg-5">
+                            <input class="form-control form-control-lg form-control-solid" id="fullName" name="fullName" type="text" value="@Model.FullName" />
                         </div>
-                        <!--begin::Form Group-->
-                        <span id="errorFullname" class="text-danger"></span>
-                        <div class="form-group row">
-                            <label class="col-xl-3 col-lg-3 col-form-label">Họ tên:</label>
-                            <div class="col-lg-5">
-                                <input class="form-control form-control-lg form-control-solid" id="fullName" name="fullName" type="text" value="@Model.FullName" />
-                            </div>
-                        </div>
-                        <!--begin::Form Group-->
-                        <span id="errorEmail" class="text-danger"></span>
-                        <div class="form-group row">
-                            <label class="col-xl-3 col-lg-3 col-form-label">Email:</label>
-
-                            <div class="col-lg-5">
-                                <div class="input-group input-group-lg input-group-solid">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text">
-                                            <i class="la la-at"></i>
-                                        </span>
-                                    </div>
-                                    <input type="email" class="form-control form-control-lg form-control-solid" id="email" name="email" aria-describedby="emailHelp" placeholder="Email" value="@Model.Email" />
+                    </div>
+                    <!--begin::Form Group-->
+                    <span id="errorEmail" class="text-danger"></span>
+                    <div class="form-group row">
+                        <label class="col-xl-3 col-lg-3 col-form-label font-weight-bold font-size-sm mt-1">Email:</label>
+                        <div class="col-lg-5">
+                            <div class="input-group input-group-lg input-group-solid">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">
+                                        <i class="la la-at"></i>
+                                    </span>
                                 </div>
-
-                            </div>
-
-                        </div>
-                        <!--begin::Form Group-->
-                        <span id="errorDOB" class="text-danger"></span>
-                        <div class="form-group row">
-                            <label class="col-xl-3 col-lg-3 col-form-label">Ngày sinh:</label>
-                            <div class="col-lg-5">
-                                <input class="form-control form-control-lg form-control-solid" id="datepicker" name="datepicker" value="@Model.DOB.ToString("MM/dd/yyyy")" />
+                                <input type="email" class="form-control form-control-lg form-control-solid" id="email" name="email" aria-describedby="emailHelp" placeholder="Email" value="@Model.Email" />
                             </div>
                         </div>
-                        <!--begin::Form Group-->
-                        <span id="errorPhone" class="text-danger"></span>
-                        <div class="form-group row">
-                            <label class="col-xl-3 col-lg-3 col-form-label">Số điện thoại:</label>
-                            <div class="col-lg-5">
-                                <div class="input-group input-group-lg input-group-solid">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text">
-                                            <i class="la la-phone"></i>
-                                        </span>
-                                    </div>
-                                    <input class="form-control form-control-lg form-control-solid" type="text" id="phone" name="phone" value="@Model.PhoneNumber" />
+
+                    </div>
+                    <!--begin::Form Group-->
+                    <span id="errorDOB" class="text-danger"></span>
+                    <div class="form-group row">
+                        <label class="col-xl-3 col-lg-3 col-form-label">Ngày sinh:</label>
+                        <div class="col-lg-5">
+                            <input class="form-control form-control-lg form-control-solid" id="datepicker" name="datepicker" value="@Model.DOB.ToString("MM/dd/yyyy")" />
+                        </div>
+                    </div>
+                    <!--begin::Form Group-->
+                    <span id="errorPhone" class="text-danger"></span>
+                    <div class="form-group row">
+                        <label class="col-xl-3 col-lg-3 col-form-label">Số điện thoại:</label>
+                        <div class="col-lg-5">
+                            <div class="input-group input-group-lg input-group-solid">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">
+                                        <i class="la la-phone"></i>
+                                    </span>
                                 </div>
+                                <input class="form-control form-control-lg form-control-solid" type="text" id="phone" name="phone" value="@Model.PhoneNumber" />
                             </div>
                         </div>
                     </div>
-                </form>
-                <!--end::Form-->
-            </div>
-            <!--end::Card-->
+                </div>
+            </form>
+            <!--end::Form-->
         </div>
+        <!--end::Card-->
     </div>
 </div>
 <script>
