@@ -27,36 +27,36 @@ function ValidateEditForm() {
     var status = true;
 
     if (FullName == "") {
-        document.getElementById("errorFullname").innerHTML = "You need to input FullName";
+        document.getElementById("errorFullname").innerHTML = " Chưa nhập họ tên ";
         status = false;
     }
     else {
         document.getElementById("errorFullname").innerHTML = "";
     }
     if (Email == "") {
-        document.getElementById("errorEmail").innerHTML = "You need to input email";
+        document.getElementById("errorEmail").innerHTML = "Email không được để trống";
         status = false;
     }
     else if (ValidateEmail(Email) == false) {
-        document.getElementById("errorEmail").innerHTML = "You have entered an invalid email address!";
+        document.getElementById("errorEmail").innerHTML = "Địa chỉ email sai định dạng";
         status = false;
     }
     else {
         document.getElementById("errorEmail").innerHTML = "";
     }
     if (Dob == "") {
-        document.getElementById("errorDOB").innerHTML = "You need to input DOB";
+        document.getElementById("errorDOB").innerHTML = "Chưa nhập ngày sinh";
         status = false;
     }
     else {
         document.getElementById("errorDOB").innerHTML = "";
     }
     if (phone == "") {
-        document.getElementById("errorPhone").innerHTML = "You need to input phone number";
+        document.getElementById("errorPhone").innerHTML = "Chưa nhập số điện thoại";
         status = false;
     }
     else if (ValidatePhoneNumber(phone) == false) {
-        document.getElementById("errorPhone").innerHTML = "You have entered an invalid phone";
+        document.getElementById("errorPhone").innerHTML = "Số điện thoại sai định dạng";
         status = false;
     }
     else {

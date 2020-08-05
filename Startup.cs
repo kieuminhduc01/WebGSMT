@@ -80,7 +80,7 @@ namespace WebGSMT
                     pattern: "{controller=Home}/{action=Index}/{id?}");
                 endpoints.MapControllerRoute(
                     name: "defaultWithAccount",
-                    pattern: "{area}/{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{area=Users}/{controller=Home}/{action=Index}/{id?}");
 
                
             });
