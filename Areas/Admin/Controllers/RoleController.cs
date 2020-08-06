@@ -191,7 +191,6 @@ namespace WebGSMT.Areas.Admin.Controllers
                     Description = Description,
                 };
                 _context.Roles.Add(rs);
-                _context.SaveChanges();
                 var check = _context.Roles.Find(RoleName);
                 if (RoleName == null)
                 {
@@ -199,10 +198,11 @@ namespace WebGSMT.Areas.Admin.Controllers
                 }
                 foreach (var i in PermissionRole)
                 {
+
                     var pe_ro = new Permission_Role()
                     {
                         RoleName = RoleName,
-                        PermissionID = int.Parse(i)
+                        PermissionID = Convert.ToInt32(i)
                     };
                     _context.AccoPermission_Roles.Add(pe_ro);
                 }
@@ -210,8 +210,9 @@ namespace WebGSMT.Areas.Admin.Controllers
             }
             catch (Exception ex)
             {
-                return "Insert Role không thành công !!!";
+                return "Thêm Role không thành công !!!";
             }
+
             return "success";
 
         }
@@ -247,13 +248,13 @@ namespace WebGSMT.Areas.Admin.Controllers
                 {
                     TreeViewNode tvn = new TreeViewNode
                     {
-                        id = i.ID.ToString(),
+                        id = i.ID,
                         parent = i.Parent,
                         text = i.Text.Split('-').Last(),
                         state = new Dictionary<string, bool>()
                     };
 
-                    if (ra != null && !string.IsNullOrEmpty(RoleName) && listPer.Contains(int.Parse(tvn.id)))
+                    if (ra != null && !string.IsNullOrEmpty(RoleName) && listPer.Contains(tvn.id))
                     {
                         tvn.state.Add("selected", true);
                     }

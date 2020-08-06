@@ -1,6 +1,6 @@
 ﻿$('#submit').on('click', function () {
-    if (Validate()&RoleCheck()  ) {
-        debugger;
+    if (Validate() && RoleCheck()) {
+        
         var url = "/Admin/Role/InsertRole";
         var description = document.getElementById("role-description").value;
         var rolename = document.getElementById("role-name").value;
@@ -10,6 +10,7 @@
         $.each(selectedNodes, function () {
             checked_ids.push(this.id);
         });
+        debugger;
         $.ajax({
             url: url,
             type: 'POST',
@@ -20,13 +21,14 @@
             },
             success: function (data) {
                 if (data != "success") {
+                    showMessage(data, false);
                 } else {
                     $('#my_datatable_role').DataTable().ajax.reload(null, false);
-                    showMessage("Create Success!", true);
+                    showMessage("Tạo mới thành công!", true);
                 }
             },
             error: function (data) {
-                showMessage("Create Fail!", false);
+                showMessage("Lỗi tạo mới!", false);
             }
         });
     }

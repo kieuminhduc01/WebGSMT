@@ -7,7 +7,7 @@ namespace WebGSMT.Areas.Admin.Models.Role
 {
     public class TreeViewNode
     {
-        public string id { get; set; }
+        public int id { get; set; }
         public string text { get; set; }
         public string parent { get; set; }
         public Dictionary<String, bool> state { get; set; }
