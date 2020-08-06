@@ -7,15 +7,16 @@ namespace WebGSMT.Common
 {
     public static class Permission
     {
-       
         public static int ConvertPermissionStringToID(string PermissionStr)
         {
-            if (PermissionStr == "Admin")
+            WebGSMT.Models.GiamSatMoiTruongDbContext _context = new Models.GiamSatMoiTruongDbContext();
+            int ID=0;
+            var permission = _context.Permissions.FirstOrDefault(x=>x.Text==PermissionStr);
+            if (permission != null)
             {
-                return 1;
+                ID = permission.ID;
             }
-
-            return 0;//khi không có quyền nào trùng với quy định
+            return ID;
         }
     }
 }

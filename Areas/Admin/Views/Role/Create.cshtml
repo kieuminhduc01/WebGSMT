@@ -31,15 +31,20 @@
                 <div class="tab-pane fade show active" id="rolename" role="tabpanel" aria-labelledby="kt_tab_pane_2">
                     <div class="form-group">
                         <label>Tên vai trò:</label>
-                        <input type="text" id="role-name" class="form-control" placeholder="Nhập tên vai trò" />
-
+                        <input type="text" id="role-name" class="form-control" placeholder="Nhập tên vai trò" onchange="RoleCheck()"/>
+                        <p id="Validate-role-name" style="color:red"></p>
                         <label>Mô tả:</label>
                         <input type="text" id="role-description" class="form-control" placeholder="Nhập mô tả" />
-
+                        <p id="Validate-role-description" style="color:red"></p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary font-weight-bold" id="submit">Lưu</button>
+                        <button type="button" class="btn btn-light-primary font-weight-bold" data-dismiss="modal">Đóng</button>
+                        
                     </div>
                 </div>
                 <div class="tab-pane fade" id="permission" role="tabpanel" aria-labelledby="kt_tab_pane_2">
-                    <form class="form">
+                    <form class="form" >
                         <div class="card-body">
                             <div id="jstree"></div>
                         </div>
@@ -52,10 +57,7 @@
         </div>
         <!--end::card body-->
         <!--begin::footer-->
-        <div class="modal-footer">
-            <button type="button" class="btn btn-light-primary font-weight-bold" data-dismiss="modal">Đóng</button>
-            <button type="button" class="btn btn-primary font-weight-bold" data-dismiss="modal" id="submit">Tạo mới</button>
-        </div>
+       
         <!--End::footer-->
     </div>
 </div>

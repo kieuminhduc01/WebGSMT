@@ -26,7 +26,7 @@ $('.create-catalogdata-form').on('click', function () {
     var devicename = $(this).attr('data-id');
 
     if (devicename.length == 0) {
-        showMessage("Vui lòng chọn thiết bị trước!", false);
+        showMessage("Vui lòng chọn một thiết bị ở phần danh sách hiết bị và giao thức!", false);
         return;
     };
 

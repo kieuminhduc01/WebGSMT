@@ -47,9 +47,21 @@
                                             @Html.ValidationSummary(true, null, new { @class = "alert alert-danger" })
                                             <!--begin::Group-->
                                             <div class="form-group row">
-                                                <label asp-for="UserName" class="col-form-label col-3 text-lg-right text-left"></label>
+                                                <label class="col-form-label col-3 text-lg-right text-left">Tên đăng nhập</label>
                                                 <div class="col-9">
                                                     <input class="form-control form-control-lg" type="text" asp-for="UserName" onchange="UserCheck()">
+                                                    @Html.ValidationMessage("UserNameExist", "", new { @class = "text-danger" })
+                                                    @Html.ValidationMessageFor(a => a.UserName, "", new { @class = "text-danger" })
+                                                    <p id="userNameValidate" class="text-danger"></p>
+                                                    <p id="Status" />
+                                                </div>
+                                            </div>
+                                            <!--end::Group--> 
+                                            <!--begin::Group-->
+                                            <div class="form-group row">
+                                                <label class="col-form-label col-3 text-lg-right text-left">Mật khẩu mặc định</label>
+                                                <div class="col-9">
+                                                    <input class="form-control form-control-lg" type="text" readonly value="123456789">
                                                     @Html.ValidationMessage("UserNameExist", "", new { @class = "text-danger" })
                                                     @Html.ValidationMessageFor(a => a.UserName, "", new { @class = "text-danger" })
                                                     <p id="userNameValidate" class="text-danger"></p>
@@ -59,7 +71,7 @@
                                             <!--end::Group-->
                                             <!--begin::Group-->
                                             <div class="form-group row">
-                                                <label asp-for="FullName" class="col-form-label col-3 text-lg-right text-left"></label>
+                                                <label class="col-form-label col-3 text-lg-right text-left">Họ và tên</label>
                                                 <div class="col-9">
                                                     <input class="form-control form-control-lg" type="text" asp-for="FullName">
                                                     @Html.ValidationMessageFor(a => a.FullName, "", new { @class = "text-danger" })
@@ -69,7 +81,7 @@
                                             <!--end::Group-->
                                             <!--begin::Group-->
                                             <div class="form-group row">
-                                                <label asp-for="DOB" class="col-form-label col-3 text-lg-right text-left"></label>
+                                                <label class="col-form-label col-3 text-lg-right text-left">Ngày sinh</label>
                                                 <div class="col-9">
                                                     <input class="form-control form-control-lg DOB" readonly id="DOB" @*value="@DateTime.Now.ToString("dd/MM/yyyy")"*@ />
                                                     @Html.ValidationMessageFor(a => a.DOB, "", new { @class = "text-danger" })
@@ -80,7 +92,7 @@
                                             <!--end::Group-->
                                             <!--begin::Group-->
                                             <div class="form-group row">
-                                                <label asp-for="Email" class="col-form-label col-3 text-lg-right text-left"></label>
+                                                <label class="col-form-label col-3 text-lg-right text-left">Email</label>
                                                 <div class="col-9">
                                                     <input class="form-control form-control-lg" type="text" asp-for="Email">
                                                     @Html.ValidationMessageFor(a => a.Email, "", new { @class = "text-danger" })
@@ -90,7 +102,7 @@
                                             <!--end::Group-->
                                             <!--begin::Group-->
                                             <div class="form-group row">
-                                                <label asp-for="PhoneNumber" class="col-form-label col-3 text-lg-right text-left"></label>
+                                                <label class="col-form-label col-3 text-lg-right text-left">Số điện thoại</label>
                                                 <div class="col-9">
                                                     <input class="form-control form-control-lg" type="text" asp-for="PhoneNumber">
                                                     @Html.ValidationMessageFor(a => a.PhoneNumber, "", new { @class = "text-danger" })
@@ -108,7 +120,7 @@
                                             <div class="form-group row" style="float:right">
                                                 <label class="col-form-label col-3 text-lg-right text-left"></label>
                                                 <div class="form-group">
-                                                    <input type="button" value="Tạo mới" class="btn btn-primary btnCreateAccount" />
+                                                    <input type="button" value="Lưu" class="btn btn-primary btnCreateAccount" />
                                                     <button type="button" class="btn btn-light-primary font-weight-bold" data-dismiss="modal">Đóng</button>
                                                 </div>
                                             </div>

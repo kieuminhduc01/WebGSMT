@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
+
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using WebGSMT.ActionFilter;
 using WebGSMT.Areas.Users.Models.Devices;
 using WebGSMT.Models;
 
@@ -26,6 +28,7 @@ namespace WebGSMT.Areas.Users
         }
         #region List devices
         [Route("ListDevice")]
+        [AuthorizePermission("Thiet bi-Xem")]
         public async Task<IActionResult> Index()
         {
             return View(await _context.Devices.ToListAsync());
@@ -91,6 +94,7 @@ namespace WebGSMT.Areas.Users
 
         [Route("edit")]
         [HttpPost]
+        [AuthorizePermission("Thiet bi-Sua")]
         public async Task<IActionResult> Edit(string id)
         {
             var device = await _context.Devices.FindAsync(id);

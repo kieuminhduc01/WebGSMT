@@ -25,7 +25,6 @@ namespace WebGSMT.Areas.Admin.Controllers
         }
 
         [Route("getalluser")]
-        [Authorize("Admin")]
         public JsonResult getAllUser()
         {
             try
@@ -90,7 +89,7 @@ namespace WebGSMT.Areas.Admin.Controllers
         }
         
         [Route("listuser")]
-        [Authorize("Admin")]
+       
         public async Task<IActionResult> ListUser()
         {
             _context = new GiamSatMoiTruongDbContext();

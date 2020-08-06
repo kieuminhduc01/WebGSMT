@@ -12,7 +12,7 @@ var KTDatatablesDataSourceAjaxServer = function () {
             serverSide: true,
             info: false,
             ajax: {
-                url: "/Admin/Account/getAllUser",
+                url: "/Admin/Account/getalluser",
                 type: 'GET'
             },
             columns: [

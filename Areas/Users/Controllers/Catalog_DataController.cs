@@ -236,7 +236,7 @@ namespace WebGSMT.Areas.Users.Controllers
             }
             catch (Exception)
             {
-                return "Can't not upload file";
+                return "Lỗi tải file(chưa chọn file)";
             }
 
         }

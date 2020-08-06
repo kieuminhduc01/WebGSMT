@@ -97,7 +97,33 @@ namespace WebGSMT.Areas.Admin.Controllers
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
+        // GET: Admin/Accounts/Edit/5
+        [Route("CheckExits")]
+        public JsonResult CheckExits(string userdata)
+        {
+            if (userdata != null)
+            {
+                if (userdata.Trim().Length == 0)
+                {
+                    return Json(11);
+                }
+                System.Threading.Thread.Sleep(200);
+                var accTest = _context.Roles.Where(m => m.RoleName == userdata).SingleOrDefault();
+                if (accTest != null)
+                {
+                    if (accTest.ToString().Length != 0)
+                    {
 
+                        return Json(1);
+
+                    }
+                    else
+                        return Json(0);
+                }
+                return Json(0);
+            }
+            return Json(2);
+        }
         private bool RoleExists(string id)
         {
             return _context.Roles.Any(e => e.RoleName == id);
@@ -107,7 +133,7 @@ namespace WebGSMT.Areas.Admin.Controllers
         [Route("updaterole")]
         public string UpdateRole(string RoleName, string Description, List<String> PermissionRole)
         {
-            
+
             try
             {
                 if (PermissionRole == null)
@@ -122,7 +148,7 @@ namespace WebGSMT.Areas.Admin.Controllers
                 r.Description = Description;
                 //remove
                 var getPer = _context.AccoPermission_Roles.Where(x => x.RoleName == RoleName);
-                foreach(var i in getPer)
+                foreach (var i in getPer)
                 {
                     _context.AccoPermission_Roles.Remove(i);
                 }
@@ -140,7 +166,6 @@ namespace WebGSMT.Areas.Admin.Controllers
             }
             catch (Exception ex)
             {
-                return "Update Role không thành công !!!";
             }
             return "success";
         }
@@ -168,7 +193,7 @@ namespace WebGSMT.Areas.Admin.Controllers
                 _context.Roles.Add(rs);
                 _context.SaveChanges();
                 var check = _context.Roles.Find(RoleName);
-                if(RoleName == null)
+                if (RoleName == null)
                 {
                     return "fail";
                 }
@@ -224,11 +249,11 @@ namespace WebGSMT.Areas.Admin.Controllers
                     {
                         id = i.ID.ToString(),
                         parent = i.Parent,
-                        text = i.Text,
+                        text = i.Text.Split('-').Last(),
                         state = new Dictionary<string, bool>()
                     };
-                    
-                    if (ra != null &&  !string.IsNullOrEmpty(RoleName) && listPer.Contains(int.Parse(tvn.id)))
+
+                    if (ra != null && !string.IsNullOrEmpty(RoleName) && listPer.Contains(int.Parse(tvn.id)))
                     {
                         tvn.state.Add("selected", true);
                     }
@@ -260,7 +285,7 @@ namespace WebGSMT.Areas.Admin.Controllers
         {
             return View();
         }
-        
+
         [Route("getallrole")]
         public JsonResult GetAllRole()
         {
@@ -297,7 +322,7 @@ namespace WebGSMT.Areas.Admin.Controllers
                 {
                     listRole = listRole.OrderByDescending(x => x.GetType().GetProperty(sortColumnName).GetValue(x)).ToList<Role>();
                 }*/
-                
+
 
                 apg.recordsFiltered = listRole.Count;
                 //paging

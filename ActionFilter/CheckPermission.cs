@@ -20,34 +20,37 @@ namespace WebGSMT.ActionFilter
         public AuthorizeActionPemissionFilter(string PermissionName)
         {
             this.PermissionID = Common.Permission.ConvertPermissionStringToID(PermissionName);
-
         }
 
         public void OnAuthorization(AuthorizationFilterContext context)
         {
+            bool Access = false;
             string userName = context.HttpContext.Session.GetString("UserName");
             Account_Role accRoleTemp = _context.Account_Roles.FirstOrDefault(x => x.UserName == userName);
-            List<Permission_Role> lstPerRo = _context.AccoPermission_Roles.Where(x => x.RoleName == accRoleTemp.RoleName).ToList();
-
-            bool Access = false;
-            foreach (Permission_Role perRoleUnit in lstPerRo)
+            if (accRoleTemp != null)
             {
-                if (perRoleUnit.PermissionID == PermissionID)
+                List<Permission_Role> lstPerRo = _context.AccoPermission_Roles.Where(x => x.RoleName == accRoleTemp.RoleName).ToList();
+                foreach (Permission_Role perRoleUnit in lstPerRo)
                 {
-                    Access = true;
+                    if (perRoleUnit.PermissionID == PermissionID)
+                    {
+                        Access = true;
+                    }
                 }
             }
+
             if (!Access)
             {
                 context.Result = new UnauthorizedResult();
+                
             }
 
         }
 
     }
-    public class AuthorizeAttribute : TypeFilterAttribute
+    public class AuthorizePermission : TypeFilterAttribute
     {
-        public AuthorizeAttribute(string permission)
+        public AuthorizePermission(string permission)
             : base(typeof(AuthorizeActionPemissionFilter))
         {
             Arguments = new object[] { permission };

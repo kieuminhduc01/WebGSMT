@@ -1,5 +1,4 @@
-﻿
-$('#btnCreateAccount').on('click', function () {
+﻿$('#btnCreateAccount').on('click', function () {
     var url = "/Admin/Account/Create";
     $.ajax({
         url: url,
@@ -18,7 +17,6 @@ $('#btnCreateAccount').on('click', function () {
 
 
 });
-
 $('.btnCreateAccount').on('click', function () {
     if (!validateFormCreate()) {
         return;

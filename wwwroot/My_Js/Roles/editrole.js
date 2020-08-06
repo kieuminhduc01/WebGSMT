@@ -1,4 +1,8 @@
 ﻿$('#submit').on('click', function () {
+    if ($('#role-description').val() == "") {
+        $('#validationMota').text('Nhập Mô tả');
+        return;
+    }
     var url = "/Admin/Role/UpdateRole";
     var description = document.getElementById("role-description").value;
     var rolename = document.getElementById("role-name").value;
@@ -18,7 +22,6 @@
         },
         success: function (data) {
             if (data != "success") {
-                alert(data);
             } else {
                 $('#my_datatable_role').DataTable().ajax.reload(null, false);
                 showMessage("Edit successfully!", true);

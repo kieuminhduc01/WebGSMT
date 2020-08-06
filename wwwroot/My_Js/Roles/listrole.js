@@ -1,6 +1,5 @@
 ﻿$('#my_datatable_role').on('click', '.bt-open-edit-account-form', function () {
     var url = "/Admin/Role/Edit";
-    debugger;
     var id = $(this).attr("data-id");
     $.ajax({
         url: url,

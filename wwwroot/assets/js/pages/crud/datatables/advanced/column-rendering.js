@@ -3,7 +3,7 @@ var KTDatatablesAdvancedColumnRendering = function() {
 
 	var init = function() {
 		var table = $('#kt_datatable');
-
+		debugger;
 		// begin first table
 		table.DataTable({
 			responsive: true,
