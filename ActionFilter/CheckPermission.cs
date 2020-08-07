@@ -42,7 +42,7 @@ namespace WebGSMT.ActionFilter
             if (!Access)
             {
                 context.Result = new UnauthorizedResult();
-                
+
             }
 
         }

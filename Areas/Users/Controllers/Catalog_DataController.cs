@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using WebGSMT.ActionFilter;
 using WebGSMT.Areas.Users.Models.Datas;
 using WebGSMT.Areas.Users.Models.Devices;
 using WebGSMT.Models;
@@ -103,6 +105,7 @@ namespace WebGSMT.Areas.Users.Controllers
         #region Create Catalog Data
         // GET: Users/Catalog_Data/Create
         [Route("create")]
+        [AuthorizePermission("Danh muc du lieu-Them moi")]
         public IActionResult Create(string DeviceName)
         {
             ViewBag.DeviceName = DeviceName;
@@ -139,6 +142,7 @@ namespace WebGSMT.Areas.Users.Controllers
         // GET: Users/Catalog_Data/Edit/5
         [Route("edit")]
         [HttpPost]
+        [AuthorizePermission("Danh muc du lieu-Sua")]
         public IActionResult Edit(string TagName)
         {
             var catalog_Data = _context.Catalog_Datas.Find(TagName);
@@ -178,6 +182,7 @@ namespace WebGSMT.Areas.Users.Controllers
         #region Delete Devices
         [HttpPost]
         [Route("deletecatalog")]
+        [AuthorizePermission("Danh muc du lieu-Xoa")]
         public bool DeleteCatalog(string TagName)
         {
             try

@@ -24,7 +24,7 @@
             if (data != "success") {
             } else {
                 $('#my_datatable_role').DataTable().ajax.reload(null, false);
-                showMessage("Edit successfully!", true);
+                showMessage("Sửa thành công!", true);
             }
         },
         error: function (data) {

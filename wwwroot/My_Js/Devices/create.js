@@ -41,6 +41,10 @@ function validateFormCreate() {
         trangThai = false;
     }
     else {
+        if (!(/^(?!.*__.*)(?!.*\.\..*)[a-z0-9_.]+$/iu.test(deviceName))) {
+            $('#deviceNameValidate').text("Tên thiết bị sai định dạng");
+            trangThai = false;
+        } else
         $("#deviceNameValidate").text('');
     }
     if (deviceNameShow == "") {

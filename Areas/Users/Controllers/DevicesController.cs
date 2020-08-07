@@ -131,6 +131,7 @@ namespace WebGSMT.Areas.Users
         #region Delete Devices
         [HttpPost]
         [Route("DeleteDevices")]
+        [AuthorizePermission("Thiet bi-Xoa")]
         public bool DeleteDevices(string name)
         {
             try
@@ -150,6 +151,7 @@ namespace WebGSMT.Areas.Users
         #region Create devices
         [HttpGet]
         [Route("Create")]
+        [AuthorizePermission("Thiet bi-Them moi")]
         public IActionResult CreateDevices()
         {
             return View();

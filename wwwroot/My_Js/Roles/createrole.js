@@ -1,6 +1,6 @@
 ﻿$('#submit').on('click', function () {
     if (Validate() && RoleCheck()) {
-        
+
         var url = "/Admin/Role/InsertRole";
         var description = document.getElementById("role-description").value;
         var rolename = document.getElementById("role-name").value;
@@ -10,7 +10,6 @@
         $.each(selectedNodes, function () {
             checked_ids.push(this.id);
         });
-        debugger;
         $.ajax({
             url: url,
             type: 'POST',
@@ -71,12 +70,12 @@ function Validate() {
 
     var isValidation = true;
     if (roleName == "") {
-        $('#Validate-role-name').text("Nhập Tên vai trò");
+        InvalidMsg(document.getElementById('role-name'));
+        $('#Validate-role-name').text("Nhập tên vai trò");
         isValidation = false;
     }
-    if (!/^[a-z0-9]*([._-][a-z0-9]+)*$/.test(roleName)) {
+    if (!(/^(?!.*__.*)(?!.*\.\..*)[a-z0-9_.]+$/iu.test(roleName))) {
         $('#Validate-role-name').text("Tên vai trò sai định dạng");
-
         isValidation = false;
     }
     if (roleDescription == "") {
@@ -98,7 +97,7 @@ function RoleCheck() {
                 $("#Validate-role-name").html('<font color="Green">Tên tài khoản hợp lệ...</font>');
                 $("#role-name").css("border-color", "Green");
             }
-            else if (data==1) {
+            else if (data == 1) {
                 $("#Validate-role-name").html('<font color="Red">Tên tài khoản đã tồn tại...</font>');
                 $("#role-name").css("border-color", "Red");
                 validationCheck = false;
@@ -107,3 +106,13 @@ function RoleCheck() {
     );
     return validationCheck;
 }
+function InvalidMsg(textbox) {
+debugger;
+    if (textbox.value === '') {
+        textbox.setCustomValidity('Entering an email-id is necessary!');
+    } else {
+        textbox.setCustomValidity('');
+    }
+    
+    return true;
+} 

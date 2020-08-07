@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -89,7 +90,7 @@ namespace WebGSMT.Areas.Admin.Controllers
         }
         
         [Route("listuser")]
-       
+        [AuthorizePermission("Quan Tri Vien-Nguoi Dung-Xem")]
         public async Task<IActionResult> ListUser()
         {
             _context = new GiamSatMoiTruongDbContext();
@@ -98,6 +99,7 @@ namespace WebGSMT.Areas.Admin.Controllers
 
         // GET: Admin/Accounts
         [Route("index")]
+        [AuthorizePermission("Quan Tri Vien-Nguoi Dung-Xem")]
         public async Task<IActionResult> Index()
         {
             _context = new GiamSatMoiTruongDbContext();
@@ -107,6 +109,7 @@ namespace WebGSMT.Areas.Admin.Controllers
 
         // GET: Admin/Accounts/Create
         [Route("create")]
+        [AuthorizePermission("Quan Tri Vien-Nguoi Dung-Them moi")]
         public IActionResult Create()
         {
             return View();
@@ -167,6 +170,7 @@ namespace WebGSMT.Areas.Admin.Controllers
         {
             System.Threading.Thread.Sleep(200);
             var accTest =  _context.Accounts.Where(m => m.UserName == userdata).SingleOrDefault();
+            
             if (accTest != null )
             {
                 if (accTest.ToString().Length != 0)
@@ -183,6 +187,7 @@ namespace WebGSMT.Areas.Admin.Controllers
 
         // GET: Admin/Accounts/Edit/5
         [Route("edit")]
+        [AuthorizePermission("Quan Tri Vien-Nguoi Dung-Sua")]
         public async Task<IActionResult> Edit(string id)
         {
             if (id == null)
@@ -333,6 +338,7 @@ namespace WebGSMT.Areas.Admin.Controllers
 
         [HttpPost]
         [Route("deleteaccount")]
+        [AuthorizePermission("Quan Tri Vien-Nguoi Dung-Xoa")]
         public bool DeleteAccount(string UserName)
         {
             try

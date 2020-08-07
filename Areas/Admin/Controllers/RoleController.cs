@@ -26,6 +26,7 @@ namespace WebGSMT.Areas.Admin.Controllers
 
         // GET: Admin/Role
         [Route("listrole")]
+        [AuthorizePermission("Quan Tri Vien-Vai Tro-Xem")]
         public async Task<IActionResult> ListRole()
         {
             _context = new GiamSatMoiTruongDbContext();
@@ -52,6 +53,7 @@ namespace WebGSMT.Areas.Admin.Controllers
 
         // GET: Admin/Role/Create
         [Route("create")]
+        [AuthorizePermission("Quan Tri Vien-Vai Tro-Them moi")]
         public IActionResult Create()
         {
             return View();
@@ -62,6 +64,7 @@ namespace WebGSMT.Areas.Admin.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [Route("edit")]
         [HttpPost]
+        [AuthorizePermission("Quan Tri Vien-Vai Tro-Sua")]
         public async Task<IActionResult> Edit(string id)
         {
             var role = await _context.Roles.FindAsync(id);
@@ -217,6 +220,7 @@ namespace WebGSMT.Areas.Admin.Controllers
 
         }
         [Route("deleterole")]
+        [AuthorizePermission("Quan Tri Vien-Vai Tro-Xoa")]
         public bool DeleteRole(string RoleName)
         {
             try
