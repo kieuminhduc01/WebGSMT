@@ -87,19 +87,23 @@ $('#btnDelteYes').on('click', function (e) {
 });
 
 
-
 "use strict";
-var KTDatatablesDataSourceAjaxServer = function () {
+var KTDatatablesDataSourceAjaxServer2 = function () {
+
     var name = document.getElementById("devicename").value;
     var tableDevices = function () {
         var table = $('#my_datatable_CatalogData');
         // begin first table
         table.DataTable({
+            initComplete: function (settings, json) {
+                loadPermissionDanhMucDuLieu();
+            },
             responsive: true,
             searchDelay: 500,
             processing: true,
             serverSide: true,
             info: false,
+
             language: {
                 "processing": "Loading..."
             },
@@ -107,10 +111,10 @@ var KTDatatablesDataSourceAjaxServer = function () {
                 url: "/Users/CatalogData/GetAllCatalogData",
                 type: 'GET',
                 data: {
-                    name:name
+                    name: name
                 },
             },
-            columns: [       
+            columns: [
                 { data: 'deviceName', name: "DeviceName" },
                 { data: 'tagName', name: "TagName" },
                 { data: 'address', name: "Address" },
@@ -129,10 +133,10 @@ var KTDatatablesDataSourceAjaxServer = function () {
                     orderable: false,
                     render: function (data, type, full, meta) {
                         return '\
-							<a href="javascript:;" class="btn btn-sm btn-clean btn-icon edit-catalogdata-form" title="Edit" data-id="'+ data +'">\
+							<a href="javascript:;" class="btn btn-sm btn-clean btn-icon edit-catalogdata-form" title="Edit" data-id="'+ data + '" style="display:none"  >\
 								<i class="la la-edit"></i>\
 							</a>\
-							<a href="javascript:;" class="btn btn-sm btn-clean btn-icon delete-catalogdata-form" title="Delete" data-id="'+ data +'">\
+							<a href="javascript:;" class="btn btn-sm btn-clean btn-icon delete-catalogdata-form" title="Delete" data-id="'+ data + '" style="display:none"  >\
 								<i class="la la-trash"></i>\
 							</a>\
 						';
@@ -141,19 +145,16 @@ var KTDatatablesDataSourceAjaxServer = function () {
             ],
         });
     };
-
     return {
 
         //main function to initiate the module
         init: function () {
             tableDevices();
         },
-
     };
-
 }();
 
 jQuery(document).ready(function () {
-    KTDatatablesDataSourceAjaxServer.init();
+    KTDatatablesDataSourceAjaxServer2.init();
 });
 

@@ -68,7 +68,7 @@
                     <div class="form-group row">
                         <label class="col-xl-3 col-lg-3 col-form-label">Ngày sinh:</label>
                         <div class="col-lg-5">
-                            <input class="form-control form-control-lg form-control-solid" id="datepicker" name="datepicker" value="@Model.DOB.ToString("MM/dd/yyyy")" />
+                            <input class="form-control form-control-lg" id="datepicker" name="datepicker" value="@Model.formatDate()" />
                         </div>
                     </div>
                     <!--begin::Form Group-->
@@ -93,10 +93,10 @@
         <!--end::Card-->
     </div>
 </div>
-<script>
-    $('#datepicker').datepicker({
-        uiLibrary: 'bootstrap4'
-    });
-</script>
 <script src="~/Users_JS/Validate_Users.js"></script>
 <script src="~/Users_JS/editUsers.js"></script>
+<script>
+    $('#datepicker').datepicker({
+        format: 'dd/mm/yyyy'
+    });
+</script>

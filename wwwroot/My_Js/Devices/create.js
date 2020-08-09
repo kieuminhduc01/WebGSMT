@@ -21,8 +21,6 @@
                 showMessage("Tạo mới thành công !", true);
             }
             else {
-                alert(data);
-
             }
         }
     });

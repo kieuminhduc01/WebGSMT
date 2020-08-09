@@ -83,6 +83,9 @@ var KTDatatablesDataSourceAjaxServer = function () {
 
         // begin first table
         table.DataTable({
+            initComplete: function (settings, json) {
+                loadPermissionDanhSachVaiTro();
+            },
             responsive: true,
             searchDelay: 500,
             processing: true,
@@ -111,10 +114,10 @@ var KTDatatablesDataSourceAjaxServer = function () {
                     orderable: false,
                     render: function (data, type, full, meta) {
                         return '\
-							<a href="javascript:;" class="btn btn-sm btn-clean btn-icon bt-open-edit-account-form" title="Edit" data-id="'+ data + '">\
+							<a href="javascript:;" class="btn btn-sm btn-clean btn-icon bt-open-edit-account-form" title="Edit" data-id="'+ data + '" style="display:none">\
 								<i class="la la-edit"></i>\
 							</a>\
-							<a href="javascript:;" class="btn btn-sm btn-clean btn-icon bt-delete-role" title="Delete" data-id="'+ data + '">\
+							<a href="javascript:;" class="btn btn-sm btn-clean btn-icon bt-delete-role" title="Delete" data-id="'+ data + '" style="display:none">\
 								<i class="la la-trash"></i>\
 							</a>\
 						';

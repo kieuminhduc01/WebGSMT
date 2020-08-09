@@ -24,7 +24,6 @@
         },
         success: function (data) {
             if (data != "success") {
-                alert(data);
             } else {
                 $('#my_datatable_CatalogData').DataTable().ajax.reload(null, false);
                 showMessage("Sửa thành công!", true);

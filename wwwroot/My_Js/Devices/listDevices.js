@@ -76,7 +76,6 @@ $('#btnDelteYes').on('click', function (e) {
 
 "use strict";
 var KTDatatablesDataSourceAjaxServer = function () {
-
     var tableDevices = function () {
         var table = $('#my_datatable_Devices');
 
@@ -87,6 +86,9 @@ var KTDatatablesDataSourceAjaxServer = function () {
             processing: true,
             serverSide: true,
             info: false,
+            initComplete: function (settings, json) {
+                loadPermissionThietBiVaGiaoThuc();
+            },
             language: {
                 "processing": "Đang xử lý..."
             },
@@ -110,10 +112,10 @@ var KTDatatablesDataSourceAjaxServer = function () {
                     orderable: false,
                     render: function (data, type, full, meta) {
                         return '\
-							<a href="javascript:;" class="btn btn-sm btn-clean btn-icon bt-open-edit-devices-form " title="Edit" data-id="'+ data + '">\
+							<a href="javascript:;" class="btn btn-sm btn-clean btn-icon bt-open-edit-devices-form " title="Edit" data-id="'+ data + '" style="display:none">\
 								<i class="la la-edit"></i>\
 							</a>\
-							<a href="javascript:;" class="btn btn-sm btn-clean btn-icon bt-delete-devices" title="Delete" data-id="'+ data + '">\
+							<a href="javascript:;" class="btn btn-sm btn-clean btn-icon bt-delete-devices" title="Delete" data-id="'+ data + '" style="display:none" >\
 								<i class="la la-trash"></i>\
 							</a>\
                             <a href="javacript:;" class="btn btn-sm btn-clean btn-icon bt-show-dvn" title="Show Data" data-id="'+ data + '">\
@@ -124,6 +126,7 @@ var KTDatatablesDataSourceAjaxServer = function () {
                 },
             ],
         });
+        
     };
 
     return {
@@ -145,7 +148,7 @@ function loadTableCatalog(dvn) {
             DeviceName: dvn
         },
         success: function (data) {
-            
+
             $('#loadTableCatalog').html(data);
         },
         error: function (jqXHR, error, errorThrown) {

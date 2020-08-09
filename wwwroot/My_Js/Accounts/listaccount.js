@@ -6,6 +6,9 @@ var KTDatatablesDataSourceAjaxServer = function () {
         var dateTimeFormat = new Intl.DateTimeFormat('en', { year: 'numeric', month: 'short', day: '2-digit' });
         // begin first table
         table.DataTable({
+            initComplete: function (settings, json) {
+                loadPermissionDanhNguoiDung();
+            },
             responsive: true,
             searchDelay: 500,
             processing: true,
@@ -62,13 +65,13 @@ var KTDatatablesDataSourceAjaxServer = function () {
                     orderable: false,
                     render: function (data, type, full, meta) {
                         return '\
-                           	<a href="javascript:;" class="btn btn-sm btn-clean btn-icon btnEditAccount" title="Edit details" data-id ="'+ data.userName +'">\
+                           	<a href="javascript:;" class="btn btn-sm btn-clean btn-icon btnEditAccount" title="Edit details" data-id ="'+ data.userName +'" style="display:none" >\
 								<i class="la la-edit"></i>\
 							</a>\
-                            <a href="javascript:;" class="btn btn-sm btn-clean btn-icon bt-update-active" title="Active User" data-id="'+ data.userName + '">\
+                            <a href="javascript:;" class="btn btn-sm btn-clean btn-icon bt-update-active" title="Active User" data-id="'+ data.userName + '" style="display:none">\
                                 <i class="fas '+ data.classCheck + '" name="active" id="active" data-active=' + data.active + '></i>\
                             </a>\
-							<a href="javascript:;" class="btn btn-sm btn-clean btn-icon bt-delete-account" title="Delete" data-id="'+ data.userName + '">\
+							<a href="javascript:;" class="btn btn-sm btn-clean btn-icon bt-delete-account" title="Delete" data-id="'+ data.userName + '" style="display:none">\
 								<i class="la la-trash"></i>\
 							</a>\
 						';
@@ -153,7 +156,6 @@ $('#kt_datatable').on('click', '.btnEditAccount', function () {
             });
         },
         error: function (data) {
-            alert("Lỗi tải form Sửa");
         }
     });
 

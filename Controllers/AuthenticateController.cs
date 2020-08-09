@@ -15,7 +15,7 @@ using WebGSMT.ModelView.Account;
 namespace WebGSMT.Controllers
 {
     [Route("Authenticate")]
-        [AllowAnonymous]
+    [AllowAnonymous]
     public class AuthenticateController : Controller
     {
         private GiamSatMoiTruongDbContext _db = new GiamSatMoiTruongDbContext();
@@ -29,7 +29,7 @@ namespace WebGSMT.Controllers
         [HttpGet]
         public IActionResult Login()
         {
-            
+
             return View();
         }
 
@@ -45,15 +45,15 @@ namespace WebGSMT.Controllers
             // Calll tới service authenticate để check login có tành công không?
             else
             {
-               var authenticatedUser = await _db.Accounts.SingleOrDefaultAsync(m => m.UserName == model.Username && m.Password == model.Password);
-               if(authenticatedUser != null)
+                var authenticatedUser = await _db.Accounts.SingleOrDefaultAsync(m => m.UserName == model.Username && m.Password == model.Password);
+                if (authenticatedUser != null)
                 {
                     HttpContext.Session.SetString("UserName", authenticatedUser.UserName);
                     HttpContext.Session.SetObjectAsJson("Account", authenticatedUser);
                     return RedirectToAction("Index", "Home", new { area = "Users" });
                 }
                 else
-                {                                                            
+                {
                     TempData["Message"] = "Incorect username or password";
                     return Redirect("Login");
                 }
@@ -69,5 +69,24 @@ namespace WebGSMT.Controllers
             HttpContext.Session.Remove("UserName");
             return RedirectToAction("Login", "Authenticate");
         }
+        [Route("permissions")]
+        [HttpGet]
+        public List<string> Permissions()
+        {
+            string username = HttpContext.Session.GetString("UserName");
+            List<string> permissions = new List<string>();
+            Account_Role accRoleTemp = _db.Account_Roles.FirstOrDefault(x => x.UserName == username);
+            if (accRoleTemp != null)
+            {
+                List<Permission_Role> lstPerRo = _db.AccoPermission_Roles.Where(x => x.RoleName == accRoleTemp.RoleName).ToList();
+                foreach (Permission_Role perRoleUnit in lstPerRo)
+                {
+                    string perText = _db.Permissions.Where(x => x.ID == perRoleUnit.PermissionID).Select(x => x.Text).FirstOrDefault();
+                    permissions.Add(perText);
+                }
+            }
+            return permissions;
+        }
+
     }
 }

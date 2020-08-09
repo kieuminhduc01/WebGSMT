@@ -17,7 +17,6 @@
         },
         success: function (data) {
             if (data != "success") {
-                alert(data);
             } else {
                 $('#my_datatable_Devices').DataTable().ajax.reload(null, false);
                 showMessage("Sửa thành công !", true);

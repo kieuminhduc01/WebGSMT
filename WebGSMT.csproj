@@ -39,4 +39,9 @@
     <Folder Include="wwwroot\boostraptreeview\css\modules\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Include="Views\Error\_Layout.cshtml" />
+    <None Include="Views\Error\_ViewStart.cshtml" />
+  </ItemGroup>
+
 </Project>
