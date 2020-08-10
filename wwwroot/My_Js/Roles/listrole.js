@@ -92,7 +92,7 @@ var KTDatatablesDataSourceAjaxServer = function () {
             serverSide: true,
             info: false,
             language: {
-                "processing": "Loading..."
+                "processing": "Đang sử lý..."
             },
             ordering: false,
             ajax: {

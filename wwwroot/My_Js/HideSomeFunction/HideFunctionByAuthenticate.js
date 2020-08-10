@@ -1,9 +1,10 @@
 ﻿
-$(document).ready(async function loadPermisson() {
-    await $.get("/Authenticate/permissions", function (data, status) {
+$(document).ready(function loadPermisson() {
+    $.get("/Authenticate/permissions", function (data, status) {
         sessionStorage.lstPermission = data;
         var temp = sessionStorage.lstPermission;
         var lst = temp.split(",");
+
         function ShowPermission(item) {
 
             if (item == "Thiet bi-Xem") {
@@ -21,12 +22,12 @@ $(document).ready(async function loadPermisson() {
         }
         lst.forEach(ShowPermission);
     });
-
 });
 
 function loadPermissionThietBiVaGiaoThuc() {
     var temp = sessionStorage.lstPermission;
     var lst = temp.split(",");
+
     function ShowPermission(item) {
 
         if (item == "Thiet bi-Them moi") {

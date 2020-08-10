@@ -94,13 +94,13 @@
                                                 <i class="menu-arrow"></i>
                                             </a>
                                         </li>
-                                        <li class="menu-item menu-item-submenu menu-item-rel" data-menu-toggle="click" aria-haspopup="true">
+                                        <li class="menu-item menu-item-submenu menu-item-rel" data-menu-toggle="click" aria-haspopup="true" id="menu-ThietBi" style="display:none" >
                                             <a href="~/Users/Devices/ListDevice" class="menu-link">
                                                 <span class="menu-text">Thiết bị/Giao thức</span>
                                             </a>
 
                                         </li>
-                                        <li class="menu-item menu-item-submenu menu-item-rel" data-menu-toggle="click" aria-haspopup="true">
+                                        <li class="menu-item menu-item-submenu menu-item-rel" data-menu-toggle="click" aria-haspopup="true" id="menu-QuanTriVien" style="display:none"  >
                                             <a href="javascript:;" class="menu-link menu-toggle">
                                                 <span class="menu-text">Quản trị viên</span>
                                                 <span class="menu-desc"></span>
@@ -108,7 +108,7 @@
                                             </a>
                                             <div class="menu-submenu menu-submenu-classic menu-submenu-left">
                                                 <ul class="menu-subnav">
-                                                    <li class="menu-item menu-item-submenu" data-menu-toggle="hover" aria-haspopup="true">
+                                                    <li class="menu-item menu-item-submenu" data-menu-toggle="hover" aria-haspopup="true" style="display:none" id="menu-QuanTriVien-VaiTro-Xem">
                                                         <a href="\Admin\Role\ListRole" class="menu-link">
                                                             <span class="svg-icon menu-icon">
                                                                 <i class="fas fa-users-cog"></i>
@@ -116,7 +116,7 @@
                                                             <span class="menu-text">Danh sách vai trò</span>
                                                         </a>
                                                     </li>
-                                                    <li class="menu-item menu-item-submenu" data-menu-toggle="hover" aria-haspopup="true">
+                                                    <li class="menu-item menu-item-submenu" data-menu-toggle="hover" aria-haspopup="true" style="display:none" id="menu-QuanTriVien-NguoiDung-Xem">
                                                         <a href="\Admin\Account\ListUser" class="menu-link">
                                                             <span class="svg-icon menu-icon">
                                                                 <!--begin::Svg Icon | path:assets/media/svg/icons/Communication/Address-card.svg-->
@@ -846,6 +846,7 @@
     <script src="~/assets/js/pages/widgets.js?v=7.0.3"></script>
     <script src="~/My_Js/Layout.js"></script>
     <script src="~/My_Js/Accounts/Account.js"></script>
+    <script src="~/My_Js/HideSomeFunction/HideFunctionByAuthenticate.js"></script>
     <!--end::Page Scripts-->
 </body>
 <!--end::Body-->

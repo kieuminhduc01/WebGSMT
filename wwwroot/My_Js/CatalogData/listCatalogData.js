@@ -105,7 +105,7 @@ var KTDatatablesDataSourceAjaxServer2 = function () {
             info: false,
 
             language: {
-                "processing": "Loading..."
+                "processing": "Đang sử lý..."
             },
             ajax: {
                 url: "/Users/CatalogData/GetAllCatalogData",

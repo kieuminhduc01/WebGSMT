@@ -83,12 +83,13 @@ var KTDatatablesDataSourceAjaxServer = function () {
         table.DataTable({
             responsive: true,
             searchDelay: 500,
-            processing: true,
+
             serverSide: true,
             info: false,
             initComplete: function (settings, json) {
                 loadPermissionThietBiVaGiaoThuc();
             },
+            processing: true,
             language: {
                 "processing": "Đang xử lý..."
             },
@@ -126,7 +127,7 @@ var KTDatatablesDataSourceAjaxServer = function () {
                 },
             ],
         });
-        
+
     };
 
     return {
