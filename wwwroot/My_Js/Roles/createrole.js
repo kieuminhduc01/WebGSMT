@@ -22,7 +22,7 @@
                 if (data != "success") {
                     showMessage(data, false);
                 } else {
-                    $('#my_datatable_role').DataTable().ajax.reload(null, false);
+                    $('#my_datatable_role').DataTable().ajax.reload(function () { loadPermissionDanhSachVaiTro();}, false);
                     showMessage("Tạo mới thành công!", true);
                 }
             },

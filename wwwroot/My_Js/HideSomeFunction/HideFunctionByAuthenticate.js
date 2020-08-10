@@ -4,13 +4,12 @@ $(document).ready(function loadPermisson() {
         sessionStorage.lstPermission = data;
         var temp = sessionStorage.lstPermission;
         var lst = temp.split(",");
-
         function ShowPermission(item) {
 
             if (item == "Thiet bi-Xem") {
                 $("#menu-ThietBi").show();
             }
-            if (item == "Quan Tri Vien") {
+            if (item == "Quan Tri Vien-Vai Tro-Xem" || item == "Quan Tri Vien-Nguoi Dung-Xem") {
                 $("#menu-QuanTriVien").show();
             }
             if (item == "Quan Tri Vien-Vai Tro-Xem") {
@@ -18,7 +17,7 @@ $(document).ready(function loadPermisson() {
             }
             if (item == "Quan Tri Vien-Nguoi Dung-Xem") {
                 $("#menu-QuanTriVien-NguoiDung-Xem").show();
-            }
+            } 
         }
         lst.forEach(ShowPermission);
     });
@@ -27,7 +26,6 @@ $(document).ready(function loadPermisson() {
 function loadPermissionThietBiVaGiaoThuc() {
     var temp = sessionStorage.lstPermission;
     var lst = temp.split(",");
-
     function ShowPermission(item) {
 
         if (item == "Thiet bi-Them moi") {

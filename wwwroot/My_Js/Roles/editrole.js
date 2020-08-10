@@ -23,7 +23,7 @@
         success: function (data) {
             if (data != "success") {
             } else {
-                $('#my_datatable_role').DataTable().ajax.reload(null, false);
+                $('#my_datatable_role').DataTable().ajax.reload(function () { loadPermissionDanhSachVaiTro(); }, false);
                 showMessage("Sửa thành công!", true);
             }
         },

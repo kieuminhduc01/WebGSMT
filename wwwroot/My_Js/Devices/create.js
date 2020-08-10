@@ -16,7 +16,10 @@
         },
         success: function (data) {
             if (data) {
-                $('#my_datatable_Devices').DataTable().ajax.reload(null, false);
+                $('#my_datatable_Devices').DataTable().ajax.reload(function (json) {
+                    loadPermissionThietBiVaGiaoThuc();
+                }, false);
+                loadPermissionThietBiVaGiaoThuc();
                 $('#formEditDevices').modal('hide');
                 showMessage("Tạo mới thành công !", true);
             }

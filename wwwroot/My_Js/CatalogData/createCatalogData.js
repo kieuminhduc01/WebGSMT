@@ -23,7 +23,9 @@
         },
         success: function (data) {
             if (data) {
-                $('#my_datatable_CatalogData').DataTable().ajax.reload(null, false);
+                $('#my_datatable_CatalogData').DataTable().ajax.reload(function () {
+                    loadPermissionDanhMucDuLieu(); 
+                }, false);
                 $('#formModal').modal('hide');
                 showMessage("Tạo mới thành công!", true);
             }

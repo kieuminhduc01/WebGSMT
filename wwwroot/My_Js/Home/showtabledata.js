@@ -66,5 +66,5 @@ jQuery(document).ready(function () {
     tableDevices();
     setInterval(function () {
         $('#loadTableData').DataTable().ajax.reload(null, false);
-    }, 5000);
+    }, 20000);
 });
