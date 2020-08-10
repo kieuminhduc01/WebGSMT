@@ -47,7 +47,7 @@ var KTDatatablesBasicBasic = function() {
 				},
 				{
 					targets: -1,
-					title: 'Actions',
+					title: 'Ch?c n?ng',
 					orderable: false,
 					width: '125px',
 					render: function(data, type, full, meta) {
@@ -231,7 +231,7 @@ var KTDatatablesBasicBasic = function() {
 				},
 				{
 					targets: -1,
-					title: 'Actions',
+					title: 'Ch?c n?ng',
 					orderable: false,
 					width: '125px',
 					render: function(data, type, full, meta) {

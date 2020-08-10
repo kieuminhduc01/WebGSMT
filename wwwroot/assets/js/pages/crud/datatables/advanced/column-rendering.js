@@ -3,7 +3,6 @@ var KTDatatablesAdvancedColumnRendering = function() {
 
 	var init = function() {
 		var table = $('#kt_datatable');
-
 		// begin first table
 		table.DataTable({
 			responsive: true,
@@ -67,7 +66,7 @@ var KTDatatablesAdvancedColumnRendering = function() {
 				},
 				{
 					targets: -1,
-					title: 'Actions',
+					title: 'Ch?c n?ng',
 					orderable: false,
 					render: function(data, type, full, meta) {
 						return '\

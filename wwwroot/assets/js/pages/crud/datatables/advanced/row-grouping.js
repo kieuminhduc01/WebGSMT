@@ -31,7 +31,7 @@ var KTDatatablesAdvancedRowGrouping = function() {
 				},
 				{
 					targets: -1,
-					title: 'Actions',
+					title: 'Ch?c n?ng',
 					orderable: false,
 					render: function(data, type, full, meta) {
 						return '\

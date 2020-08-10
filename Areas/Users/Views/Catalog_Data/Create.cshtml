@@ -1,0 +1,60 @@
+﻿@model WebGSMT.Models.Catalog_Data
+@{
+    Layout = null;
+}
+
+    <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+        <div class="modal-content">
+            <!--Card header-->
+            <div class="card-header">
+                <h5 class="modal-title" id="exampleModalLabel">Tạo mới danh mục dữ liệu</h5>
+            </div>
+            <!--Card body-->
+            <div class="modal-body">
+                <div class="tab-content mt-5" id="myTabContent">
+                    <div class="tab-pane fade show active" role="tabpanel" aria-labelledby="kt_tab_pane_2">
+                        <div class="form-group ">
+                            <label>Thẻ tên:</label>
+                            <input type="text" id="Tagname" class="form-control validateTextBox" placeholder="Nhập thẻ tên"  />
+                            <span id="tagnamecheck" style="color:red"></span>
+                            <span id="Status" style="color:red"></span>
+                        </div>
+                        <div class="form-group">
+                            <label>Tên thiết bị/ giao thức:</label>
+                            <input type="text" id="Name" class="form-control validateTextBox" placeholder="Nhập tên thiết bị hoặc tên giao thức" readonly value="@ViewBag.DeviceName"/>
+                            <span id="namecheck" style="color:red"></span>
+                        </div>
+                        <div class="form-group">
+                            <label>Địa chỉ:</label>
+                            <input type="text" id="Address" class="form-control validateTextBox" placeholder="Nhập địa chỉ dữ liệu"/>
+                            <span id="addresscheck" style="color:red"></span>
+                        </div>
+                        <div class="form-group">
+                            <label>Đơn vị:</label>
+                            <input type="text" id="Unit" class="form-control validateTextBox" placeholder="Nhập đơn vị" />
+                            <span id="unitcheck" style="color:red"></span>
+                        </div>
+                        <div class="form-group">
+                            <label>Giới hạn cảnh báo nhỏ nhất:</label>
+                            <input type="text" id="Min" class="form-control validateTextBox" placeholder="Nhập giới hạn cảnh báo nhỏ nhất"/>
+                            <span id="mincheck" style="color:red"></span>
+                        </div>
+                        <div class="form-group">
+                            <label>Giới hạn cảnh báo lớn nhất:</label>
+                            <input type="text" id="Max" class="form-control validateTextBox" placeholder="Nhập giới hạn cảnh báo lớn nhất"/>
+                            <span id="maxcheck" style="color:red"></span>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+            
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary font-weight-bold" id="submit">Lưu</button>
+                <button type="button" class="btn btn-light-primary font-weight-bold" data-dismiss="modal">Đóng</button>
+            </div>
+            
+        </div>
+    </div>
+
+    <script src="~/My_Js/CatalogData/createCatalogData.js"></script>

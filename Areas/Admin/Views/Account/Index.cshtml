@@ -1,8 +1,101 @@
-﻿
+﻿@model IEnumerable<WebGSMT.Models.Account>
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Index</h1>
+<!--begin::Entry-->
+<div class="d-flex flex-column-fluid" style="width:auto">
+    <!--begin::Container-->
+    <div class="container">
+        <!--begin::Card-->
+        <div class="card card-custom">
+            <!--begin::Header-->
+            <div class="card-header flex-wrap border-0 pt-6 pb-0" style="width:auto">
+                <div class="card-title">
+                    <h3 class="card-label">
+                        Danh Sách tài khoản
+                        <span class="d-block text-muted pt-2 font-size-sm">Danh sách tài khoản người dùng và admin</span>
+                    </h3>
+                </div>
+                <div class="card-toolbar">
 
+                    <!--begin::Button-->
+                    <a class="btn btn-primary font-weight-bolder bt-open-create-account-form" id="btnCreateAccount">
+                        <span class="svg-icon svg-icon-md">
+                            <!--end::Svg Icon-->
+                        </span>Thêm Tài Khoản
+                    </a>
+                    <!--end::Button-->
+                </div>
+            </div>
+            <!--end::Header-->
+            <!--begin::Body-->
+            <div class="card-body">
+                <!--begin: Datatable-->
+                <table class="table table-bordered table-hover table-checkable" id="kt_datatable" style="margin-top: 13px !important">
+                    <thead>
+                        <tr>
+                            <th>User Name</th>
+                            <th>Tên</th>
+                            <th>Ngày sinh</th>
+                            <th>Email</th>
+                            <th>Số điện thoại</th>
+                            <th>Chức năng</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.UserName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.FullName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.DOB)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Email)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.PhoneNumber)
+                                </td>
+                                <td>
+                                    <a class="btn btn-sm btn-clean btn-icon btnEditAccount" title="View" data-id="@item.UserName">
+
+                                        <i class="la la-cog"></i>
+                                    </a>
+                                    <a href="Admin/Account/activeOrNot?id=@item.UserName" class="btn btn-sm btn-clean btn-icon" title="Edit details" >
+                                        @if (item.Active == true)
+                                        {
+                                            <i class="fas fa-user-check"></i>
+                                        }
+                                        else
+                                        {
+                                            <i class="fas fa-user-lock"></i>
+                                        }
+                                    </a>
+                                    <a href="Admin/Account/delete?id=@item.UserName" onclick="return confirm('Bạn muốn xóa tài khoản này')" class="btn btn-sm btn-clean btn-icon" title="Delete">
+
+                                        <i class="la la-trash"></i>
+                                    </a>
+
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+                <!--end: Datatable-->
+            </div>
+            <div class="modal fade modal-edit-account" id="formEditRole" tabindex="-1" role="dialog" aria-labelledby="formEditAccount" aria-hidden="true"> </div>
+            <!--end::Body-->
+        </div>
+        <!--end::Card-->
+    </div>
+    <!--end::Container-->
+</div>
+<script src="~/My_Js/Accounts/createaccount.js"></script>
+<!--end::Entry-->
