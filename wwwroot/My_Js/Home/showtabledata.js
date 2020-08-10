@@ -31,9 +31,9 @@ var tableDevices = function () {
                     var d = new Date(data),
                         month = '' + (d.getMonth() + 1),
                         day = '' + d.getDate(),
-                        year = '' +d.getFullYear(),
+                        year = '' + d.getFullYear(),
                         hour = '' + d.getHours(),
-                        min = '' +d.getMinutes(),
+                        min = '' + d.getMinutes(),
                         second = '' + d.getSeconds();
 
                     if (month.length < 2) month = '0' + month;
@@ -41,7 +41,7 @@ var tableDevices = function () {
                     if (hour.length < 2) hour = '0' + hour;
                     if (min.length < 2) min = '0' + min;
                     if (second.length < 2) second = '0' + second;
-                    return [day, month, year].join('/') +'  '+ [hour, min, second].join(':');
+                    return [day, month, year].join('/') + '  ' + [hour, min, second].join(':');
                 }
             },
             {
@@ -54,7 +54,7 @@ var tableDevices = function () {
                     else {
                         return "Mất kết nối";
                     }
-                    
+
                 }
             },
         ],
@@ -62,5 +62,9 @@ var tableDevices = function () {
 };
 
 jQuery(document).ready(function () {
+
     tableDevices();
+    setInterval(function () {
+        $('#loadTableData').DataTable().ajax.reload(null, false);
+    }, 5000);
 });
