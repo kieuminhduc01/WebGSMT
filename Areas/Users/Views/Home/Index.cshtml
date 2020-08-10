@@ -31,7 +31,7 @@
 
             }
             <div class="dropdown">
-                <span class="text-light font-size-h3">Đơn vị: </span> <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <span class="text-light font-size-h3 donvi">Đơn vị: </span> <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <span>
                         @{
                             <span id="unitText">@FirstUnit</span>
@@ -114,29 +114,29 @@
                 DEVICENAME = deviceName;
                 $('#deviceText').html(deviceName);
                 $('#loadTableData').DataTable().ajax.reload(null, false);
-
-                
+                unitByDevice(DEVICENAME);
             }
             if (unit != null) {
                 $('#unitText').html(unit);
                 UNIT = unit;
             }
             changeChart(DEVICENAME, UNIT);
-            unitByDevice(DEVICENAME);
+            //unitByDevice(DEVICENAME);
         }
     jQuery(document).ready(function () {
         changeChart(DEVICENAME, UNIT);
         unitByDevice(DEVICENAME);
     });
     function unitByDevice(PLC) {
-
+        $('#ddUnit').html('');
         $.get("/Users/Home/units", { PLC: PLC }, function (data, status) {
             $('#ddUnit').children().remove();
             for (var i = 0; i < data.length; i++){
                 $('#ddUnit').append(`<a class="dropdown-item" onclick="selectCombobox(null, '${data[i]}')">${data[i]}</a>`);
 
             }
-            
+            $('#unitText').html(data[0]);
+            selectCombobox(null, data[0]);
         });
     }
     function changeChart(PLC, Unit) {
