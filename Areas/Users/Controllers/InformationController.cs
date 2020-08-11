@@ -30,7 +30,7 @@ namespace WebGSMT.Areas.Users.Controllers
         
         [HttpPost]
         [Route("edit")]
-        public string Edit(string FullName, string Email, string Dob, string phoneNumber)
+        public string Edit(string FullName, string Email, string Dob, string phoneNumber, string Password)
         {
             if (ModelState.IsValid)
             {
@@ -38,8 +38,9 @@ namespace WebGSMT.Areas.Users.Controllers
                     if (account != null)
                     {
                         account.FullName = FullName;
+                        account.Password = Password;
                         account.Email = Email;
-                        account.DOB = DateTime.ParseExact(Dob, "MM/dd/yyyy", null); ;
+                        account.DOB = DateTime.ParseExact(Dob, "dd/MM/yyyy", null); ;
                         account.PhoneNumber = phoneNumber;
                     }
                     _db.SaveChanges();

@@ -85,6 +85,7 @@ function loadPermissionDanhNguoiDung() {
             $("#QuanTriVien-NguoiDung-Themmoi").show();
         }
         if (item == "Quan Tri Vien-Nguoi Dung-Sua") {
+            $(".btn-reset-account").show();
             $(".btnEditAccount").show();
             $(".bt-update-active").show();
         }

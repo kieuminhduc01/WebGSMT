@@ -28,30 +28,58 @@
         <!--begin::Form-->
         <div class="container">
             <form class="form" name="informationForm">
-                <div class="card-body" >
+                <div class="card-body">
                     <!--begin::Heading-->
-                    
                     <!--begin::Form Group-->
                     <div class="form-group row">
-                        <label class="col-xl-3 col-lg-3 col-form-label">Tài khoản:</label>
-                        <div class="col-lg-5">
-                            <input class="form-control form-control-lg form-control-solid" type="text" readonly value="@Context.Session.GetString("UserName").ToString()" />
+                        <label class="col-xl-3 col-lg-3 col-form-label mt-2">Tài khoản:</label>
+                        <div class="col-lg-8">
+                            <div class="input-group input-group-lg input-group-solid">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">
+                                        <i class="fas fa-user-circle"></i>
+                                    </span>
+                                </div>
+                                <input class="form-control form-control-lg form-control-solid" type="text" readonly value="@Context.Session.GetString("UserName").ToString()" />
+                            </div>
                         </div>
-
                     </div>
+
+                    <div class="form-group row">
+                        <label class="col-xl-3 col-lg-3 col-form-label mt-2">Mật khẩu:</label>
+                        <div class="col-lg-8">
+                            <div class="input-group input-group-lg input-group-solid">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">
+                                        <i class="la la-key"></i>
+                                    </span>
+                                </div>
+                                <input class="form-control form-control-lg form-control-solid" id="password" type="text" value="@Model.Password" />
+                            </div>
+                        </div>
+                    </div>
+
                     <!--begin::Form Group-->
                     <span id="errorFullname" class="text-danger"></span>
                     <div class="form-group row">
-                        <label class="col-xl-3 col-lg-3 col-form-label">Họ tên:</label>
-                        <div class="col-lg-5">
-                            <input class="form-control form-control-lg form-control-solid" id="fullName" name="fullName" type="text" value="@Model.FullName" />
+                        <label class="col-xl-3 col-lg-3 col-form-label mt-2">Họ tên:</label>
+                        <div class="col-lg-8">
+                            <div class="input-group input-group-lg input-group-solid">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">
+                                        <i class="fas fa-spell-check"></i>
+                                    </span>
+                                </div>
+                                <input class="form-control form-control-lg form-control-solid" id="fullName" name="fullName" type="text" value="@Model.FullName" />
+                            </div>
+
                         </div>
                     </div>
                     <!--begin::Form Group-->
                     <span id="errorEmail" class="text-danger"></span>
                     <div class="form-group row">
-                        <label class="col-xl-3 col-lg-3 col-form-label font-weight-bold font-size-sm mt-1">Email:</label>
-                        <div class="col-lg-5">
+                        <label class="col-xl-3 col-lg-3 col-form-label mt-2">Email:</label>
+                        <div class="col-lg-8">
                             <div class="input-group input-group-lg input-group-solid">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text">
@@ -66,16 +94,24 @@
                     <!--begin::Form Group-->
                     <span id="errorDOB" class="text-danger"></span>
                     <div class="form-group row">
-                        <label class="col-xl-3 col-lg-3 col-form-label">Ngày sinh:</label>
-                        <div class="col-lg-5">
-                            <input class="form-control form-control-lg" id="datepicker" name="datepicker" value="@Model.formatDate()" />
+                        <label class="col-xl-3 col-lg-3 col-form-label mt-2">Ngày sinh:</label>
+                        <div class="col-lg-8">
+                            <div class="input-group input-group-btn input-group-solid">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">
+                                        <i class="la la-calendar-plus" style="width:24px"></i>
+                                    </span>
+                                </div>
+                                <input class="form-control form-control-lg form-control-solid" style="width:450px" id="datepicker" name="datepicker" value="@Model.formatDate()" />
+                            </div>
+
                         </div>
                     </div>
                     <!--begin::Form Group-->
                     <span id="errorPhone" class="text-danger"></span>
                     <div class="form-group row">
-                        <label class="col-xl-3 col-lg-3 col-form-label">Số điện thoại:</label>
-                        <div class="col-lg-5">
+                        <label class="col-xl-3 col-lg-3 col-form-label mt-2">Số điện thoại:</label>
+                        <div class="col-lg-8">
                             <div class="input-group input-group-lg input-group-solid">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text">
@@ -96,7 +132,10 @@
 <script src="~/Users_JS/Validate_Users.js"></script>
 <script src="~/Users_JS/editUsers.js"></script>
 <script>
-    $('#datepicker').datepicker({
-        format: 'dd/mm/yyyy'
-    });
+    $(document).ready(function () {
+            $('#datepicker').datepicker({
+                clearBtn: true,
+                format: "dd/mm/yyyy"
+            });
+        });
 </script>

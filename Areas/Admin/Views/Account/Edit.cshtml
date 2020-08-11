@@ -80,14 +80,9 @@
                                             <div class="form-group row">
                                                 <label asp-for="Email" class="col-form-label col-3 text-lg-right text-left"></label>
                                                 <div class="col-9">
-                                                    <div class="input-group input-group-lg ">
-                                                        <div class="input-group-prepend">
-                                                            <span class="input-group-text">
-                                                                <i class="la la-at"></i>
-                                                            </span>
-                                                        </div>
+                                                    
                                                         <input class="form-control form-control-lg" type="text" asp-for="Email">
-                                                    </div>
+                   
                                                     @Html.ValidationMessageFor(a => a.Email, "", new { @class = "text-danger" })
                                                     <p id="emailValidate" class="text-danger"></p>
                                                 </div>
@@ -97,14 +92,9 @@
                                             <div class="form-group row">
                                                 <label asp-for="PhoneNumber" class="col-form-label col-3 text-lg-right text-left"></label>
                                                 <div class="col-9">
-                                                    <div class="input-group input-group-lg ">
-                                                        <div class="input-group-prepend">
-                                                            <span class="input-group-text">
-                                                                <i class="la la-phone"></i>
-                                                            </span>
-                                                        </div>
+                                                    
                                                         <input class="form-control form-control-lg" type="text" asp-for="PhoneNumber">
-                                                    </div>
+                               
                                                     @Html.ValidationMessageFor(a => a.PhoneNumber, "", new { @class = "text-danger" })
                                                     <p id="phoneNumberValidate" class="text-danger"></p>
                                                 </div>

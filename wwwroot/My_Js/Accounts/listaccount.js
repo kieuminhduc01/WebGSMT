@@ -74,14 +74,17 @@ var KTDatatablesDataSourceAjaxServer = function () {
                     orderable: false,
                     render: function (data, type, full, meta) {
                         return '\
-                           	<a href="javascript:;" class="btn btn-sm btn-clean btn-icon btnEditAccount" title="Edit details" data-id ="'+ data.userName +'" style="display:none" >\
+                           	<a href="javascript:;" class="btn btn-sm btn-clean btn-icon btnEditAccount" title="Sửa" data-id ="'+ data.userName +'" style="display:none" >\
 								<i class="la la-edit"></i>\
 							</a>\
-                            <a href="javascript:;" class="btn btn-sm btn-clean btn-icon bt-update-active" title="Active User" data-id="'+ data.userName + '" style="display:none">\
+                            <a href="javascript:;" class="btn btn-sm btn-clean btn-icon bt-update-active" title="Kích hoạt tài khoản" data-id="'+ data.userName + '" style="display:none">\
                                 <i class="fas '+ data.classCheck + '" name="active" id="active" data-active=' + data.active + '></i>\
                             </a>\
-							<a href="javascript:;" class="btn btn-sm btn-clean btn-icon bt-delete-account" title="Delete" data-id="'+ data.userName + '" style="display:none">\
+							<a href="javascript:;" class="btn btn-sm btn-clean btn-icon bt-delete-account" title="Xóa" data-id="'+ data.userName + '" style="display:none">\
 								<i class="la la-trash"></i>\
+							</a>\
+                            <a href="javascript:;" class="btn btn-sm btn-clean btn-icon btn-reset-account" title="Khôi phục mật khẩu" data-id="'+ data.userName + '" style="display:none">\
+								<i class="la la-undo-alt"></i>\
 							</a>\
 						';
                     }
@@ -100,6 +103,25 @@ var KTDatatablesDataSourceAjaxServer = function () {
     };
 
 }();
+
+$('#kt_datatable').on('click', '.btn-reset-account', function () {
+    var id = $(this).attr("data-id");
+    $.ajax({
+        url: "/Admin/Account/resetpass",
+        type: 'GET',
+        data: {
+            UserName: id
+        },
+        success: function (data) {
+            showMessage("Khôi phục mật khẩu thành công!", true);
+            reloadDataTable();
+        },
+        error: function (data, jqXHR, textStatus, errorThrown) {
+            showMessage("Lỗi!", false);
+        }
+    });
+
+})
 
 $('#kt_datatable').on('click', '.bt-update-active',function () {
     var id = $(this).attr("data-id");
