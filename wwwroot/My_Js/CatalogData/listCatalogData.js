@@ -77,7 +77,7 @@ $('#btnDelteYes').on('click', function (e) {
                 showMessage("Lỗi xóa!", false);
             } else {
                 showMessage("Xóa thành công!", true);
-                $('#my_datatable_CatalogData').DataTable().ajax.reload(function () { loadPermissionDanhMucDuLieu(); }, false);
+                $('#my_datatable_CatalogData').DataTable().ajax.reload();
             }
         },
         error: function (data) {
@@ -95,7 +95,7 @@ var KTDatatablesDataSourceAjaxServer2 = function () {
         var table = $('#my_datatable_CatalogData');
         // begin first table
         table.DataTable({
-            initComplete: function (settings, json) {
+            drawCallback: function (settings, json) {
                 loadPermissionDanhMucDuLieu();
             },
             responsive: true,

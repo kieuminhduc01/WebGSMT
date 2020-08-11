@@ -18,9 +18,7 @@
         success: function (data) {
             if (data != "success") {
             } else {
-                $('#my_datatable_Devices').DataTable().ajax.reload(function (json) {
-                    loadPermissionThietBiVaGiaoThuc();
-                }, false);
+                $('#my_datatable_Devices').DataTable().ajax.reload();
                 showMessage("Sửa thành công !", true);
                 $('#formModal').modal('hide');
 

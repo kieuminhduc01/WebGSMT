@@ -6,7 +6,7 @@ var KTDatatablesDataSourceAjaxServer = function () {
         var dateTimeFormat = new Intl.DateTimeFormat('en', { year: 'numeric', month: 'short', day: '2-digit' });
         // begin first table
         table.DataTable({
-            initComplete: function (settings, json) {
+            drawCallback: function (settings, json) {
                 loadPermissionDanhNguoiDung();
             },
             responsive: true,
