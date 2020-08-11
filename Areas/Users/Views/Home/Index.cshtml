@@ -30,50 +30,53 @@
                 var FirstDevice = listDevice.First().Text;
 
             }
-            <div class="row" style="padding-left:350px">
-            <div class="dropdown mb-2">
-                <span class="text-light font-size-h3 donvi">Đơn vị: </span> <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <span>
-                        @{
-                            <span id="unitText">@FirstUnit</span>
-                        }
-                    </span>
-                    <span class="caret"></span>
-                </button>
-                <div class="dropdown-menu" id="ddUnit">
-                    @*@foreach (var item in listUnit)
-                        {
+            
+        <div class="card card-custom gutter-b">
+            <!-- HTML -->
+            @*<div id="chartdiv1"></div>
+        <br />*@
 
-                            <a class="dropdown-item" onclick="selectCombobox(null, '@item.Text')">@item.Text</a>
-                        }*@
-                </div>
-                <br />
-            </div>
-            <div class="dropdown mb-2 ml-5">
-                <span class="text-light font-size-h3">Thiết bị: </span> <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <span>
-                        @{
-                            <span id="deviceText">@FirstDevice</span>
-                        }
-                    </span>
-                    <span class="caret"></span>
-                </button>
-                <div class="dropdown-menu">
-                    @foreach (var item in listDevice)
+
+            <div class="row mt-3 mx-auto">
+                <div class="dropdown mb-2 mr-5">
+                    <span class="text-dark font-size-h3 donvi">Đơn vị: </span> <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <span>
+                            @{
+                                <span id="unitText">@FirstUnit</span>
+                            }
+                        </span>
+                        <span class="caret"></span>
+                    </button>
+                    <div class="dropdown-menu" id="ddUnit">
+                        @*@foreach (var item in listUnit)
                     {
 
-                        <a class="dropdown-item" onclick="selectCombobox('@item.Text',null)">@item.Text</a>
-                    }
+                        <a class="dropdown-item" onclick="selectCombobox(null, '@item.Text')">@item.Text</a>
+                    }*@
+                    </div>
+                    <br />
                 </div>
-                <br />
+                <div class="dropdown mb-2">
+                    <span class="text-dark font-size-h3">Thiết bị: </span> <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <span>
+                            @{
+                                <span id="deviceText">@FirstDevice</span>
+                            }
+                        </span>
+                        <span class="caret"></span>
+                    </button>
+                    <div class="dropdown-menu">
+                        @foreach (var item in listDevice)
+                        {
+
+                            <a class="dropdown-item" onclick="selectCombobox('@item.Text',null)">@item.Text</a>
+                        }
+                    </div>
+                    <br />
+                </div>
             </div>
-            </div>
-            <div class="card card-custom gutter-b">
-                <!-- HTML -->
-                @*<div id="chartdiv1"></div>
-                    <br />*@
-                <div id="chartdiv"></div>
-            </div>
+            <div id="chartdiv"></div>
+        </div>
             <!-- Button trigger modal -->
         </div>
     </div>
