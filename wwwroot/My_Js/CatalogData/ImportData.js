@@ -8,7 +8,6 @@
 
 $('#submit').on('click', function () {
     var uploadfile = $("#nameFile").val();
-    debugger;
     $.ajax({
         url: "/Users/CatalogData/importfile",
         type: 'POST',
@@ -33,7 +32,6 @@ $('#submit').on('click', function () {
 function uploadcsvfile() {
     var postedFiles = new FormData();
     postedFiles.append('postedFiles', document.getElementById('nameFile').files[0]);
-    debugger;
     $.ajax({
         url: "/Users/CatalogData/importfile",
         type: "POST",

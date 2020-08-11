@@ -107,7 +107,6 @@ function RoleCheck() {
     return validationCheck;
 }
 function InvalidMsg(textbox) {
-debugger;
     if (textbox.value === '') {
         textbox.setCustomValidity('Entering an email-id is necessary!');
     } else {
