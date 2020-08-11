@@ -85,11 +85,11 @@ var KTDatatablesDataSourceAjaxServer = function () {
         table.DataTable({
             responsive: true,
             searchDelay: 500,
-
             serverSide: true,
             info: false,
-            initComplete: function (settings, json) {
-                loadPermissionThietBiVaGiaoThuc();
+            
+            drawCallback: function (settings, json) {
+                loadPermissionThietBiVaGiaoThuc(); 
             },
             processing: true,
             language: {

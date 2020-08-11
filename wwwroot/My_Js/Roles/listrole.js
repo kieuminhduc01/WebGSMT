@@ -83,7 +83,7 @@ var KTDatatablesDataSourceAjaxServer = function () {
 
         // begin first table
         table.DataTable({
-            initComplete: function (settings, json) {
+            drawCallback: function (settings, json) {
                 loadPermissionDanhSachVaiTro();
             },
             responsive: true,
