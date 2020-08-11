@@ -23,9 +23,7 @@
         },
         success: function (data) {
             if (data) {
-                $('#my_datatable_CatalogData').DataTable().ajax.reload(function () {
-                    loadPermissionDanhMucDuLieu(); 
-                }, false);
+                $('#my_datatable_CatalogData').DataTable().ajax.reload();
                 $('#formModal').modal('hide');
                 showMessage("Tạo mới thành công!", true);
             }

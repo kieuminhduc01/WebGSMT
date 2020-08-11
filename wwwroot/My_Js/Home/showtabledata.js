@@ -71,6 +71,6 @@ jQuery(document).ready(function () {
 
     tableDevices();
     setInterval(function () {
-        $('#loadTableData').DataTable().ajax.reload(null, false);
+        $('#loadTableData').DataTable().ajax.reload();
     }, 20000);
 });

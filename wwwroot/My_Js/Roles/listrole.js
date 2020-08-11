@@ -65,7 +65,7 @@ $('#btnDelteYes').on('click', function (e) {
                 showMessage("Lỗi xóa vai trò!", false);
             } else {
                 showMessage("Xóa vai trò thành công!", true);
-                $('#my_datatable_role').DataTable().ajax.reload(function () { loadPermissionDanhSachVaiTro(); }, false);
+                $('#my_datatable_role').DataTable().ajax.reload();
             }
         },
         error: function (data) {

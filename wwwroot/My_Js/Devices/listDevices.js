@@ -62,9 +62,7 @@ $('#btnDelteYes').on('click', function (e) {
         success: function (data) {
             if (data) {
                 showMessage("Xóa thành công!", true);
-                $('#my_datatable_Devices').DataTable().ajax.reload(function (json) {
-                    loadPermissionThietBiVaGiaoThuc();
-                }, false);
+                $('#my_datatable_Devices').DataTable().ajax.reload();
             } else {
                 showMessage("Lỗi xóa thiết bị ", false);
             }
