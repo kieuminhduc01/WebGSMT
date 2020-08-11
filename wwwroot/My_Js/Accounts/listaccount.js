@@ -112,7 +112,9 @@ $('#kt_datatable').on('click', '.bt-update-active',function () {
 })
 
 function reloadDataTable() {
-    $('#kt_datatable').DataTable().ajax.reload(null, false);
+    $('#kt_datatable').DataTable().ajax.reload(function () {
+        loadPermissionDanhNguoiDung();
+    }, false);
 };
 
 jQuery(document).ready(function () {

@@ -9,7 +9,13 @@ var tableDevices = function () {
         serverSide: true,
         info: false,
         language: {
-            "processing": "Đang xử lý..."
+            "processing": "Đang xử lý...",
+            "search": "Tìm kiếm",
+            "lengthMenu": "Hiển thị _MENU_ dữ liệu trên một trang",
+            "infoEmpty": "Không có dữ liệu",
+            "zeroRecords": "Không có dữ liệu",
+            "info": "Trang thứ _PAGE_ Trên tổng số _PAGES_",
+            "infoFiltered": "(filtered from _MAX_ total records)"
         },
         ajax: {
             url: "/Users/Home/loadtabledata",
@@ -66,5 +72,5 @@ jQuery(document).ready(function () {
     tableDevices();
     setInterval(function () {
         $('#loadTableData').DataTable().ajax.reload(null, false);
-    }, 5000);
+    }, 20000);
 });

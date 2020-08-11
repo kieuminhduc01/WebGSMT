@@ -6,7 +6,7 @@
     var deviceName = document.getElementById("device-name").value;
     var deviceNameShow = document.getElementById("device-nameShow").value;
     var deviceBranchOrProtocol = document.getElementById("device-BranchOrProtocol").value;
-   
+
     $.ajax({
         url: url,
         type: 'POST',
@@ -18,10 +18,12 @@
         success: function (data) {
             if (data != "success") {
             } else {
-                $('#my_datatable_Devices').DataTable().ajax.reload(null, false);
+                $('#my_datatable_Devices').DataTable().ajax.reload(function (json) {
+                    loadPermissionThietBiVaGiaoThuc();
+                }, false);
                 showMessage("Sửa thành công !", true);
                 $('#formModal').modal('hide');
-               
+
             }
         },
         error: function (data) {
@@ -67,7 +69,7 @@ function validateFormEdit() {
     if ($("#Status").text() == 'Tên thiết bị đã tồn tại...' || $("#Status").text() == 'Đang kiểm tra...') {
         trangThai = false;
     }
- 
+
     return trangThai;
 };
 $('.validateTextBox').keyup(function () {

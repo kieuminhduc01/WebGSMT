@@ -25,18 +25,24 @@ namespace WebGSMT.ActionFilter
         public void OnAuthorization(AuthorizationFilterContext context)
         {
             bool Access = false;
-            string userName = context.HttpContext.Session.GetString("UserName");
-            Account_Role accRoleTemp = _context.Account_Roles.FirstOrDefault(x => x.UserName == userName);
+            string username = context.HttpContext.Session.GetString("UserName");
+            List<string> permissions = new List<string>();
+            List<Account_Role> accRoleTemp = _context.Account_Roles.Where(x => x.UserName == username).ToList<Account_Role>();
             if (accRoleTemp != null)
             {
-                List<Permission_Role> lstPerRo = _context.AccoPermission_Roles.Where(x => x.RoleName == accRoleTemp.RoleName).ToList();
-                foreach (Permission_Role perRoleUnit in lstPerRo)
+                List<Permission_Role> lstPerRo;
+                foreach (Account_Role acc in accRoleTemp)
                 {
-                    if (perRoleUnit.PermissionID == PermissionID)
+                    lstPerRo = _context.AccoPermission_Roles.Where(x => x.RoleName == acc.RoleName).ToList();
+                    foreach (Permission_Role perRoleUnit in lstPerRo)
                     {
-                        Access = true;
+                        if (perRoleUnit.PermissionID == PermissionID)
+                        {
+                            Access = true;
+                        }
                     }
                 }
+
             }
 
             if (!Access)

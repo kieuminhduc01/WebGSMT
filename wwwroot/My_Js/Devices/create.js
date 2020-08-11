@@ -16,7 +16,10 @@
         },
         success: function (data) {
             if (data) {
-                $('#my_datatable_Devices').DataTable().ajax.reload(null, false);
+                $('#my_datatable_Devices').DataTable().ajax.reload(function (json) {
+                    loadPermissionThietBiVaGiaoThuc();
+                }, false);
+                loadPermissionThietBiVaGiaoThuc();
                 $('#formEditDevices').modal('hide');
                 showMessage("Tạo mới thành công !", true);
             }
@@ -35,6 +38,8 @@ function validateFormCreate() {
 
     if (deviceName == "") {
         $("#deviceNameValidate").text("Nhập tên thiết bị");
+        var element = $("#device-name")[0];
+        element.setCustomValidity('The email address entered is already registerd.');
         $("#device-name").css('border-color', 'red');
         trangThai = false;
     }

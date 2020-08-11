@@ -1,4 +1,4 @@
-"use strict";
+﻿"use strict";
 var KTDatatablesSearchOptionsColumnSearch = function() {
 
     $.fn.dataTable.Api.register('column().title()', function() {
@@ -21,7 +21,14 @@ var KTDatatablesSearchOptionsColumnSearch = function() {
             pageLength: 10,
 
             language: {
-                'lengthMenu': 'Display _MENU_',
+
+                "processing": "Đang xử lý...",
+                "search": "Tìm kiếm",
+                "lengthMenu": "Hiển thị _MENU_ dữ liệu trên một trang",
+                "infoEmpty": "Không có dữ liệu",
+                "zeroRecords": "Không có dữ liệu",
+                "info": "Trang thứ _PAGE_ Trên tổng số _PAGES_",
+                "infoFiltered": "(filtered from _MAX_ total records)"
             },
 
             searchDelay: 500,

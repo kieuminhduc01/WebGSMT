@@ -77,7 +77,7 @@ $('#btnDelteYes').on('click', function (e) {
                 showMessage("Lỗi xóa!", false);
             } else {
                 showMessage("Xóa thành công!", true);
-                $('#my_datatable_CatalogData').DataTable().ajax.reload(null, false);
+                $('#my_datatable_CatalogData').DataTable().ajax.reload(function () { loadPermissionDanhMucDuLieu(); }, false);
             }
         },
         error: function (data) {
@@ -105,7 +105,14 @@ var KTDatatablesDataSourceAjaxServer2 = function () {
             info: false,
 
             language: {
-                "processing": "Đang sử lý..."
+
+                "processing": "Đang xử lý...",
+                "search": "Tìm kiếm",
+                "lengthMenu": "Hiển thị _MENU_ dữ liệu trên một trang",
+                "infoEmpty": "Không có dữ liệu",
+                "zeroRecords": "Không có dữ liệu",
+                "info": "Trang thứ _PAGE_ Trên tổng số _PAGES_",
+                "infoFiltered": "(filtered from _MAX_ total records)"
             },
             ajax: {
                 url: "/Users/CatalogData/GetAllCatalogData",

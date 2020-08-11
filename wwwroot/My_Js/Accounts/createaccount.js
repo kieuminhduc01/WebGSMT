@@ -14,8 +14,6 @@
             showMessage("Lỗi tải form Tạo mới!",false);
         }
     });
-
-
 });
 $('.btnCreateAccount').on('click', function () {
     if (!validateFormCreate()) {

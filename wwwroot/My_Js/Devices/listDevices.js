@@ -62,7 +62,9 @@ $('#btnDelteYes').on('click', function (e) {
         success: function (data) {
             if (data) {
                 showMessage("Xóa thành công!", true);
-                $('#my_datatable_Devices').DataTable().ajax.reload(null, false);
+                $('#my_datatable_Devices').DataTable().ajax.reload(function (json) {
+                    loadPermissionThietBiVaGiaoThuc();
+                }, false);
             } else {
                 showMessage("Lỗi xóa thiết bị ", false);
             }
@@ -91,7 +93,14 @@ var KTDatatablesDataSourceAjaxServer = function () {
             },
             processing: true,
             language: {
-                "processing": "Đang xử lý..."
+
+                "processing": "Đang xử lý...",
+                "search": "Tìm kiếm",
+                "lengthMenu": "Hiển thị _MENU_ dữ liệu trên một trang",
+                "infoEmpty": "Không có dữ liệu",
+                "zeroRecords": "Không có dữ liệu",
+                "info": "Trang thứ _PAGE_ Trên tổng số _PAGES_",
+                "infoFiltered": "(filtered from _MAX_ total records)"
             },
             ajax: {
                 url: "/Users/Devices/GetAllDevices",

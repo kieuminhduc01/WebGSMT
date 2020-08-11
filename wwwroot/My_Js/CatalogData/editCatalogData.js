@@ -25,7 +25,7 @@
         success: function (data) {
             if (data != "success") {
             } else {
-                $('#my_datatable_CatalogData').DataTable().ajax.reload(null, false);
+                $('#my_datatable_CatalogData').DataTable().ajax.reload(function () { loadPermissionDanhMucDuLieu(); }, false);
                 showMessage("Sửa thành công!", true);
                 $('#formModal').modal('hide');
 

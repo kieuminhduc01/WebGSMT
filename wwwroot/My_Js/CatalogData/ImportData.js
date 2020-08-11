@@ -8,7 +8,6 @@
 
 $('#submit').on('click', function () {
     var uploadfile = $("#nameFile").val();
-    debugger;
     $.ajax({
         url: "/Users/CatalogData/importfile",
         type: 'POST',
@@ -17,7 +16,7 @@ $('#submit').on('click', function () {
         },
         success: function (data) {
             if (data == "success") {
-                $('#my_datatable_CatalogData').DataTable().ajax.reload(null, false);
+                $('#my_datatable_CatalogData').DataTable().ajax.reload(function () { loadPermissionDanhMucDuLieu(); }, false);
                 $('#uploadModal').modal('hide');
                 showMessage("Tải file lên thành công!", true);
             } else {
@@ -33,7 +32,6 @@ $('#submit').on('click', function () {
 function uploadcsvfile() {
     var postedFiles = new FormData();
     postedFiles.append('postedFiles', document.getElementById('nameFile').files[0]);
-    debugger;
     $.ajax({
         url: "/Users/CatalogData/importfile",
         type: "POST",
@@ -42,7 +40,7 @@ function uploadcsvfile() {
         processData: false,
         success: function (data) {
             if (data == "success") {
-                $('#my_datatable_CatalogData').DataTable().ajax.reload(null, false);
+                $('#my_datatable_CatalogData').DataTable().ajax.reload(function () { loadPermissionDanhMucDuLieu(); }, false);
                 $('#uploadModal').modal('hide');
                 showMessage("Tải file lên thành công!", true);
             } else {
