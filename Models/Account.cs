@@ -10,13 +10,13 @@ namespace WebGSMT.Models
 {
     public class Account
     {
-        [Required(ErrorMessage = "Input User Name!")]
+        [Required(ErrorMessage = " Nhập tài khoản!")]
         [DisplayName("User Name")]
         public String UserName { get; set; }
         
         public String Password { get; set; }
         [DisplayName("Full Name")]
-        [Required(ErrorMessage = "Input your Full Name!")]
+        [Required(ErrorMessage = "Nhập tên!")]
         public String FullName { get; set; }
 
         [DisplayFormat(DataFormatString = "{dd/MM/yyyy}", ApplyFormatInEditMode = true)]

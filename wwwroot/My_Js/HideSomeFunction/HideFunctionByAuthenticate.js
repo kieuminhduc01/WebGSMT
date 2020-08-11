@@ -1,7 +1,7 @@
 ﻿
 $(document).ready(function loadPermisson() {
     $.get("/Authenticate/permissions", function (data, status) {
-        sessionStorage.lstPermission = data;
+        sessionStorage.lstPermission = data; debugger;
         var temp = sessionStorage.lstPermission;
         var lst = temp.split(",");
         function ShowPermission(item) {

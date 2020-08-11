@@ -8,10 +8,10 @@ namespace WebGSMT.ModelView.Account
 {
     public class AuthenticateModel
     {
-        [Required(ErrorMessage = "Input User Name!")]
+        [Required(ErrorMessage = "Nhập tài khoản!")]
         public string Username { get; set; }
 
-        [Required(ErrorMessage = "Input your Password!")]
+        [Required(ErrorMessage = "Nhập mật khẩu!")]
         public string Password { get; set; }
     }
 }
