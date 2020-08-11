@@ -1,7 +1,7 @@
 ﻿
 $(document).ready(function loadPermisson() {
     $.get("/Authenticate/permissions", function (data, status) {
-        sessionStorage.lstPermission = data; debugger;
+        sessionStorage.lstPermission = data; 
         var temp = sessionStorage.lstPermission;
         var lst = temp.split(",");
         function ShowPermission(item) {
@@ -85,6 +85,7 @@ function loadPermissionDanhNguoiDung() {
             $("#QuanTriVien-NguoiDung-Themmoi").show();
         }
         if (item == "Quan Tri Vien-Nguoi Dung-Sua") {
+            $(".btn-reset-account").show();
             $(".btnEditAccount").show();
             $(".bt-update-active").show();
         }

@@ -3,7 +3,7 @@
         return;
     }
     var name = $('#device-name').val();
-    var nameShow = $('#device-nameShow').val(); 
+    var nameShow = $('#device-nameShow').val();
     var branchOrProtocol = $('#device-BranchOrProtocol').val();
     var url = "/Users/Devices/Create";
     $.ajax({
@@ -29,7 +29,7 @@
     });
 });
 function validateFormCreate() {
-    
+
     var deviceName = $("#device-name").val();
     var deviceNameShow = $("#device-nameShow").val();
     var deviceBranchOrProtocol = $("#device-BranchOrProtocol").val();
@@ -38,8 +38,6 @@ function validateFormCreate() {
 
     if (deviceName == "") {
         $("#deviceNameValidate").text("Nhập tên thiết bị");
-        var element = $("#device-name")[0];
-        element.setCustomValidity('The email address entered is already registerd.');
         $("#device-name").css('border-color', 'red');
         trangThai = false;
     }
@@ -48,7 +46,7 @@ function validateFormCreate() {
             $('#deviceNameValidate').text("Tên thiết bị sai định dạng");
             trangThai = false;
         } else
-        $("#deviceNameValidate").text('');
+            $("#deviceNameValidate").text('');
     }
     if (deviceNameShow == "") {
         $("#deviceNameShowValidate").text("Nhập chi tiết");
@@ -76,7 +74,7 @@ function validateFormCreate() {
 $('.validateTextBox').keyup(function () {
     var textBox = $(this);
     textBox.css('border-color', 'green');
-   
+
 });
 function ExistDeviceCheck() {
     $("#Status").html("Checking...");
@@ -96,3 +94,32 @@ function ExistDeviceCheck() {
             }
         });
 }
+$('document').ready(function () {
+    debugger;
+    $("#formCreateDevice").validate({
+        rules: {
+            deviceName: {
+                required: true
+            },
+            deviceNameShow: {
+                required: true
+            },
+            deviceBranchOrProtocol: {
+                required: true
+            }
+        },
+        messages: {
+            
+            deviceName: {
+                required: 'Nhập tên thiết bị đê ',
+            },
+            deviceNameShow: {
+                required: 'Nhập tên thiết bị đê ',
+            },
+            deviceBranchOrProtocol: {
+                required: 'Nhập tên thiết bị đê ',
+            }
+        }
+    });
+    debugger;
+});

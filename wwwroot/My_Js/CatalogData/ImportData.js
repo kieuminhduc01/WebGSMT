@@ -16,7 +16,7 @@ $('#submit').on('click', function () {
         },
         success: function (data) {
             if (data == "success") {
-                $('#my_datatable_CatalogData').DataTable().ajax.reload(function () { loadPermissionDanhMucDuLieu(); }, false);
+                $('#my_datatable_CatalogData').DataTable().ajax.reload();
                 $('#uploadModal').modal('hide');
                 showMessage("Tải file lên thành công!", true);
             } else {
@@ -40,7 +40,7 @@ function uploadcsvfile() {
         processData: false,
         success: function (data) {
             if (data == "success") {
-                $('#my_datatable_CatalogData').DataTable().ajax.reload(function () { loadPermissionDanhMucDuLieu(); }, false);
+                $('#my_datatable_CatalogData').DataTable().ajax.reload();
                 $('#uploadModal').modal('hide');
                 showMessage("Tải file lên thành công!", true);
             } else {

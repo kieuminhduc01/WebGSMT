@@ -354,6 +354,22 @@ namespace WebGSMT.Areas.Admin.Controllers
             return true;
         }
 
+        [Route("resetpass")]
+        [AuthorizePermission("Quan Tri Vien-Nguoi Dung-Sua")]
+        public bool ResetPass(string UserName)
+        {
+            try
+            {
+                var rs = _context.Accounts.Find(UserName);
+                rs.Password = "123456789";
+                _context.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+            return true;
+        }
 
     }
 }

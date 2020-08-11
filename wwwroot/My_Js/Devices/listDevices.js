@@ -62,9 +62,7 @@ $('#btnDelteYes').on('click', function (e) {
         success: function (data) {
             if (data) {
                 showMessage("Xóa thành công!", true);
-                $('#my_datatable_Devices').DataTable().ajax.reload(function (json) {
-                    loadPermissionThietBiVaGiaoThuc();
-                }, false);
+                $('#my_datatable_Devices').DataTable().ajax.reload();
             } else {
                 showMessage("Lỗi xóa thiết bị ", false);
             }
@@ -85,15 +83,14 @@ var KTDatatablesDataSourceAjaxServer = function () {
         table.DataTable({
             responsive: true,
             searchDelay: 500,
-
             serverSide: true,
             info: false,
-            initComplete: function (settings, json) {
-                loadPermissionThietBiVaGiaoThuc();
+            
+            drawCallback: function (settings, json) {
+                loadPermissionThietBiVaGiaoThuc(); 
             },
             processing: true,
             language: {
-
                 "processing": "Đang xử lý...",
                 "search": "Tìm kiếm",
                 "lengthMenu": "Hiển thị _MENU_ dữ liệu trên một trang",

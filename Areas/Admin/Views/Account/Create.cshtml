@@ -93,15 +93,8 @@
                                             <!--begin::Group-->
                                             <div class="form-group row">
                                                 <label class="col-form-label col-3 text-lg-right text-left">Email</label>
-                                                <div class="col-9">
-                                                    <div class="input-group input-group-lg ">
-                                                        <div class="input-group-prepend">
-                                                            <span class="input-group-text">
-                                                                <i class="la la-at"></i>
-                                                            </span>
-                                                        </div>
-                                                        <input class="form-control form-control-lg" type="text" asp-for="Email">
-                                                    </div>
+                                                <div class="col-9">                                                 
+                                                    <input class="form-control form-control-lg" type="text" asp-for="Email">
                                                     @Html.ValidationMessageFor(a => a.Email, "", new { @class = "text-danger" })
                                                     <p id="emailValidate" class="text-danger"></p>
                                                 </div>
@@ -110,15 +103,8 @@
                                             <!--begin::Group-->
                                             <div class="form-group row">
                                                 <label class="col-form-label col-3 text-lg-right text-left">Số điện thoại</label>
-                                                <div class="col-9">
-                                                    <div class="input-group input-group-lg ">
-                                                        <div class="input-group-prepend">
-                                                            <span class="input-group-text">
-                                                                <i class="la la-phone"></i>
-                                                            </span>
-                                                        </div>
-                                                        <input class="form-control form-control-lg" type="text" asp-for="PhoneNumber">
-                                                    </div>
+                                                <div class="col-9">                                              
+                                                     <input class="form-control form-control-lg" type="text" asp-for="PhoneNumber">
                                                     @Html.ValidationMessageFor(a => a.PhoneNumber, "", new { @class = "text-danger" })
                                                     <p id="phoneNumberValidate" class="text-danger"></p>
                                                 </div>
