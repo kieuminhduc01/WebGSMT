@@ -93,7 +93,6 @@ var KTDatatablesDataSourceAjaxServer = function () {
             },
             processing: true,
             language: {
-
                 "processing": "Đang xử lý...",
                 "search": "Tìm kiếm",
                 "lengthMenu": "Hiển thị _MENU_ dữ liệu trên một trang",
