@@ -45,7 +45,6 @@
                                         <div class="col-xl-7 my-2">
                                             @Html.AntiForgeryToken()
                                             @Html.ValidationSummary(true, null, new { @class = "alert alert-danger" })
-                                            <!--begin::Group-->
                                             <div class="form-group row">
                                                 <label class="col-form-label col-3 text-lg-right text-left">Tên đăng nhập</label>
                                                 <div class="col-9">
@@ -56,8 +55,6 @@
                                                     <p id="Status" />
                                                 </div>
                                             </div>
-                                            <!--end::Group-->
-                                            <!--begin::Group-->
                                             <div class="form-group row">
                                                 <label class="col-form-label col-3 text-lg-right text-left">Mật khẩu mặc định</label>
                                                 <div class="col-9">
@@ -68,8 +65,6 @@
                                                     <p id="Status" />
                                                 </div>
                                             </div>
-                                            <!--end::Group-->
-                                            <!--begin::Group-->
                                             <div class="form-group row">
                                                 <label class="col-form-label col-3 text-lg-right text-left">Họ và tên</label>
                                                 <div class="col-9">
@@ -78,8 +73,6 @@
                                                     <p id="fullNameValidate" class="text-danger"></p>
                                                 </div>
                                             </div>
-                                            <!--end::Group-->
-                                            <!--begin::Group-->
                                             <div class="form-group row">
                                                 <label class="col-form-label col-3 text-lg-right text-left">Ngày sinh</label>
                                                 <div class="col-9">
@@ -88,9 +81,6 @@
                                                     <p id="DOBValidate" class="text-danger"></p>
                                                 </div>
                                             </div>
-
-                                            <!--end::Group-->
-                                            <!--begin::Group-->
                                             <div class="form-group row">
                                                 <label class="col-form-label col-3 text-lg-right text-left">Email</label>
                                                 <div class="col-9">                                                 
@@ -98,9 +88,7 @@
                                                     @Html.ValidationMessageFor(a => a.Email, "", new { @class = "text-danger" })
                                                     <p id="emailValidate" class="text-danger"></p>
                                                 </div>
-                                            </div>
-                                            <!--end::Group-->
-                                            <!--begin::Group-->
+                                            </div>                                           
                                             <div class="form-group row">
                                                 <label class="col-form-label col-3 text-lg-right text-left">Số điện thoại</label>
                                                 <div class="col-9">                                              
@@ -115,13 +103,6 @@
                                                     <label class="form-check-label">
                                                         <input class="form-check-input" asp-for="Active" /> @Html.DisplayNameFor(model => model.Active)
                                                     </label>
-                                                </div>
-                                            </div>
-                                            <div class="form-group row" style="float:right">
-                                                <label class="col-form-label col-3 text-lg-right text-left"></label>
-                                                <div class="form-group">
-                                                    <input type="button" value="Lưu" class="btn btn-primary btnCreateAccount" />
-                                                    <button type="button" class="btn btn-light-primary font-weight-bold" data-dismiss="modal">Đóng</button>
                                                 </div>
                                             </div>
                                         </div>
@@ -148,7 +129,13 @@
         <!--end::card body-->
         <!--begin::footer-->
         <div class="modal-footer">
-            <!--End::footer-->
+            <div class="form-group row" style="float:right">
+                <label class="col-form-label col-3 text-lg-right text-left"></label>
+                <div class="form-group">
+                    <input type="button" value="Lưu" class="btn btn-primary btnCreateAccount" />
+                    <button type="button" class="btn btn-light-primary font-weight-bold" data-dismiss="modal">Đóng</button>
+                </div>
+            </div>
         </div>
     </div>
 </div>

@@ -50,7 +50,6 @@ $(document).ready(function () {
             }).on('ready.jstree', function () {
                 $('#jstree').jstree("open_all");
             });
-            showMessage("tải trang \"quyền truy cập\" thành công", true);
         },
         error: function (data) {
             showMessage("Lỗi tải trang \"quyền truy cập\"!", false);
