@@ -83,16 +83,16 @@
                                             </div>
                                             <div class="form-group row">
                                                 <label class="col-form-label col-3 text-lg-right text-left">Email</label>
-                                                <div class="col-9">                                                 
+                                                <div class="col-9">
                                                     <input class="form-control form-control-lg" type="text" asp-for="Email">
                                                     @Html.ValidationMessageFor(a => a.Email, "", new { @class = "text-danger" })
                                                     <p id="emailValidate" class="text-danger"></p>
                                                 </div>
-                                            </div>                                           
+                                            </div>
                                             <div class="form-group row">
                                                 <label class="col-form-label col-3 text-lg-right text-left">Số điện thoại</label>
-                                                <div class="col-9">                                              
-                                                     <input class="form-control form-control-lg" type="text" asp-for="PhoneNumber">
+                                                <div class="col-9">
+                                                    <input class="form-control form-control-lg" type="text" asp-for="PhoneNumber">
                                                     @Html.ValidationMessageFor(a => a.PhoneNumber, "", new { @class = "text-danger" })
                                                     <p id="phoneNumberValidate" class="text-danger"></p>
                                                 </div>
@@ -129,13 +129,8 @@
         <!--end::card body-->
         <!--begin::footer-->
         <div class="modal-footer">
-            <div class="form-group row" style="float:right">
-                <label class="col-form-label col-3 text-lg-right text-left"></label>
-                <div class="form-group">
-                    <input type="button" value="Lưu" class="btn btn-primary btnCreateAccount" />
-                    <button type="button" class="btn btn-light-primary font-weight-bold" data-dismiss="modal">Đóng</button>
-                </div>
-            </div>
+            <input type="button" value="Lưu" class="btn btn-primary btnCreateAccount" />
+            <button type="button" class="btn btn-light-primary font-weight-bold" data-dismiss="modal">Đóng</button>
         </div>
     </div>
 </div>

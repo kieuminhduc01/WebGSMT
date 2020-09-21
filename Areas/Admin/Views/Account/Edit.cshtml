@@ -80,9 +80,9 @@
                                             <div class="form-group row">
                                                 <label asp-for="Email" class="col-form-label col-3 text-lg-right text-left"></label>
                                                 <div class="col-9">
-                                                    
-                                                        <input class="form-control form-control-lg" type="text" asp-for="Email">
-                   
+
+                                                    <input class="form-control form-control-lg" type="text" asp-for="Email">
+
                                                     @Html.ValidationMessageFor(a => a.Email, "", new { @class = "text-danger" })
                                                     <p id="emailValidate" class="text-danger"></p>
                                                 </div>
@@ -92,9 +92,9 @@
                                             <div class="form-group row">
                                                 <label asp-for="PhoneNumber" class="col-form-label col-3 text-lg-right text-left"></label>
                                                 <div class="col-9">
-                                                    
-                                                        <input class="form-control form-control-lg" type="text" asp-for="PhoneNumber">
-                               
+
+                                                    <input class="form-control form-control-lg" type="text" asp-for="PhoneNumber">
+
                                                     @Html.ValidationMessageFor(a => a.PhoneNumber, "", new { @class = "text-danger" })
                                                     <p id="phoneNumberValidate" class="text-danger"></p>
                                                 </div>
@@ -112,8 +112,7 @@
                                             <div class="form-group row" style="float:right">
                                                 <label class="col-form-label col-3 text-lg-right text-left"></label>
                                                 <div class="form-group">
-                                                    <input type="button" value="Lưu" class="btn btn-primary" id="btnEditAccount" />
-                                                    <button type="button" class="btn btn-light-primary font-weight-bold" data-dismiss="modal">Đóng</button>
+                                                    
                                                 </div>
                                             </div>
 
@@ -140,7 +139,10 @@
         </div>
         <!--end::card body-->
         <!--begin::footer-->
-
+        <div class="modal-footer">
+            <input type="button" value="Lưu" class="btn btn-primary" id="btnEditAccount" />
+            <button type="button" class="btn btn-light-primary font-weight-bold" data-dismiss="modal">Đóng</button>
+        </div>
     </div>
 </div>
 <script src="~/My_Js/Accounts/Account.js"></script>

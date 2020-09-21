@@ -5,7 +5,7 @@ var tableDevices = function () {
     table.DataTable({
         responsive: true,
         searchDelay: 500,
-        processing: true,
+        processing: false,
         serverSide: true,
         info: false,
         language: {
@@ -72,5 +72,6 @@ jQuery(document).ready(function () {
     tableDevices();
     setInterval(function () {
         $('#loadTableData').DataTable().ajax.reload();
-    }, 20000);
+    },
+    );
 });

@@ -13,6 +13,7 @@
     <!--begin::Fonts-->
     <link href="~/assets/plugins/custom/jstree/jstree.bundle.css" rel="stylesheet" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@600&display=swap" rel="stylesheet">
     @*<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" />*@
     <link href="~/assets/plugins/custom/datatables/datatables.bundle.css" rel="stylesheet" />
@@ -94,13 +95,13 @@
                                                 <i class="menu-arrow"></i>
                                             </a>
                                         </li>
-                                        <li class="menu-item menu-item-submenu menu-item-rel" data-menu-toggle="click" aria-haspopup="true" id="menu-ThietBi" style="display:none" >
+                                        <li class="menu-item menu-item-submenu menu-item-rel" data-menu-toggle="click" aria-haspopup="true" id="menu-ThietBi" style="display:none">
                                             <a href="~/Users/Devices/ListDevice" class="menu-link">
                                                 <span class="menu-text">Thiết bị/Giao thức</span>
                                             </a>
 
                                         </li>
-                                        <li class="menu-item menu-item-submenu menu-item-rel" data-menu-toggle="click" aria-haspopup="true" id="menu-QuanTriVien" style="display:none"  >
+                                        <li class="menu-item menu-item-submenu menu-item-rel" data-menu-toggle="click" aria-haspopup="true" id="menu-QuanTriVien" style="display:none">
                                             <a href="javascript:;" class="menu-link menu-toggle">
                                                 <span class="menu-text">Quản trị viên</span>
                                                 <span class="menu-desc"></span>
@@ -242,7 +243,7 @@
                     <!--end::Entry-->
                 </div>
                 <!--end::Content-->
-                
+
             </div>
             <!--end::Wrapper-->
         </div>
@@ -814,6 +815,8 @@
     <script src="~/assets/plugins/global/plugins.bundle.js?v=7.0.3"></script>
     <script src="~/assets/plugins/custom/prismjs/prismjs.bundle.js?v=7.0.3"></script>
     <script src="~/assets/js/scripts.bundle.js?v=7.0.3"></script>
+
+
     <!--end::Global Theme Bundle-->
     <!--begin::Page Vendors(used by this page)-->
     @*    <script src="~/assets/plugins/custom/fullcalendar/fullcalendar.bundle.js?v=7.0.3"></script>*@
@@ -827,6 +830,7 @@
     <script src="~/My_Js/Layout.js"></script>
     <script src="~/My_Js/Accounts/Account.js"></script>
     <script src="~/My_Js/HideSomeFunction/HideFunctionByAuthenticate.js"></script>
+    @RenderSection("scripts", false)
     <!--end::Page Scripts-->
 </body>
 <!--end::Body-->

@@ -90,8 +90,8 @@ $('#btnDelteYes').on('click', function (e) {
 "use strict";
 var KTDatatablesDataSourceAjaxServer2 = function () {
 
-    var name = document.getElementById("devicename").value;
-    var tableDevices = function () {
+    var name = document.getElementById("devicename_quannd").value;
+    var tableCatalog = function () {
         var table = $('#my_datatable_CatalogData');
         // begin first table
         table.DataTable({
@@ -128,12 +128,12 @@ var KTDatatablesDataSourceAjaxServer2 = function () {
                 { data: 'unit', name: "Unit" },
                 { data: 'warningMin', name: "WarningMin" },
                 { data: 'warningMax', name: "WarningMax" },
-                {
+                /*{
                     data: 'tagName', name: "Actions",
                     responsivePriority: -1
-                },
+                },*/
             ],
-            columnDefs: [
+            /*columnDefs: [
                 {
                     targets: -1,
                     title: 'Actions',
@@ -149,14 +149,14 @@ var KTDatatablesDataSourceAjaxServer2 = function () {
 						';
                     },
                 },
-            ],
+            ],*/
         });
     };
     return {
 
         //main function to initiate the module
         init: function () {
-            tableDevices();
+            tableCatalog();
         },
     };
 }();

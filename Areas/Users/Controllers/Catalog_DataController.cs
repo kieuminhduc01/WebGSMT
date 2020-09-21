@@ -71,6 +71,15 @@ namespace WebGSMT.Areas.Users.Controllers
                     listCatalogData = listCatalogData.Where(x => x.DeviceName.ToLower().Contains(searchValue.ToLower())).ToList<Catalog_Data>();
                 }
 
+                //sorting
+                if (sortDirection == "asc")
+                {
+                    listCatalogData = listCatalogData.OrderBy(x => x.GetType().GetProperty(sortColumnName).GetValue(x)).ToList<Catalog_Data>();
+                }
+                else
+                {
+                    listCatalogData = listCatalogData.OrderByDescending(x => x.GetType().GetProperty(sortColumnName).GetValue(x)).ToList<Catalog_Data>();
+                }
 
                 apg.recordsFiltered = listCatalogData.Count;
                 //paging

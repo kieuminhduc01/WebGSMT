@@ -62,7 +62,6 @@ namespace WebGSMT.Areas.Users
                     listDevice = listDevice.Where(x => x.Name.ToLower().Contains(searchValue.ToLower())).ToList<Device>();
                 }
 
-
                 apg.recordsFiltered = listDevice.Count;
                 //paging
                 listDevice = listDevice.Skip(start).Take(length).ToList<Device>();

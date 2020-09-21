@@ -24,8 +24,8 @@ namespace WebGSMT.Controllers
 
         public IActionResult Index()
         {
-            
-            return View();
+
+            return Redirect("/users/home/index");
         }
 
         public IActionResult Privacy()

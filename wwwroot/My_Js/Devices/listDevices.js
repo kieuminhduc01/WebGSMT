@@ -73,8 +73,32 @@ $('#btnDelteYes').on('click', function (e) {
     });
 });
 
+function loadTableCatalog(dvn) {
+    $.ajax({
+        url: "/Users/CatalogData/Index",
+        type: 'GET',
+        data: {
+            DeviceName: dvn
+        },
+        success: function (data) {
+            $('#loadTableCatalog').html(data);
+        },
+        error: function (jqXHR, error, errorThrown) {
+            showMessage(jqXHR.responseText, false);
+        }
 
-"use strict";
+    });
+}
+
+$('.showall').on('click', function () {
+    loadTableCatalog();
+});
+
+$('#my_datatable_Devices').on('click', '.bt-show-dvn', function () {
+    var id = $(this).attr("data-id");
+    loadTableCatalog(id);
+});
+
 var KTDatatablesDataSourceAjaxServer = function () {
     var tableDevices = function () {
         var table = $('#my_datatable_Devices');
@@ -85,7 +109,7 @@ var KTDatatablesDataSourceAjaxServer = function () {
             searchDelay: 500,
             serverSide: true,
             info: false,
-            
+            ordering: false,
             drawCallback: function (settings, json) {
                 loadPermissionThietBiVaGiaoThuc(); 
             },
@@ -119,12 +143,6 @@ var KTDatatablesDataSourceAjaxServer = function () {
                     orderable: false,
                     render: function (data, type, full, meta) {
                         return '\
-							<a href="javascript:;" class="btn btn-sm btn-clean btn-icon bt-open-edit-devices-form " title="Edit" data-id="'+ data + '" style="display:none">\
-								<i class="la la-edit"></i>\
-							</a>\
-							<a href="javascript:;" class="btn btn-sm btn-clean btn-icon bt-delete-devices" title="Delete" data-id="'+ data + '" style="display:none" >\
-								<i class="la la-trash"></i>\
-							</a>\
                             <a href="javacript:;" class="btn btn-sm btn-clean btn-icon bt-show-dvn" title="Show Data" data-id="'+ data + '">\
 								<i class="fa fa-eye" aria-hidden="true"></i>\
 							</a>\
@@ -147,32 +165,14 @@ var KTDatatablesDataSourceAjaxServer = function () {
 
 }();
 
-function loadTableCatalog(dvn) {
-    $.ajax({
-        url: "/Users/CatalogData/Index",
-        type: 'GET',
-        data: {
-            DeviceName: dvn
-        },
-        success: function (data) {
-
-            $('#loadTableCatalog').html(data);
-        },
-        error: function (jqXHR, error, errorThrown) {
-            showMessage(jqXHR.responseText, false);
-        }
-
-    });
-}
-
-$('#my_datatable_Devices').on('click', '.bt-show-dvn', function () {
-    //add xac thuc trc khi xoa
-    var id = $(this).attr("data-id");
-    loadTableCatalog(id);
-});
-
 jQuery(document).ready(function () {
     KTDatatablesDataSourceAjaxServer.init();
     loadTableCatalog("");
 });
 
+/*<a class="btn btn-sm btn-clean btn-icon bt-open-edit-devices-form " title="Edit" data-id="'+ data + '" style="display:none">\
+								<i class="la la-edit"></i>\
+							</a>\
+							<a class="btn btn-sm btn-clean btn-icon bt-delete-devices" title="Delete" data-id="'+ data + '" style="display:none" >\
+								<i class="la la-trash"></i>\
+							</a>\*/
