@@ -26,6 +26,7 @@ namespace WebGSMT.Controllers
         {
 
             return Redirect("/users/home/index");
+
         }
 
         public IActionResult Privacy()

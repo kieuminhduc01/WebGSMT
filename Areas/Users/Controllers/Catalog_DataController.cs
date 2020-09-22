@@ -70,7 +70,6 @@ namespace WebGSMT.Areas.Users.Controllers
                 {
                     listCatalogData = listCatalogData.Where(x => x.DeviceName.ToLower().Contains(searchValue.ToLower())).ToList<Catalog_Data>();
                 }
-
                 //sorting
                 if (sortDirection == "asc")
                 {

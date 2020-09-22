@@ -17,7 +17,6 @@ namespace WebGSMT.Areas.Users.Controllers
 {
     [Area("Users")]
     [Route("{area}/Home")]
-   
     [ServiceFilter(typeof(AuthorizeActionFilter))]
     public class HomeController : Controller
     {

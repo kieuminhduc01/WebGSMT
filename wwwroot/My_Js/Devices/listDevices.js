@@ -143,7 +143,13 @@ var KTDatatablesDataSourceAjaxServer = function () {
                     orderable: false,
                     render: function (data, type, full, meta) {
                         return '\
-                            <a href="javacript:;" class="btn btn-sm btn-clean btn-icon bt-show-dvn" title="Show Data" data-id="'+ data + '">\
+                            <a class="btn btn-sm btn-clean btn-icon bt-open-edit-devices-form " title="Edit" data-id="'+ data + '" style="display:none">\
+								<i class="la la-edit"></i>\
+							</a>\
+							<a class="btn btn-sm btn-clean btn-icon bt-delete-devices" title="Delete" data-id="'+ data + '" style="display:none" >\
+								<i class="la la-trash"></i>\
+							</a>\
+                            <a class="btn btn-sm btn-clean btn-icon bt-show-dvn" title="Show Data" data-id="'+ data + '">\
 								<i class="fa fa-eye" aria-hidden="true"></i>\
 							</a>\
 						';
@@ -170,9 +176,3 @@ jQuery(document).ready(function () {
     loadTableCatalog("");
 });
 
-/*<a class="btn btn-sm btn-clean btn-icon bt-open-edit-devices-form " title="Edit" data-id="'+ data + '" style="display:none">\
-								<i class="la la-edit"></i>\
-							</a>\
-							<a class="btn btn-sm btn-clean btn-icon bt-delete-devices" title="Delete" data-id="'+ data + '" style="display:none" >\
-								<i class="la la-trash"></i>\
-							</a>\*/
