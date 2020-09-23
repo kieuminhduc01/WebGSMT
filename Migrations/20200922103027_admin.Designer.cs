@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WebGSMT.Models;
 
 namespace WebGSMT.Migrations
 {
     [DbContext(typeof(GiamSatMoiTruongDbContext))]
-    partial class GiamSatMoiTruongDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200922103027_admin")]
+    partial class admin
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -46,28 +48,6 @@ namespace WebGSMT.Migrations
                     b.HasKey("UserName");
 
                     b.ToTable("Account");
-
-                    b.HasData(
-                        new
-                        {
-                            UserName = "duckieuola",
-                            Active = true,
-                            DOB = new DateTime(1999, 5, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Email = "duckmhe130998@fpt.edu.vn",
-                            FullName = "Kieu Minh Duc",
-                            Password = "123456789",
-                            PhoneNumber = "0377398442"
-                        },
-                        new
-                        {
-                            UserName = "duc_ta_vl",
-                            Active = true,
-                            DOB = new DateTime(1999, 5, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Email = "duckmhe130998@fpt.edu.vn",
-                            FullName = "Ta Vu Anh Duc",
-                            Password = "123456789",
-                            PhoneNumber = "0377398442"
-                        });
                 });
 
             modelBuilder.Entity("WebGSMT.Models.Account_Role", b =>
@@ -83,13 +63,6 @@ namespace WebGSMT.Migrations
                     b.HasIndex("RoleName");
 
                     b.ToTable("Account_Role");
-
-                    b.HasData(
-                        new
-                        {
-                            UserName = "duckieuola",
-                            RoleName = "Admin"
-                        });
                 });
 
             modelBuilder.Entity("WebGSMT.Models.Catalog_Data", b =>

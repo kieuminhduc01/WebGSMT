@@ -8,14 +8,13 @@ namespace WebGSMT.Models
 {
     public class Catalog_Data
     {
-        
+
         public String TagName { get; set; }
-        public String  DeviceName { get; set; }
+        public String DeviceName { get; set; }
         public String Unit { get; set; }
         public String Address { get; set; }
-        public double WarnningMin { get; set; }
-        public double WarnningMax { get; set; }
         public List<Data> Datas { get; set; }
 
+        public string DiemDo { get; set; }
     }
 }

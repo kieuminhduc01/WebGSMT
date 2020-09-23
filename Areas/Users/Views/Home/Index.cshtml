@@ -24,12 +24,21 @@
             <script src="https://www.amcharts.com/lib/4/themes/animated.js"></script>
             @{
                 var listUnit = ViewBag.ListUnit as IEnumerable<SelectListItem>;
-                var FirstUnit = listUnit.First().Text;
+                var FirstUnit = "";
+                var FirstDevice = "";
+
+                if (listUnit.Count() > 0)
+                {
+                     FirstUnit = listUnit.First().Text;
+                }
 
                 var listDevice = ViewBag.ListDevice as IEnumerable<SelectListItem>;
-                var FirstDevice = listDevice.First().Text;
+                if (listUnit.Count() > 0)
+                {
+                     FirstDevice = listDevice.First().Text;
 
-            }
+                }
+             }
 
             <div class="card card-custom gutter-b">
                 <!-- HTML -->

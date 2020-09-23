@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using WebGSMT.Configurations;
+using WebGSMT.Extensions;
 
 namespace WebGSMT.Models
 {
@@ -32,7 +33,11 @@ namespace WebGSMT.Models
             modelBuilder.ApplyConfiguration(new PermissonConfig());
             modelBuilder.ApplyConfiguration(new RoleConfig());
 
-            //modelBuilder.Seed(); tạo dữ liệu ban đầu
+            modelBuilder.Permission_Seed();// tạo dữ liệu ban đầu
+            modelBuilder.Role_Seed();
+            modelBuilder.Permission_Role_Seed();
+            modelBuilder.Account_Seed();
+            modelBuilder.Account_Role_Seed();
         }
        
         public DbSet<Account> Accounts { get; set; }

@@ -9,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using WebGSMT.ActionFilter;
 using WebGSMT.Areas.Admin.Models.Account;
 using WebGSMT.Models;
+using WebGSMT.Service.AccountService;
 
 namespace WebGSMT.Areas.Admin.Controllers
 {
@@ -26,7 +27,7 @@ namespace WebGSMT.Areas.Admin.Controllers
         }
 
         [Route("getalluser")]
-        public JsonResult getAllUser()
+        public JsonResult GetAllUser()
         {
             try
             {
@@ -36,7 +37,7 @@ namespace WebGSMT.Areas.Admin.Controllers
                 string sortColumnName = Request.Query["columns[" + Request.Query["order[0][column]"] + "][name]"];
                 string sortDirection = Request.Query["order[0][dir]"];
 
-                
+
                 AccountPaging apg = new AccountPaging();
                 apg.data = new List<AccountShow>();
                 start = (start - 1) * length;
@@ -52,7 +53,7 @@ namespace WebGSMT.Areas.Admin.Controllers
                     ).ToList<Account>();
                 }
                 //sorting
-                
+
                 if (sortDirection == "asc")
                 {
                     listAccount = listAccount.OrderBy(x => x.GetType().GetProperty(sortColumnName).GetValue(x)).ToList<Account>();
@@ -76,7 +77,7 @@ namespace WebGSMT.Areas.Admin.Controllers
                         DOB = listAccount[i].DOB,
                         Active = listAccount[i].Active,
                         Role = string.Join(",", _context.Account_Roles.Where(x => x.UserName == listAccount[i].UserName).Select(x => x.RoleName).ToList()),
-                        ClassCheck = listAccount[i].Active?"fa-user-check" : "fa-user-lock"
+                        ClassCheck = listAccount[i].Active ? "fa-user-check" : "fa-user-lock"
                     };
                     apg.data.Add(acs);
                 }
@@ -88,7 +89,7 @@ namespace WebGSMT.Areas.Admin.Controllers
                 return null;
             }
         }
-        
+
         [Route("listuser")]
         [AuthorizePermission("Quan Tri Vien-Nguoi Dung-Xem")]
         public async Task<IActionResult> ListUser()

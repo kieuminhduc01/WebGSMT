@@ -17,5 +17,6 @@ namespace WebGSMT.Models
         public bool Connected { get; set; }
         public Device Device { get; set; }
         public Catalog_Data Catalog_Data { get; set; }
+        public string DiemDo { get; set; }
     }
 }

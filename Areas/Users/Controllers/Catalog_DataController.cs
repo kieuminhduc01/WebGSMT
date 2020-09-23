@@ -92,8 +92,8 @@ namespace WebGSMT.Areas.Users.Controllers
                         DeviceName = i.DeviceName,
                         Address = i.Address,
                         Unit = i.Unit,
-                        WarningMax = i.WarnningMax,
-                        WarningMin = i.WarnningMin,
+                        //WarningMax = i.WarnningMax,
+                        //WarningMin = i.WarnningMin,
                         Actions = ""
                     };
                     apg.data.Add(rm);
@@ -132,8 +132,8 @@ namespace WebGSMT.Areas.Users.Controllers
                     DeviceName = deviceName,
                     Address = Address,
                     Unit = Unit,
-                    WarnningMin = double.Parse(WarningMin),
-                    WarnningMax = double.Parse(WarningMax)
+                    //WarnningMin = double.Parse(WarningMin),
+                    //WarnningMax = double.Parse(WarningMax)
                 };
                 _context.Add(cld);
                 _context.SaveChanges();
@@ -174,8 +174,8 @@ namespace WebGSMT.Areas.Users.Controllers
                 d.DeviceName = DeviceName;
                 d.Address = Address;
                 d.Unit = Unit;
-                d.WarnningMin = Convert.ToDouble(WarningMin);
-                d.WarnningMax = Convert.ToDouble(WarningMax);
+                //d.WarnningMin = Convert.ToDouble(WarningMin);
+                //d.WarnningMax = Convert.ToDouble(WarningMax);
 
                 _context.SaveChanges();
             }
@@ -237,8 +237,8 @@ namespace WebGSMT.Areas.Users.Controllers
                         DeviceName = cell[1].ToString(),
                         Unit = cell[2].ToString(),
                         Address = cell[3].ToString(),
-                        WarnningMin = Convert.ToDouble(cell[4]),
-                        WarnningMax = Convert.ToDouble(cell[5])
+                        //WarnningMin = Convert.ToDouble(cell[4]),
+                        //WarnningMax = Convert.ToDouble(cell[5])
                     };
                     _context.Catalog_Datas.Add(cd);
                 }

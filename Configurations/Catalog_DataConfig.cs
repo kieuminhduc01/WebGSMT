@@ -13,13 +13,13 @@ namespace WebGSMT.Configurations
         public void Configure(EntityTypeBuilder<Catalog_Data> builder)
         {
             builder.ToTable("Catalog_Data");
-            builder.HasKey(k => k.TagName);
+            builder.HasKey(k =>new { k.TagName ,k.DiemDo});
 
             builder.Property(x => x.TagName).IsRequired();
             builder.Property(x => x.DeviceName).IsRequired();
             builder.Property(x => x.Unit).IsRequired();
 
-            builder.HasMany(ro => ro.Datas).WithOne(de => de.Catalog_Data).HasForeignKey(fk => fk.TagName);
+            builder.HasMany(ro => ro.Datas).WithOne(de => de.Catalog_Data).HasForeignKey(k => new { k.TagName, k.DiemDo });
         }
     }
 }
